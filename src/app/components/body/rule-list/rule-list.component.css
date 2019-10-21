@@ -1,0 +1,25 @@
+.rules {
+  padding: 2rem 1rem;
+}
+
+.ul-reset {
+  list-style: none;
+  display: inline-block;
+  border: 5px solid black;
+  cursor: pointer;
+}
+
+.ul-statement {
+  list-style: none;
+  display: inline-block;
+  border: 2px solid black;
+}
+
+.li-statement {
+  display: block;
+}
+
+.li-rule {
+  padding: 0.5rem;
+  display: inline-block;
+}

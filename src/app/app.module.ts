@@ -5,39 +5,29 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule, MatTableModule} from '@angular/material';
+import { MatButtonModule, MatDialog, MatListModule, MatTableModule } from '@angular/material';
 import { HeaderComponent } from './components/header/header.component';
 import { BodyComponent } from './components/body/body.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/header/menu/menu.component';
-import { RuleTableComponent } from './components/body/rule-table/rule-table.component';
-import {RulesComponent} from './components/modal/rules/rules.component';
 import { DomainsComponent } from './components/modal/domains/domains.component';
-import { DomainTableComponent } from './components/modal/domains/domain-table/domain-table.component';
-import { DomainOperationsComponent } from './components/modal/domains/domain-operations/domain-operations.component';
-import { DomainValuesComponent } from './components/modal/domains/domain-values/domain-values.component';
-import { RulesTableComponent } from './components/modal/rules/rules-table/rules-table.component';
-import { RulesConditionsComponent } from './components/modal/rules/rules-conditions/rules-conditions.component';
-import { RulesConclusionsComponent } from './components/modal/rules/rules-conclusions/rules-conclusions.component';
 import { ExplanationComponent } from './components/modal/explanation/explanation.component';
+import { ConsultationComponent } from './components/modal/consultation/consultation.component';
+import { VariablesComponent } from './components/modal/variables/variables.component';
+import { Store } from './core/store/store';
+import { RuleListComponent } from './components/body/rule-list/rule-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     BodyComponent,
-    FooterComponent,
     MenuComponent,
-    RuleTableComponent,
-    RulesComponent,
+    RuleListComponent,
     DomainsComponent,
-    DomainTableComponent,
-    DomainOperationsComponent,
-    DomainValuesComponent,
-    RulesTableComponent,
-    RulesConditionsComponent,
-    RulesConclusionsComponent,
     ExplanationComponent,
+    ConsultationComponent,
+    VariablesComponent,
+    RuleListComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,8 +36,15 @@ import { ExplanationComponent } from './components/modal/explanation/explanation
     MatMenuModule,
     MatButtonModule,
     MatTableModule,
+    MatListModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: Store,
+      useFactory: () => new Store(),
+      deps: []
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

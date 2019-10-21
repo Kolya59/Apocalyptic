@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RulesConditionsComponent } from './rules-conditions.component';
+import { VariablesComponent } from './variables.component';
 
-describe('RulesConditionsComponent', () => {
-  let component: RulesConditionsComponent;
-  let fixture: ComponentFixture<RulesConditionsComponent>;
+describe('VariablesComponent', () => {
+  let component: VariablesComponent;
+  let fixture: ComponentFixture<VariablesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RulesConditionsComponent ]
+      declarations: [ VariablesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RulesConditionsComponent);
+    fixture = TestBed.createComponent(VariablesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

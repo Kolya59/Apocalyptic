@@ -1,0 +1,17 @@
+<mat-list class="rules">
+  <mat-list-item *ngFor="let rule of ruleStore.rules">
+    <ul class="ul-reset" (click)="onClick($event)">
+      <li class="li-rule">{{rule.id}}</li>
+      <li class="li-rule">{{rule.name}}</li>
+      <li class="li-rule">
+        <ul class="ul-statement" *ngFor="let premise of rule.premises">
+          <li class="li-statement">{{premise.value}}</li>
+        </ul>
+        <ul class="ul-statement" *ngFor="let conclusion of rule.conclusions">
+          <li class="li-statement">{{conclusion.value}}</li>
+        </ul>
+      </li>
+      <li class="li-rule">{{rule.description}}</li>
+    </ul>
+  </mat-list-item>
+</mat-list>

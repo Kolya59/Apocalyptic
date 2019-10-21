@@ -1,0 +1,19 @@
+.variable {
+  border: 5px solid black;
+  display: block;
+  margin: 1rem;
+  padding: 0.5rem;
+  width: 400px;
+}
+
+.ul-reset {
+  list-style: none;
+  display: block;
+  border: 5px solid black;
+  cursor: pointer;
+}
+
+.li-variable {
+  padding: 1rem;
+  display: inline;
+}
