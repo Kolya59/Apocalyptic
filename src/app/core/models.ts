@@ -1,5 +1,5 @@
 export interface IRule {
-  id: number;
+  id: string;
   name: string;
   premises: IStatement[];
   conclusions: IStatement[];
@@ -7,129 +7,102 @@ export interface IRule {
 }
 
 export interface IStatement {
-  id: number;
+  id: string;
+  name: string;
+  description: string;
   variable: IVariable;
   value: string;
 }
 
 export interface IVariable {
-  id: number;
+  id: string;
   name: string;
+  description: string;
   domain: IDomain;
 }
 
 export interface IDomain {
-  id: number;
+  id: string;
   name: string;
+  description: string;
   values: string[];
+
+  insertValue(value: string): void;
+  editValue(index: number, value: string): void;
+  removeValue(index: number): void;
 }
 
 export class Rule implements IRule {
-  conclusions: IStatement[];
-  id: number;
+  id: string;
   name: string;
   premises: IStatement[];
+  conclusions: IStatement[];
   description: string;
 
-  constructor(id: number, name: string, premises: IStatement[], conclusions: IStatement[], description: string) {
+  constructor(id: string, name: string, premises: IStatement[], conclusions: IStatement[], description: string) {
     this.id = id;
     this.name = name;
     this.premises = premises;
     this.conclusions = conclusions;
     this.description = description;
   }
-
-  public ToJSON(): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      // TODO Validate
-      resolve(JSON.stringify(this));
-    });
-  }
-
-  public FromJSON(input: string): Promise<Rule> {
-    return new Promise<Rule>((resolve, reject) => {
-      // TODO Validate
-      resolve(JSON.parse(input));
-    });
-  }
 }
 
 export class Statement implements IStatement {
-  id: number;
-  value: string;
+  id: string;
+  description: string;
+  name: string;
   variable: IVariable;
+  value: string;
 
-  constructor(id: number, value: string, variable: IVariable) {
+  constructor(id: string, description: string, name: string, variable: IVariable, value: string) {
     this.id = id;
-    this.value = value;
+    this.description = description;
+    this.name = name;
     this.variable = variable;
-  }
-
-  public ToJSON(): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      // TODO Validate
-      resolve(JSON.stringify(this));
-    });
-  }
-
-  public FromJSON(input: string): Promise<Statement> {
-    return new Promise<Statement>((resolve, reject) => {
-      // TODO Validate
-      resolve(JSON.parse(input));
-    });
+    this.value = value;
   }
 }
 
 export class Variable implements IVariable {
   domain: IDomain;
-  id: number;
+  description: string;
+  id: string;
   name: string;
 
-
-  constructor(id: number, name: string, domain: IDomain) {
+  constructor(id: string, name: string, description: string, domain: IDomain) {
     this.id = id;
     this.name = name;
+    this.description = description;
     this.domain = domain;
-  }
-
-  public ToJSON(): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      // TODO Validate
-      resolve(JSON.stringify(this));
-    });
-  }
-
-  public FromJSON(input: string): Promise<Variable> {
-    return new Promise<Variable>((resolve, reject) => {
-      // TODO Validate
-      resolve(JSON.parse(input));
-    });
   }
 }
 
-
 export class Domain implements IDomain {
-  id: number;
+  id: string;
+  description: string;
   name: string;
   values: string[];
 
-  constructor(id: number, name: string, values: string[]) {
+  constructor(id: string, name: string, description: string, values: string[]) {
     this.id = id;
+    this.description = description;
     this.name = name;
     this.values = values;
   }
 
-  public ToJSON(): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      // TODO Validate
-      resolve(JSON.stringify(this));
-    });
+  insertValue(value: string) {
+    // TODO Validate
+    this.values.push(value);
   }
 
-  public FromJSON(input: string): Promise<Domain> {
-    return new Promise<Domain>((resolve, reject) => {
-      // TODO Validate
-      resolve(JSON.parse(input));
-    });
+  editValue(index: number, value: string) {
+    // TODO Validate
+    this.values[index] = value;
+  }
+
+  removeValue(index: number) {
+    // TODO Check existing
+    this.values = this.values.filter((_, i) => i !== index);
   }
 }

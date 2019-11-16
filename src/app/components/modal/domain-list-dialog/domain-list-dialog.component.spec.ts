@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VariablesComponent } from './variables.component';
+import { DomainListDialogComponent } from './domain-list-dialog.component';
 
-describe('VariablesComponent', () => {
-  let component: VariablesComponent;
-  let fixture: ComponentFixture<VariablesComponent>;
+describe('DomainsComponent', () => {
+  let component: DomainListDialogComponent;
+  let fixture: ComponentFixture<DomainListDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VariablesComponent ]
+      declarations: [ DomainListDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VariablesComponent);
+    fixture = TestBed.createComponent(DomainListDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

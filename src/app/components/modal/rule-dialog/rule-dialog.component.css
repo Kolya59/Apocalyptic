@@ -1,0 +1,59 @@
+.rule-form {
+  width: 95%;
+  padding: 0.5rem;
+}
+
+.rule-name {
+  display: block;
+}
+
+.rule-statements {
+  display: block;
+}
+
+.rule-consequence-data {
+  display: inline-block;
+  width: 80%;
+}
+
+.rule-statement-control {
+  display: inline-block;
+  width: 20%;
+}
+
+.rule-statement-control > * {
+  display: inline-block;
+}
+
+.rule-statement-edit {
+  display: inline-block;
+  width: 5%;
+}
+
+.rule-premises {
+  display: inline-block;
+  width: 45%;
+}
+
+.rule-follows {
+  display: inline-block;
+  width: 10%;
+  text-align: center;
+}
+
+.rule-conclusions {
+  display: inline-block;
+  width: 45%;
+}
+
+.rule-statement-add {
+  width: 100%;
+}
+
+.rule-description {
+  display: block;
+}
+
+.controls {
+  width: 100%;
+}

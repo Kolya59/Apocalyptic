@@ -1,16 +1,13 @@
 <button mat-button [matMenuTriggerFor]="main_menu">Main</button>
 <mat-menu #main_menu="matMenu">
   <button mat-menu-item>New</button>
-  <button mat-menu-item>Save</button>
-  <button mat-menu-item>Import</button>
-  <button mat-menu-item>Export</button>
-  <button mat-menu-item>Preferences</button>
+  <button mat-menu-item (click)="FromJSON('')">Import</button>
+  <button mat-menu-item (click)="ToJSON()">Export</button>
 </mat-menu>
 <button mat-button [matMenuTriggerFor]="knowledge_menu">Knowledge</button>
 <mat-menu #knowledge_menu="matMenu">
-  <button mat-menu-item>Rules</button>
-  <button mat-menu-item>Variables</button>
-  <button mat-menu-item>Domains</button>
+  <button mat-menu-item (click)="openVariableDialog()">Variables</button>
+  <button mat-menu-item (click)="openDomainDialog()">Domains</button>
 </mat-menu>
 <button mat-button [matMenuTriggerFor]="consultation_menu">Consultation</button>
 <mat-menu #consultation_menu="matMenu">

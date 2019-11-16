@@ -1,7 +1,6 @@
-.rules {
+.variables {
   padding: 0.25rem 1rem;
-  width: 95%;
-  margin: 1rem;
+  width: calc(100% - 2rem);
   max-width: 100%;
   border: solid 1px #000000;
   min-height: 60px;
@@ -11,7 +10,7 @@
   overflow: hidden;
 }
 
-.rule-box {
+.variable-box {
   padding: 0.25rem 1rem;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
@@ -42,32 +41,38 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.rule-box:last-child {
+.variable-box:last-child {
   border: none;
 }
 
-.rules.cdk-drop-list-dragging .rule-box:not(.cdk-drag-placeholder) {
+.rules.cdk-drop-list-dragging .variable-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.ul-statement {
-  list-style: none;
+.variable-uuid {
+  width: 25%;
+  display: inline-block;
 }
 
-.li-statement {
-  display: block;
+.variable-name {
+  width: 35%;
+  display: inline-block;
 }
 
-.uuid {
-  align-content: center;
-  width: 200px;
-  flex-wrap: wrap;
+.variable-domain {
+  width: 30%;
+  display: inline-block;
 }
 
-.control-rule {
-  display: block;
+.variable-controls {
+  width: 10%;
+  display: inline-block;
 }
 
-.add-rule {
-  width: calc(100% - 2rem);
+.variable-add {
+  width: 100%;
+}
+
+.controls {
+
 }

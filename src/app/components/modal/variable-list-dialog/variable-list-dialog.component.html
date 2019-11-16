@@ -1,0 +1,24 @@
+<div class="variables" cdkDropList (cdkDropListDropped)="drop($event)">
+  <div class="variable-box" *ngFor="let variable of store.variables" cdkDrag>
+      <div class="variable-uuid">{{variable.id}}</div>
+      <div class="variable-name">{{variable.name}}</div>
+      <div class="variable-domain">{{variable.domain.name}}</div>
+      <div class="variable-controls">
+        <button mat-icon-button (click)="editVariable(variable)">
+          <img src="./../../../../assets/img/edit-24px.svg">
+        </button>
+        <button mat-icon-button (click)="removeVariable(variable)">
+          <img src="./../../../../assets/img/delete-24px.svg">
+        </button>
+      </div>
+  </div>
+  <div>
+    <button mat-icon-button class="variable-add" (click)="insertVariable()">
+      <img src="./../../../../assets/img/add-24px.svg">
+    </button>
+  </div>
+</div>
+<div class="controls">
+  <button mat-raised-button (click)="save()">Save</button>
+  <button mat-raised-button (click)="cancel()">Cancel</button>
+</div>

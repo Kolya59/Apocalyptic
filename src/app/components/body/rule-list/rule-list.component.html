@@ -1,17 +1,30 @@
-<mat-list class="rules">
-  <mat-list-item *ngFor="let rule of ruleStore.rules">
-    <ul class="ul-reset" (click)="onClick($event)">
-      <li class="li-rule">{{rule.id}}</li>
-      <li class="li-rule">{{rule.name}}</li>
-      <li class="li-rule">
-        <ul class="ul-statement" *ngFor="let premise of rule.premises">
-          <li class="li-statement">{{premise.value}}</li>
-        </ul>
-        <ul class="ul-statement" *ngFor="let conclusion of rule.conclusions">
-          <li class="li-statement">{{conclusion.value}}</li>
-        </ul>
-      </li>
-      <li class="li-rule">{{rule.description}}</li>
-    </ul>
-  </mat-list-item>
-</mat-list>
+<div cdkDropList class="rules" (cdkDropListDropped)="drop($event)">
+  <div class="rule-box" *ngFor="let rule of store.rules" cdkDrag>
+    <div class="uuid">{{rule.id}}</div>
+    <div >{{rule.name}}</div>
+    <div>
+      <ul class="ul-statement">
+        <li class="li-statement" *ngFor="let consequence  of rule.consequence">
+          {{consequence.premise.value}} -> {{consequence.conclusion.value}}
+        </li>
+      </ul>
+    </div>
+    <div>{{rule.description}}</div>
+    <div>
+      <div class="control-rule">
+        <button mat-icon-button (click)="editRule(rule)">
+          <img src="./../../../../assets/img/edit-24px.svg">
+        </button>
+        <button mat-icon-button (click)="removeRule(rule)">
+          <img src="./../../../../assets/img/delete-24px.svg">
+        </button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button mat-icon-button class="add-rule" (click)="insertRule()">
+      <img src="./../../../../assets/img/add-24px.svg">
+    </button>
+  </div>
+</div>
+

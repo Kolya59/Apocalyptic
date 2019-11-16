@@ -1,6 +1,10 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { Statement } from '../../../core/models';
+import { MatDialog } from '@angular/material';
+import { IRule } from '../../../core/models';
+
 import { Store } from '../../../core/store/store';
+import { RuleDialogComponent } from '../../modal/rule-dialog/rule-dialog.component';
 
 @Component({
   selector: 'app-rule-list',
@@ -8,62 +12,62 @@ import { Store } from '../../../core/store/store';
   styleUrls: ['./rule-list.component.css']
 })
 export class RuleListComponent implements OnInit {
-  constructor(private readonly ruleStore: Store) {
-    ruleStore.insertRule(
+  constructor(
+    public readonly dialog: MatDialog,
+    private readonly store: Store
+  ) {
+    store.insertRule(
       'Rule 1',
-      [
-        new Statement(1, 'Premise 1', null),
-        new Statement(2, 'Premise 2', null)
-      ],
-      [
-        new Statement(1, 'Conclusion 1', null),
-        new Statement(2, 'Conclusion 2', null)
-      ],
+      [],
+      [],
       'Description 1'
     );
-    ruleStore.insertRule(
+    store.insertRule(
       'Rule 2',
-      [
-        new Statement(3, 'Premise 3', null),
-        new Statement(4, 'Premise 4', null)
-      ],
-      [
-        new Statement(3, 'Conclusion 3', null),
-        new Statement(4, 'Conclusion 4', null)
-      ],
+      [],
+      [],
       'Description 2'
     );
-    ruleStore.insertRule(
+    store.insertRule(
       'Rule 3',
-      [
-        new Statement(5, 'Premise 5', null),
-        new Statement(6, 'Premise 6', null)
-      ],
-      [
-        new Statement(5, 'Conclusion 5', null),
-        new Statement(6, 'Conclusion 6', null)
-      ],
+      [],
+      [],
       'Description 3'
     );
-    ruleStore.insertRule(
+    store.insertRule(
       'Rule 4',
-      [
-        new Statement(7, 'Premise 7', null),
-        new Statement(8, 'Premise 8', null)
-      ],
-      [
-        new Statement(7, 'Conclusion 7', null),
-        new Statement(8, 'Conclusion 8', null)
-      ],
+      [],
+      [],
       'Description 4'
     );
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  insertRule() {
+    const dialogRef = this.dialog.open(RuleDialogComponent, {
+      width: '600px',
+      data: null
+    });
   }
 
-  onClick(event: MouseEvent) {
-    alert('Clicked ' + (event.target as HTMLElement).innerHTML);
+  editRule(rule: IRule) {
+    const dialogRef = this.dialog.open(RuleDialogComponent, {
+      width: '600px',
+      data: rule
+    });
+  }
+
+  removeRule(rule: IRule) {
+    // TODO Confirm removing
+    this.store.removeRule(rule.id);
+  }
+
+  // TODO Refactor swap elements to reorder
+  drop(e: CdkDragDrop<IRule>) {
+    const tmp = this.store.rules[e.previousIndex];
+    this.store.rules[e.previousIndex] = this.store.rules[e.currentIndex];
+    this.store.rules[e.currentIndex] = tmp;
   }
 
 }
