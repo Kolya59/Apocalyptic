@@ -1,56 +1,73 @@
-.rule-form {
+.form {
   width: 95%;
   padding: 0.5rem;
 }
 
-.rule-name {
+.name {
   display: block;
 }
 
-.rule-statements {
+.statements {
   display: block;
 }
 
-.rule-consequence-data {
+.consequence-data {
   display: inline-block;
   width: 80%;
 }
 
-.rule-statement-control {
+.statement-control {
   display: inline-block;
   width: 20%;
 }
 
-.rule-statement-control > * {
+.statement-control > * {
   display: inline-block;
 }
 
-.rule-statement-edit {
+.statement-edit {
   display: inline-block;
   width: 5%;
 }
 
-.rule-premises {
+.premises {
   display: inline-block;
   width: 45%;
 }
 
-.rule-follows {
+.follows {
   display: inline-block;
   width: 10%;
   text-align: center;
+  align-content: center;
 }
 
-.rule-conclusions {
+.conclusions {
   display: inline-block;
   width: 45%;
 }
 
-.rule-statement-add {
+.statement-item {
+  display: flex;
+}
+
+.statement-item-value {
+  width: 80%;
+}
+
+.statement-item-edit {
+  width: 10%;
+}
+
+.statement-item-remove {
+  width: 10%;
+}
+
+.statement-add {
   width: 100%;
 }
 
-.rule-description {
+.description {
   display: block;
 }
 

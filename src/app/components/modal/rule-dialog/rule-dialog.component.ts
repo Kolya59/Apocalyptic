@@ -27,6 +27,14 @@ export class RuleDialogComponent implements OnInit {
     container.push(new Statement(Store.getUUID(), '', 'New Statement', null, ''));
   }
 
+  editStatement(statement: IStatement) {
+
+  }
+
+  removeStatement(statement: IStatement, container: IStatement[]) {
+
+  }
+
   changeName() {
     this.data.name = document.getElementById('rule-name-content').innerText;
     console.log(this.data.name);

@@ -1,52 +1,40 @@
-<div class="rule-form">
+<div class="form">
   <div>Rule {{this.data.id}}</div>
-  <mat-form-field class="rule-name" (change)="this.changeName()">
-    <input id="rule-name-content" matInput placeholder="Name">
+  <mat-form-field class="name" (change)="this.changeName()">
+    <input id="name-content" matInput placeholder="Name">
   </mat-form-field>
-  <div class="rule-statements">
-    <mat-list class="rule-premises">
-      <mat-list-item *ngFor="let premise of this.data.premises">
-        <mat-select>
-          <mat-option *ngFor="let variable of this.store.variables"
-                      [value]="premise.variable">
-            {{variable.name}}
-          </mat-option>
-        </mat-select>
-        <mat-icon>arrow_forward</mat-icon>
-        <mat-select>
-          <mat-option *ngFor="let value of premise.variable.domain.values"
-                      [value]="premise.value">
-            {{value}}
-          </mat-option>
-        </mat-select>
+  <div class="statements">
+    <mat-list class="premises">
+      <mat-list-item class="statement-item" *ngFor="let premise of this.data.premises">
+        <p class="statement-item-value">{{premise.name}}</p>
+        <button mat-icon-button class="statement-item-edit" (click)="editStatement(premise)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="statement-item-remove" (click)="removeStatement(premise, this.data.premises)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </mat-list-item>
-      <button mat-icon-button class="rule-statement-add" (click)="addStatement(this.data.premises)">
+      <button mat-icon-button class="statement-add" (click)="addStatement(this.data.premises)">
         <mat-icon>add</mat-icon>
       </button>
     </mat-list>
-    <mat-icon class="rule-follows">arrow_forward</mat-icon>
-    <mat-list class="rule-conclusions">
-      <mat-list-item *ngFor="let conclusion of this.data.conclusions">
-        <mat-select>
-          <mat-option *ngFor="let variable of this.store.variables"
-                      [value]="conclusion.variable">
-            {{variable.name}}
-          </mat-option>
-        </mat-select>
-        <mat-icon>arrow_forward</mat-icon>
-        <mat-select>
-          <mat-option *ngFor="let value of conclusion.variable.domain.values"
-                      [value]="conclusion.value">
-            {{value}}
-          </mat-option>
-        </mat-select>
+    <mat-icon class="follows">arrow_forward</mat-icon>
+    <mat-list class="conclusions">
+      <mat-list-item class="statement-item" *ngFor="let conclusion of this.data.conclusions">
+        <p class="statement-item-value">{{conclusion.name}}</p>
+        <button mat-icon-button class="statement-item-edit" (click)="editStatement(conclusion)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="statement-item-remove" (click)="removeStatement(conclusion, this.data.conclusions)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </mat-list-item>
-      <button mat-icon-button class="rule-statement-add" (click)="addStatement(this.data.conclusions)">
+      <button mat-icon-button class="statement-add" (click)="addStatement(this.data.conclusions)">
         <mat-icon>add</mat-icon>
       </button>
     </mat-list>
   </div>
-  <mat-form-field class="rule-description">
+  <mat-form-field class="description">
     <textarea matInput placeholder="Description"></textarea>
   </mat-form-field>
 </div>
