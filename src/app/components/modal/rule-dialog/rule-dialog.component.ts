@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
-import { IRule, IStatement, Rule } from '../../../core/models';
+import { IRule, IStatement, Rule, Statement } from '../../../core/models';
 import { Store } from '../../../core/store/store';
 
 @Component({
@@ -22,8 +22,9 @@ export class RuleDialogComponent implements OnInit {
 
   ngOnInit() {}
 
+  // TODO Add new statement dialog
   addStatement(container: IStatement[]) {
-
+    container.push(new Statement(Store.getUUID(), '', 'New Statement', null, ''));
   }
 
   changeName() {

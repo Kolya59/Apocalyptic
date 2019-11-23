@@ -33,8 +33,6 @@ export class VariableDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    // @ts-ignore
-    window.variable = this;
   }
 
   editValue() {

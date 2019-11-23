@@ -1,0 +1,13 @@
+<mat-select>
+  <mat-option *ngFor="let variable of this.store.variables"
+              [value]="this.data.variable">
+    {{variable.name}}
+  </mat-option>
+</mat-select>
+<mat-icon>arrow_forward</mat-icon>
+<mat-select>
+  <mat-option *ngFor="let value of this.data.variable.domain.values"
+              [value]="this.data.value">
+    {{value}}
+  </mat-option>
+</mat-select>

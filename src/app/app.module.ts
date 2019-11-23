@@ -18,6 +18,7 @@ import { Store } from './core/store/store';
 import { RuleListComponent } from './components/body/rule-list/rule-list.component';
 import { MaterialModule } from './module/material-module';
 import { RuleDialogComponent } from './components/modal/rule-dialog/rule-dialog.component';
+import { StatementDialogComponent } from './components/modal/statement-dialog/statement-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { RuleDialogComponent } from './components/modal/rule-dialog/rule-dialog.
     VariableListDialogComponent,
     VariableDialogComponent,
     RuleDialogComponent,
+    StatementDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +62,7 @@ import { RuleDialogComponent } from './components/modal/rule-dialog/rule-dialog.
     DomainDialogComponent,
     DomainListDialogComponent,
     RuleDialogComponent,
+    StatementDialogComponent,
     VariableDialogComponent,
     VariableListDialogComponent
   ],
