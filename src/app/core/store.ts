@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { v4 as uuid } from 'uuid';
-import { Domain, IDomain, IRule, IStatement, IVariable, Rule, Variable } from '../models';
+import { Domain, IDomain, IRule, IStatement, IVariable, Rule, Variable } from './models';
 
 @Injectable()
 export class Store {

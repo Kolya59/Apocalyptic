@@ -2,7 +2,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -14,7 +14,8 @@ import { ExplanationComponent } from './components/modal/explanation/explanation
 import { ConsultationComponent } from './components/modal/consultation/consultation.component';
 import { VariableDialogComponent } from './components/modal/variable-dialog/variable-dialog.component';
 import { VariableListDialogComponent } from './components/modal/variable-list-dialog/variable-list-dialog.component';
-import { Store } from './core/store/store';
+import { Service } from './core/service';
+import { Store } from './core/store';
 import { RuleListComponent } from './components/body/rule-list/rule-list.component';
 import { MaterialModule } from './module/material-module';
 import { RuleDialogComponent } from './components/modal/rule-dialog/rule-dialog.component';
@@ -41,11 +42,17 @@ import { StatementDialogComponent } from './components/modal/statement-dialog/st
     BrowserAnimationsModule,
     FormsModule,
     MaterialModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {
       provide: Store,
       useValue: new Store(),
+      deps: []
+    },
+    {
+      provide: Service,
+      useValue: new Service(),
       deps: []
     },
     {
@@ -56,6 +63,10 @@ import { StatementDialogComponent } from './components/modal/statement-dialog/st
       provide: MAT_DIALOG_DATA,
       useValue: []
     },
+    {
+      provide: FormBuilder,
+      useValue: new FormBuilder()
+    }
 
   ],
   entryComponents: [

@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { IStatement, Statement} from '../../../core/models';
-import { Store } from '../../../core/store/store';
+import { Store } from '../../../core/store';
 
 @Component({
   selector: 'app-statement-dialog',
@@ -9,9 +10,11 @@ import { Store } from '../../../core/store/store';
   styleUrls: ['./statement-dialog.component.css']
 })
 export class StatementDialogComponent implements OnInit {
+  options: FormGroup;
 
   constructor(
     private readonly store: Store,
+    private readonly fb: FormBuilder,
     private dialogRef: MatDialogRef<StatementDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IStatement
   ) {
@@ -20,13 +23,28 @@ export class StatementDialogComponent implements OnInit {
         Store.getUUID(),
         '',
         'New Statement',
-        null,
-        ''
+        store.variables[0],
+        store.variables[0].domain.values[0]
       );
     }
+    this.options = fb.group({
+      name: new FormControl(this.data.name, Validators.required),
+      variable: new FormControl(this.data.variable, Validators.required),
+      value: new FormControl(this.data.value, Validators.required),
+      description: new FormControl(this.data.description)
+    }, {
+      validators: []
+    });
   }
 
   ngOnInit() {
+  }
+
+  submit() {
+    this.data.name = this.options.controls.name.value;
+    this.data.variable = this.options.controls.variable.value;
+    this.data.value = this.options.controls.value.value;
+    this.data.description = this.options.controls.description.value;
   }
 
   save() {

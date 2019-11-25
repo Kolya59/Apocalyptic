@@ -1,11 +1,14 @@
-<div class="form">
-  <div>Rule {{this.data.id}}</div>
-  <mat-form-field class="name" (change)="this.changeName()">
-    <input id="name-content" matInput placeholder="Name">
+<form class="form" [formGroup]="this.options" (ngSubmit)="submit()">
+  <p>Rule {{this.data.id}}</p>
+  <mat-form-field>
+    <input formControlName="name" matInput placeholder="Name" required>
   </mat-form-field>
-  <div class="statements">
-    <mat-list class="premises">
-      <mat-list-item class="statement-item" *ngFor="let premise of this.data.premises">
+  <div>
+    <mat-list class="premises" formArrayName="premises">
+      <mat-list-item
+        class="statement-item"
+        *ngFor="let premise of this.data.premises; let i = index"
+        formControlName="{{i}}">
         <p class="statement-item-value">{{premise.name}}</p>
         <button mat-icon-button class="statement-item-edit" (click)="editStatement(premise)">
           <mat-icon>edit</mat-icon>
@@ -19,8 +22,11 @@
       </button>
     </mat-list>
     <mat-icon class="follows">arrow_forward</mat-icon>
-    <mat-list class="conclusions">
-      <mat-list-item class="statement-item" *ngFor="let conclusion of this.data.conclusions">
+    <mat-list class="conclusions" formArrayName="conclusions">
+      <mat-list-item
+        class="statement-item"
+        *ngFor="let conclusion of this.data.conclusions; let i = index"
+        formControlName="{{i}}}">
         <p class="statement-item-value">{{conclusion.name}}</p>
         <button mat-icon-button class="statement-item-edit" (click)="editStatement(conclusion)">
           <mat-icon>edit</mat-icon>
@@ -35,9 +41,9 @@
     </mat-list>
   </div>
   <mat-form-field class="description">
-    <textarea matInput placeholder="Description"></textarea>
+    <textarea formControlName="description" matInput placeholder="Description" required></textarea>
   </mat-form-field>
-</div>
+</form>
 <div class="controls">
   <button mat-raised-button (click)="save()">Save</button>
   <button mat-raised-button (click)="cancel()">Cancel</button>

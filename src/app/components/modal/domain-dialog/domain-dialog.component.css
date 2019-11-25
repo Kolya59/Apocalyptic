@@ -1,21 +1,20 @@
-.domain-form {
+.form {
   width: 95%;
   padding: 0.5rem;
 }
 
-.domain-name {
-  display: block;
+.form > * {
+  width: 100%;
 }
 
-.domain-values {
+.values {
   display: block;
   width: 100%;
   background: white;
-  border-radius: 4px;
   overflow: hidden;
 }
 
-.domain-value {
+.value {
   display: inline-block;
   color: rgba(0, 0, 0, 0.87);
   align-items: center;
@@ -24,24 +23,17 @@
   cursor: move;
   background: white;
   width: 100%;
+  padding: 0;
 }
 
-.domain-value-data {
+.value-data {
   display: inline-block;
   width: 90%;
 }
 
-.domain-value-control {
+.value-control {
   display: inline-block;
   width: 10%;
-}
-
-.domain-description {
-  display: block;
-}
-
-.controls {
-  width: 100%;
 }
 
 .cdk-drag-preview {
@@ -60,10 +52,10 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.domain-value:last-child {
+.value:last-child {
   border: none;
 }
 
-.domain-values.cdk-drop-list-dragging .domain-value:not(.cdk-drag-placeholder) {
+.values.cdk-drop-list-dragging .value:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

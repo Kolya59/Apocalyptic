@@ -50,22 +50,35 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.ul-statement {
-  list-style: none;
+.content {
+  display: inherit;
+  width: 90%;
 }
 
-.li-statement {
-  display: block;
+.content > * {
+  text-align: center;
 }
 
 .uuid {
-  align-content: center;
-  width: 200px;
+  width: 20%;
   flex-wrap: wrap;
 }
 
-.control-rule {
-  display: block;
+.name {
+  width: 30%;
+}
+
+.description {
+  width: 50%;
+}
+
+.controls {
+  display: inline-block;
+  width: 10%;
+}
+
+.controls > button {
+  width: 50%;
 }
 
 .add-rule {

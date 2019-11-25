@@ -1,10 +1,11 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { Domain, IRule, IVariable } from '../../../core/models';
-import { Store } from '../../../core/store/store';
-import { v4 as uuid } from 'uuid';
+import { IRule, IVariable } from '../../../core/models';
+import { Service } from '../../../core/service';
+import { Store } from '../../../core/store';
 import { VariableDialogComponent } from '../variable-dialog/variable-dialog.component';
 
 @Component({
@@ -20,84 +21,51 @@ export class VariableListDialogComponent implements OnInit {
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: IVariable[]
   ) {
-    store.insertVariable(
-      'Variable 1',
-      'Description 1',
-      new Domain(
-        uuid.toString(),
-        'Domain 1',
-        'Description 1',
-        []
-      )
-    );
-    store.insertVariable(
-      'Variable 2',
-      'Description 2',
-      new Domain(
-        uuid.toString(),
-        'Domain 2',
-        'Description 2',
-        []
-      )
-    );
-    store.insertVariable(
-      'Variable 3',
-      'Description 3',
-      new Domain(
-        uuid.toString(),
-        'Domain 3',
-        'Description 3',
-        []
-      )
-    );
   }
 
   ngOnInit() {
   }
 
+  // TODO Refactor
   drop(e: CdkDragDrop<IRule>) {
-    const tmp = this.store.variables[e.previousIndex];
-    this.store.variables[e.previousIndex] = this.store.variables[e.currentIndex];
-    this.store.variables[e.currentIndex] = tmp;
+    this.store.variables = Service.reorder(e.previousIndex, e.currentIndex, this.store.variables);
   }
 
   save() {
-    // TODO Save changes
-    this.dialogRef.close();
+    this.dialogRef.close(this.data);
   }
 
   cancel() {
-    this.dialogRef.close();
+    this.dialogRef.close(null);
   }
 
   insertVariable() {
-    const dialog = this.dialog.open(VariableDialogComponent, {
+    this.dialog.open(VariableDialogComponent, {
       width: '80%',
       data: null
-    });
-    dialog.afterClosed().subscribe((result: IVariable | null) => {
+    }).afterClosed().subscribe((result: IVariable | null) => {
       if (!result) {
         return;
       }
-      this.store.variables.push(result);
+      this.data.push(result);
     });
   }
 
   editVariable(variable: IVariable) {
-    const dialog = this.dialog.open(VariableDialogComponent, {
+    this.dialog.open(VariableDialogComponent, {
       width: '80%',
       data: variable
-    });
-    dialog.afterClosed().subscribe((result: IVariable | null) => {
+    }).afterClosed().subscribe((result: IVariable | null) => {
       if (!result) {
         return;
       }
-      this.store.variables[this.store.variables.indexOf(variable)] = result;
+      this.data[this.data.indexOf(variable)] = result;
     });
   }
 
   removeVariable(variable: IVariable) {
     // TODO Confirm removing
+    // TODO Refactor
     this.store.removeVariable(variable.id);
   }
 }

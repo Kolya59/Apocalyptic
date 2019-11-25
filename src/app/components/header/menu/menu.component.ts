@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Store } from '../../../core/store/store';
+import { IDomain, IVariable } from '../../../core/models';
+import { Store } from '../../../core/store';
 import { DomainListDialogComponent } from '../../modal/domain-list-dialog/domain-list-dialog.component';
 import { VariableListDialogComponent } from '../../modal/variable-list-dialog/variable-list-dialog.component';
 
@@ -20,16 +21,26 @@ export class MenuComponent implements OnInit {
   }
 
   openDomainDialog() {
-    const dialogRef = this.dialog.open(DomainListDialogComponent, {
+    this.dialog.open(DomainListDialogComponent, {
       width: '80%',
-      data: {}
+      data: this.store.variables
+    }).afterClosed().subscribe((result: IDomain[] | null) => {
+      if (!result) {
+        return;
+      }
+      this.store.domains = result;
     });
   }
 
   openVariableDialog() {
-    const dialogRef = this.dialog.open(VariableListDialogComponent, {
+    this.dialog.open(VariableListDialogComponent, {
       width: '80%',
-      data: {}
+      data: this.store.variables
+    }).afterClosed().subscribe((result: IVariable[] | null) => {
+      if (!result) {
+        return;
+      }
+      this.store.variables = result;
     });
   }
 

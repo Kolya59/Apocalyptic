@@ -1,37 +1,28 @@
-<div class="domain-form">
+<form class="form" [formGroup]="this.options" (ngSubmit)="submit()">
   <div>Domain {{this.data.id}}</div>
-  <mat-form-field class="domain-name">
-    <input id="domain-name-content" matInput placeholder="Name">
+  <mat-form-field class="name">
+    <input formControlName="name" matInput placeholder="Name">
   </mat-form-field>
-  <div cdkDropList class="domain-values" (cdkDropListDropped)="drop($event)">
-    <div class="domain-value" *ngFor="let value of data.values; let i = index" cdkDrag>
-      <mat-form-field class="domain-value-data">
-        <input matInput placeholder="Value">
+  <mat-list cdkDropList class="values" (cdkDropListDropped)="drop($event)" formArrayName="values">
+    <mat-list-item class="value" *ngFor="let value of this.options.controls.values.value; let i = index" cdkDrag>
+      <mat-form-field class="value-data">
+        <input matInput placeholder="Value" [formControlName]="i">
       </mat-form-field>
-      <div class="domain-value-control">
-        <button mat-icon-button (click)="removeValue(i)">
-          <img src="./../../../../assets/img/delete-24px.svg">
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="domain-values">
-    <div class="domain-value">
-      <mat-form-field class="domain-value-data">
-        <input matInput placeholder="Value">
-      </mat-form-field>
-      <div class="domain-value-control">
-        <button mat-icon-button (click)="insertValue('TODO New Value')">
-          <img src="./../../../../assets/img/add-24px.svg">
-        </button>
-      </div>
-    </div>
-  </div>
-  <mat-form-field class="domain-description">
-    <textarea matInput placeholder="Description"></textarea>
+      <button class="value-control" mat-icon-button (click)="removeValue(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+    <mat-list-item class="value-control">
+      <button mat-icon-button (click)="insertValue('TODO New Value')">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+  <mat-form-field class="description">
+    <textarea formControlName="description" matInput placeholder="Description"></textarea>
   </mat-form-field>
-</div>
-<div class="controls">
-  <button mat-raised-button (click)="save()">Save</button>
-  <button mat-raised-button (click)="cancel()">Cancel</button>
-</div>
+  <div class="controls">
+    <button mat-raised-button (click)="save()">Save</button>
+    <button mat-raised-button (click)="cancel()">Cancel</button>
+  </div>
+</form>

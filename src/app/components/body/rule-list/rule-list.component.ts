@@ -2,8 +2,9 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { IRule } from '../../../core/models';
+import { Service } from '../../../core/service';
 
-import { Store } from '../../../core/store/store';
+import { Store } from '../../../core/store';
 import { RuleDialogComponent } from '../../modal/rule-dialog/rule-dialog.component';
 
 @Component({
@@ -16,6 +17,8 @@ export class RuleListComponent implements OnInit {
     public readonly dialog: MatDialog,
     private readonly store: Store
   ) {
+    // @ts-ignore
+    window.reorder = Service.reorder;
     store.insertRule(
       'Rule 1',
       [],
@@ -40,21 +43,41 @@ export class RuleListComponent implements OnInit {
       [],
       'Description 4'
     );
+    store.insertDomain(
+      'Domain 1',
+      '',
+      ['First', 'Second']
+    );
+    store.insertVariable(
+      'Variable 1',
+      '',
+      store.domains[0]
+    );
   }
 
   ngOnInit() {}
 
   insertRule() {
-    const dialogRef = this.dialog.open(RuleDialogComponent, {
-      width: '600px',
+    this.dialog.open(RuleDialogComponent, {
+      width: '80%',
       data: null
+    }).afterClosed().subscribe((result: IRule | null) => {
+      if (!result) {
+        return;
+      }
+      this.store.rules.push(result);
     });
   }
 
   editRule(rule: IRule) {
-    const dialogRef = this.dialog.open(RuleDialogComponent, {
-      width: '600px',
+    this.dialog.open(RuleDialogComponent, {
+      width: '80%',
       data: rule
+    }).afterClosed().subscribe((result: IRule | null) => {
+      if (!result) {
+        return;
+      }
+      this.store.rules[this.store.rules.indexOf(rule)] = result;
     });
   }
 
@@ -63,11 +86,8 @@ export class RuleListComponent implements OnInit {
     this.store.removeRule(rule.id);
   }
 
-  // TODO Refactor swap elements to reorder
   drop(e: CdkDragDrop<IRule>) {
-    const tmp = this.store.rules[e.previousIndex];
-    this.store.rules[e.previousIndex] = this.store.rules[e.currentIndex];
-    this.store.rules[e.currentIndex] = tmp;
+    this.store.rules = Service.reorder(e.previousIndex, e.currentIndex, this.store.rules);
   }
 
 }

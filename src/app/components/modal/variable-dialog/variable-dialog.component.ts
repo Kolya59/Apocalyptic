@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { Domain, IDomain, IVariable, Variable } from '../../../core/models';
-import { Store } from '../../../core/store/store';
+import { Store } from '../../../core/store';
 import { DomainDialogComponent } from '../domain-dialog/domain-dialog.component';
 
 @Component({
@@ -10,11 +11,12 @@ import { DomainDialogComponent } from '../domain-dialog/domain-dialog.component'
   styleUrls: ['./variable-dialog.component.css']
 })
 export class VariableDialogComponent implements OnInit {
+  options: FormGroup;
 
   constructor(
     private readonly store: Store,
+    private readonly fb: FormBuilder,
     private dialogRef: MatDialogRef<VariableDialogComponent>,
-    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: IVariable
   ) {
     if (!this.data) {
@@ -30,23 +32,20 @@ export class VariableDialogComponent implements OnInit {
         )
       );
     }
+    this.options = fb.group({
+      domain: new FormControl(this.data.domain, Validators.required),
+      description: new FormControl(this.data.description),
+      name: new FormControl(this.data.name, Validators.required)
+    });
   }
 
   ngOnInit() {
   }
 
-  editValue() {
-    // TODO Handle error
-    const dialog = this.dialog.open(DomainDialogComponent, {
-      width: '600px',
-      data: this.data.domain
-    });
-    dialog.afterClosed().subscribe((result: IDomain | null) => {
-      if (!result) {
-        return;
-      }
-      this.data.domain = result;
-    });
+  submit() {
+    this.data.domain = this.options.controls.domain.value;
+    this.data.name = this.options.controls.name.value;
+    this.data.description = this.options.controls.description.value;
   }
 
   save() {

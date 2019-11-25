@@ -1,17 +1,20 @@
-<div class="variable-form">
+<form [formGroup]="this.options" (ngSubmit)="submit()">
   <div>Variable {{this.data.id}}</div>
-  <mat-form-field class="variable-name">
-    <input id="variable-name-content" matInput placeholder="Name">
+  <mat-form-field>
+    <input formControlName="name" matInput placeholder="Name" required>
   </mat-form-field>
-  <mat-form-field class="rule-consequence-premise">
-    <mat-select placeholder="Domain" [(value)]="data.domain">
-      <mat-option *ngFor="let domain of this.store.domains" value="{{domain}}">
+  <mat-form-field>
+    <mat-select formControlName="domain" placeholder="Domain" [value]="this.data.domain" required>
+      <mat-option *ngFor="let domain of this.store.domains" [value]="domain">
         {{domain.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-</div>
-<div class="controls">
+  <mat-form-field>
+    <textarea formControlName="description" matInput placeholder="Description"></textarea>
+  </mat-form-field>
+<div>
   <button mat-raised-button (click)="save()">Save</button>
   <button mat-raised-button (click)="cancel()">Cancel</button>
 </div>
+</form>
