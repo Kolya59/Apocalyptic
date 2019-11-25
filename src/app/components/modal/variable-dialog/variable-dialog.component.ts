@@ -33,9 +33,9 @@ export class VariableDialogComponent implements OnInit {
       );
     }
     this.options = fb.group({
-      domain: new FormControl(this.data.domain, Validators.required),
-      description: new FormControl(this.data.description),
-      name: new FormControl(this.data.name, Validators.required)
+      domain: this.fb.control(this.data.domain, Validators.required),
+      description: this.fb.control(this.data.description),
+      name: this.fb.control(this.data.name, Validators.required)
     });
   }
 

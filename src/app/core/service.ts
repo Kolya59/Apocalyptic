@@ -10,4 +10,11 @@ export class Service {
         container.slice(y, x),
         container.slice(x + 1));
   }
+
+  static remove<T>(removed: T, container: T[]): T[] {
+    return container.filter(value => {
+      console.log(value, removed, value !== removed);
+      return value !== removed;
+    });
+  }
 }

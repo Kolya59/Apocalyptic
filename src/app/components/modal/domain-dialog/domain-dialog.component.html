@@ -8,12 +8,12 @@
       <mat-form-field class="value-data">
         <input matInput placeholder="Value" [formControlName]="i">
       </mat-form-field>
-      <button class="value-control" mat-icon-button (click)="removeValue(i)">
+      <button class="value-control" mat-icon-button (click)="removeValue(value)">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-list-item>
     <mat-list-item class="value-control">
-      <button mat-icon-button (click)="insertValue('TODO New Value')">
+      <button mat-icon-button (click)="insertValue('')">
         <mat-icon>add</mat-icon>
       </button>
     </mat-list-item>

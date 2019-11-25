@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { IStatement, Statement} from '../../../core/models';
 import { Store } from '../../../core/store';
@@ -28,10 +28,10 @@ export class StatementDialogComponent implements OnInit {
       );
     }
     this.options = fb.group({
-      name: new FormControl(this.data.name, Validators.required),
-      variable: new FormControl(this.data.variable, Validators.required),
-      value: new FormControl(this.data.value, Validators.required),
-      description: new FormControl(this.data.description)
+      name: this.fb.control(this.data.name, Validators.required),
+      variable: this.fb.control(this.data.variable, Validators.required),
+      value: this.fb.control(this.data.value, Validators.required),
+      description: this.fb.control(this.data.description)
     }, {
       validators: []
     });

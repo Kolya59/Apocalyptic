@@ -23,10 +23,10 @@ export class RuleDialogComponent implements OnInit {
       this.data = new Rule(Store.getUUID(), 'New Rule', [], [], '');
     }
     this.options = fb.group({
-      name: new FormControl(this.data.name, Validators.required),
-      premises: new FormArray(this.data.premises.map(value => new FormControl(value, Validators.required))),
-      conclusions: new FormArray(this.data.conclusions.map(value => new FormControl(value)), Validators.required),
-      description: new FormControl(this.data.description)
+      name: this.fb.control(this.data.name, Validators.required),
+      premises: this.fb.array(this.data.premises.map(value => this.fb.control(value, Validators.required))),
+      conclusions: this.fb.array(this.data.conclusions.map(value => this.fb.control(value)), Validators.required),
+      description: this.fb.control(this.data.description)
     });
   }
 

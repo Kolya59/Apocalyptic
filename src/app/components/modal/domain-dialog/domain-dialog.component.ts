@@ -1,7 +1,8 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { element } from 'protractor';
 import { Domain, IDomain } from '../../../core/models';
 import { Service } from '../../../core/service';
 import { Store } from '../../../core/store';
@@ -28,10 +29,14 @@ export class DomainDialogComponent implements OnInit {
         ['Value 1']);
     }
     this.options = fb.group({
-      name: new FormControl(this.data.name, Validators.required),
-      values: new FormArray(this.data.values.map(value => new FormControl(value)), Validators.required),
-      description: new FormControl(this.data.description)
+      name: this.fb.control(this.data.name, Validators.required),
+      values: this.fb.array(this.data.values.map(value => this.fb.control(value))),
+      description: this.fb.control(this.data.description)
     });
+    // @ts-ignore
+    window.data = this.data;
+    // @ts-ignore
+    window.options = this.options;
   }
 
   ngOnInit() {
@@ -43,13 +48,17 @@ export class DomainDialogComponent implements OnInit {
 
   insertValue(value: string) {
     // TODO Handle error
-    this.options.controls.values.value.push(new FormControl(this.data.values.length));
+    (this.options.controls.values as FormArray).value.push(value);
     this.data.insertValue(value);
+    console.log(this.options.controls.values.value, this.data.values);
   }
 
-  removeValue(index: number) {
+  removeValue(el: string) {
     // TODO Handle error
-    this.data.removeValue(index);
+    this.options.controls.values = this.fb.array(
+      Service.remove(el, this.options.controls.values.value)
+    );
+    this.data.values = Service.remove(el, this.data.values);
   }
 
   submit() {
