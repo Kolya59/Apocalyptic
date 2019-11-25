@@ -17,42 +17,6 @@ export class RuleListComponent implements OnInit {
     public readonly dialog: MatDialog,
     private readonly store: Store
   ) {
-    // @ts-ignore
-    window.reorder = Service.reorder;
-    store.insertRule(
-      'Rule 1',
-      [],
-      [],
-      'Description 1'
-    );
-    store.insertRule(
-      'Rule 2',
-      [],
-      [],
-      'Description 2'
-    );
-    store.insertRule(
-      'Rule 3',
-      [],
-      [],
-      'Description 3'
-    );
-    store.insertRule(
-      'Rule 4',
-      [],
-      [],
-      'Description 4'
-    );
-    store.insertDomain(
-      'Domain 1',
-      '',
-      ['First', 'Second']
-    );
-    store.insertVariable(
-      'Variable 1',
-      '',
-      store.domains[0]
-    );
   }
 
   ngOnInit() {}

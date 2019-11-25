@@ -23,6 +23,7 @@ export class VariableDialogComponent implements OnInit {
       this.data = new Variable(
         Store.getUUID(),
         'New Variable',
+        false,
         '',
         new Domain(
           Store.getUUID(),
@@ -35,6 +36,7 @@ export class VariableDialogComponent implements OnInit {
     this.options = fb.group({
       domain: this.fb.control(this.data.domain, Validators.required),
       description: this.fb.control(this.data.description),
+      isRequested: this.fb.control(this.data.isRequested),
       name: this.fb.control(this.data.name, Validators.required)
     });
   }
@@ -45,6 +47,7 @@ export class VariableDialogComponent implements OnInit {
   submit() {
     this.data.domain = this.options.controls.domain.value;
     this.data.name = this.options.controls.name.value;
+    this.data.isRequested = this.options.controls.isRequested.value;
     this.data.description = this.options.controls.description.value;
   }
 

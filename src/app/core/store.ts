@@ -8,6 +8,7 @@ export class Store {
   rules: IRule[];
   variables: IVariable[];
   domains: IDomain[];
+  target: IVariable;
 
   constructor() {
     this.rules = [];
@@ -75,11 +76,11 @@ export class Store {
     }));
   }
 
-  public insertVariable(name: string, description: string, domain: IDomain): Promise<IVariable> {
+  public insertVariable(name: string, isRequested: boolean, description: string, domain: IDomain): Promise<IVariable> {
     return new Promise<IVariable>((resolve, reject) => {
       // TODO Get id
       const id = Store.getUUID();
-      const rule = new Variable(id, name, description,  domain);
+      const rule = new Variable(id, name, isRequested, description,  domain);
       // TODO Validate variable
       this.variables.push(rule);
       resolve(rule);

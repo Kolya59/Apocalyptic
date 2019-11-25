@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { IDomain, IVariable } from '../../../core/models';
-import { Store } from '../../../core/store';
-import { DomainListDialogComponent } from '../../modal/domain-list-dialog/domain-list-dialog.component';
-import { VariableListDialogComponent } from '../../modal/variable-list-dialog/variable-list-dialog.component';
+import { IDomain, IVariable } from '../../core/models';
+import { Store } from '../../core/store';
+import { DomainListDialogComponent } from '../modal/domain-list-dialog/domain-list-dialog.component';
+import { VariableListDialogComponent } from '../modal/variable-list-dialog/variable-list-dialog.component';
+import { SetTargetComponent } from '../modal/set-target/set-target.component';
 
 @Component({
   selector: 'app-menu',
@@ -42,6 +43,26 @@ export class MenuComponent implements OnInit {
       }
       this.store.variables = result;
     });
+  }
+
+  openSetTargetDialog() {
+    this.dialog.open(SetTargetComponent, {
+      width: '80%',
+      data: this.store.target
+    }).afterClosed().subscribe((result: IVariable) => {
+      if (!result) {
+        return;
+      }
+      this.store.target = result;
+    });
+  }
+
+  openConsultDialog() {
+
+  }
+
+  openExplanationDialog() {
+
   }
 
   public ToJSON() {

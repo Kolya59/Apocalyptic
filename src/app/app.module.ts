@@ -5,9 +5,8 @@ import { NgModule } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
 import { BodyComponent } from './components/body/body.component';
-import { MenuComponent } from './components/header/menu/menu.component';
+import { MenuComponent } from './components/menu/menu.component';
 import { DomainDialogComponent } from './components/modal/domain-dialog/domain-dialog.component';
 import { DomainListDialogComponent } from './components/modal/domain-list-dialog/domain-list-dialog.component';
 import { ExplanationComponent } from './components/modal/explanation/explanation.component';
@@ -20,11 +19,11 @@ import { RuleListComponent } from './components/body/rule-list/rule-list.compone
 import { MaterialModule } from './module/material-module';
 import { RuleDialogComponent } from './components/modal/rule-dialog/rule-dialog.component';
 import { StatementDialogComponent } from './components/modal/statement-dialog/statement-dialog.component';
+import { SetTargetComponent } from './components/modal/set-target/set-target.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     BodyComponent,
     MenuComponent,
     RuleListComponent,
@@ -36,6 +35,7 @@ import { StatementDialogComponent } from './components/modal/statement-dialog/st
     VariableDialogComponent,
     RuleDialogComponent,
     StatementDialogComponent,
+    SetTargetComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +73,7 @@ import { StatementDialogComponent } from './components/modal/statement-dialog/st
     DomainDialogComponent,
     DomainListDialogComponent,
     RuleDialogComponent,
+    SetTargetComponent,
     StatementDialogComponent,
     VariableDialogComponent,
     VariableListDialogComponent

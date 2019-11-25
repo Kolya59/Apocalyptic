@@ -1,3 +1,15 @@
 table {
   width: 100%;
 }
+
+.header {
+  display: flex;
+}
+
+.menu {
+  width: 50%
+}
+
+.target-block {
+  width: 50%;
+}

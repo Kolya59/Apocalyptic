@@ -11,7 +11,7 @@
 </mat-menu>
 <button mat-button [matMenuTriggerFor]="consultation_menu">Consultation</button>
 <mat-menu #consultation_menu="matMenu">
-  <button mat-menu-item>Set target</button>
-  <button mat-menu-item>Consult</button>
+  <button mat-menu-item (click)="openSetTargetDialog()">Set target</button>
+  <button mat-menu-item (click)="openConsultDialog()">Consult</button>
 </mat-menu>
-<button mat-button>Explanation</button>
+<button mat-button (click)="openExplanationDialog()">Explanation</button>

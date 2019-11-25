@@ -17,6 +17,7 @@ export interface IStatement {
 export interface IVariable {
   id: string;
   name: string;
+  isRequested: boolean;
   description: string;
   domain: IDomain;
 }
@@ -68,11 +69,13 @@ export class Variable implements IVariable {
   domain: IDomain;
   description: string;
   id: string;
+  isRequested: boolean;
   name: string;
 
-  constructor(id: string, name: string, description: string, domain: IDomain) {
+  constructor(id: string, name: string, isRequested: boolean, description: string, domain: IDomain) {
     this.id = id;
     this.name = name;
+    this.isRequested = isRequested;
     this.description = description;
     this.domain = domain;
   }

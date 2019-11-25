@@ -1,0 +1,15 @@
+body > * {
+  width: 100%;
+}
+
+.variable {
+  border: solid 2px black;
+}
+
+.chosen {
+  background-color: darkcyan;
+}
+
+.controls {
+  padding-top: 1rem;
+}

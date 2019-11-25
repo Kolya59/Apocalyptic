@@ -1,0 +1,11 @@
+<mat-list>
+  <mat-list-item *ngFor="let variable of this.store.variables"
+                 (click)="setTarget(variable)"
+                 [ngClass]="{'variable': true, 'chosen' : this.data == variable}">
+    <p>{{variable.name}}</p>
+  </mat-list-item>
+</mat-list>
+<div class="controls">
+  <button mat-raised-button (click)="save()">Save</button>
+  <button mat-raised-button (click)="cancel()">Cancel</button>
+</div>
