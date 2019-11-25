@@ -10,7 +10,7 @@
   overflow: hidden;
 }
 
-.domain-box {
+.box {
   padding: 0.25rem 1rem;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
@@ -41,44 +41,44 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.domain-box:last-child {
+.box:last-child {
   border: none;
 }
 
-.rules.cdk-drop-list-dragging .domain-box:not(.cdk-drag-placeholder) {
+.rules.cdk-drop-list-dragging .box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.domain-info {
-  width: 40%;
+.info {
+  width: 90%;
 }
 
-.domain-uuid {
+.uuid {
   width: 50%;
   display: inline-block;
 }
 
-.domain-name {
+.name {
   width: 50%;
   display: inline-block;
 }
 
-.domain-values {
+.values {
   width: 35%;
   list-style: none;
   display: block;
   cursor: pointer;
 }
 
-.domain-value {
+.value {
 
 }
 
-.domain-controls {
+.controls {
 
 }
 
-.domain-add {
+.add {
   width: 100%;
 }
 

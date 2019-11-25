@@ -29,14 +29,6 @@ export class DomainListDialogComponent implements OnInit {
     this.store.domains = Service.reorder(e.previousIndex, e.currentIndex, this.store.domains);
   }
 
-  save() {
-    this.dialogRef.close(this.data);
-  }
-
-  cancel() {
-    this.dialogRef.close();
-  }
-
   insertDomain() {
     this.dialog.open(DomainDialogComponent, {
       width: '80%',
@@ -45,7 +37,7 @@ export class DomainListDialogComponent implements OnInit {
       if (!result) {
         return;
       }
-      this.store.domains.push(result);
+      this.data.push(result);
     });
   }
 
@@ -57,13 +49,21 @@ export class DomainListDialogComponent implements OnInit {
       if (!result) {
         return;
       }
-      this.store.domains[this.store.domains.indexOf(domain)] = result;
+      this.data[this.data.indexOf(domain)] = result;
     });
   }
 
   removeDomain(domain: IDomain) {
     // TODO Confirm removing
-    this.store.removeDomain(domain.id);
+    this.data = Service.remove(domain, this.data);
+  }
+
+  save() {
+    this.dialogRef.close(this.data);
+  }
+
+  cancel() {
+    this.dialogRef.close();
   }
 
 }

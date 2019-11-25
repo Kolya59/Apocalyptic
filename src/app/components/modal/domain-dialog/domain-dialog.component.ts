@@ -33,6 +33,10 @@ export class DomainDialogComponent implements OnInit {
       values: this.fb.array(this.data.values.map(value => this.fb.control(value))),
       description: this.fb.control(this.data.description)
     });
+
+    // DEBUG
+    // @ts-ignore
+    window.mock = this;
     // @ts-ignore
     window.data = this.data;
     // @ts-ignore
@@ -42,23 +46,22 @@ export class DomainDialogComponent implements OnInit {
   ngOnInit() {
   }
 
+  // TODO Check reorder
   drop(e: CdkDragDrop<string>) {
-    this.data.values = Service.reorder(e.previousIndex, e.currentIndex, this.data.values);
+    this.options.controls.values.setValue(
+      Service.reorder(e.previousIndex, e.currentIndex, this.options.controls.values.value)
+    );
   }
 
   insertValue(value: string) {
     // TODO Handle error
-    (this.options.controls.values as FormArray).value.push(value);
-    this.data.insertValue(value);
-    console.log(this.options.controls.values.value, this.data.values);
+    (this.options.get('values') as FormArray).value.push(value);
+    console.log(this.options.get('values').value);
   }
 
-  removeValue(el: string) {
+  removeValue(el: number) {
     // TODO Handle error
-    this.options.controls.values = this.fb.array(
-      Service.remove(el, this.options.controls.values.value)
-    );
-    this.data.values = Service.remove(el, this.data.values);
+    (this.options.get('values') as FormArray).removeAt(el);
   }
 
   submit() {

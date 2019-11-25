@@ -4,11 +4,11 @@
     <input formControlName="name" matInput placeholder="Name">
   </mat-form-field>
   <mat-list cdkDropList class="values" (cdkDropListDropped)="drop($event)" formArrayName="values">
-    <mat-list-item class="value" *ngFor="let value of this.options.controls.values.value; let i = index" cdkDrag>
+    <mat-list-item class="value" *ngFor="let value of this.options.get('values').value; let i = index" cdkDrag>
       <mat-form-field class="value-data">
         <input matInput placeholder="Value" [formControlName]="i">
       </mat-form-field>
-      <button class="value-control" mat-icon-button (click)="removeValue(value)">
+      <button class="value-control" mat-icon-button (click)="removeValue(i)">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-list-item>

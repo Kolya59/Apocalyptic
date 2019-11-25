@@ -70,7 +70,6 @@ export class RuleDialogComponent implements OnInit {
     this.data.premises = this.options.controls.premises.value;
     this.data.conclusions = this.options.controls.conclusions.value;
     this.data.description = this.options.controls.description.value;
-    console.log('Result', this.data, this.options.controls);
   }
 
   save() {

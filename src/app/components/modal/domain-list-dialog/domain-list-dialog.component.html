@@ -1,13 +1,10 @@
-<div class="domains" cdkDropList (cdkDropListDropped)="drop($event)">
-  <div class="domain-box" *ngFor="let domain of store.domains" cdkDrag>
-    <div class="domain-info">
-        <div class="domain-uuid">{{domain.id}}</div>
-        <div class="domain-name">{{domain.name}}</div>
+<mat-list class="domains" cdkDropList (cdkDropListDropped)="drop($event)">
+  <mat-list-item class="box" *ngFor="let domain of this.data" cdkDrag>
+    <div class="info">
+        <div class="uuid">{{domain.id}}</div>
+        <div class="name">{{domain.name}}</div>
     </div>
-    <div class="domain-values">
-      <div class="domain-value" *ngFor="let value of domain.values">{{value}}</div>
-    </div>
-    <div class="domain-controls">
+    <div class="controls">
       <button mat-icon-button (click)="editDomain(domain)">
         <mat-icon>edit</mat-icon>
       </button>
@@ -15,13 +12,13 @@
         <mat-icon>delete</mat-icon>
       </button>
     </div>
-  </div>
-  <div>
-    <button mat-icon-button class="domain-add" (click)="insertDomain()">
+  </mat-list-item>
+  <mat-list-item>
+    <button mat-icon-button class="add" (click)="insertDomain()">
       <mat-icon>add</mat-icon>
     </button>
-  </div>
-</div>
+  </mat-list-item>
+</mat-list>
 <div class="controls">
   <button mat-raised-button (click)="save()">Save</button>
   <button mat-raised-button (click)="cancel()">Cancel</button>
