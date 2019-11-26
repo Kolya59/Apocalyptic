@@ -18,6 +18,7 @@ export interface IVariable {
   id: string;
   name: string;
   isRequested: boolean;
+  requestMsg?: string;
   description: string;
   domain: IDomain;
 }
@@ -70,6 +71,7 @@ export class Variable implements IVariable {
   description: string;
   id: string;
   isRequested: boolean;
+  requestMsg?: string;
   name: string;
 
   constructor(id: string, name: string, isRequested: boolean, description: string, domain: IDomain) {

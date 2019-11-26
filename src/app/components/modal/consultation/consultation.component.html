@@ -1,1 +1,17 @@
-<p>consultation works!</p>
+<mat-list>
+  <mat-list-item *ngFor="let msg of this.userDialogStore">
+    <mat-card>
+      {{msg}}
+    </mat-card>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <form [formGroup]="options">
+    <mat-form-field>
+      <mat-select formControlName="chosenValue" [value]="this.currentQuestedVariable.domain.values[0]">
+        <mat-option *ngFor="let v of this.currentQuestedVariable.domain.values" [value]="v">{{v}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button (click)="setAnswer()">Submit</button>
+  </form>
+</mat-list>
+<button mat-button (click)="cancel()">Cancel</button>

@@ -1,3 +1,4 @@
+import { augmentAppWithServiceWorker } from '@angular-devkit/build-angular/src/angular-cli-files/utilities/service-worker';
 import { Store } from './store';
 import { IRule, IStatement, IVariable } from './models';
 import { from, Subject } from 'rxjs';
@@ -18,33 +19,47 @@ export class Service {
 
   static remove<T>(removed: T, container: T[]): T[] {
     return container.filter(value => {
+      // DEBUG
       console.log(value, removed, value !== removed);
       return value !== removed;
     });
   }
 }
 
-export class ValuedVariable {[uuid: string]: string}
+export class VariableValueMap {[uuid: string]: string}
 
 export class ConsultationService {
   // conflictingSet: IRule[];
-  workingMemory: ValuedVariable[];
-  resultSubscription: Subject<ValuedVariable>;
+  workingMemory: VariableValueMap;
+  resultSubscription: Subject<VariableValueMap>;
+
+  requestedVariableSub: Subject<IVariable>;
+  requestResultSub: Subject<string>;
 
   constructor(private readonly store: Store) {
 
   }
 
-  async consult(target: IVariable): Promise<string | null> {
-    const resolver = this.workingMemory[target.id];
-    if (!!resolver) {
-      return resolver.value;
+  async requestValue(requested: IVariable): Promise<string> {
+    return new Promise(((resolve, reject) => {
+      this.requestedVariableSub.next(requested);
+      this.requestResultSub.subscribe(
+        (next: string) => resolve(next)
+      );
+    }));
+  }
+
+  async consult(target: IVariable) {
+    const existedValued = this.workingMemory[target.id];
+    if (!!existedValued) {
+      return existedValued;
     }
 
     if (target.isRequested) {
-      // TODO Request value
-      // TODO Push memory to working memory
-      // TODO Return value
+      const request = await this.requestValue(target);
+      this.workingMemory[target.id] = request;
+      // TODO Check needing
+      return request;
     }
 
     // TODO Collaborate with workingMemory
