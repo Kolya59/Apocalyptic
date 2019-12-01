@@ -1,4 +1,3 @@
-import { augmentAppWithServiceWorker } from '@angular-devkit/build-angular/src/angular-cli-files/utilities/service-worker';
 import { Store } from './store';
 import { IRule, IStatement, IVariable } from './models';
 import { from, Subject } from 'rxjs';
@@ -18,26 +17,23 @@ export class Service {
   }
 
   static remove<T>(removed: T, container: T[]): T[] {
-    return container.filter(value => {
-      // DEBUG
-      console.log(value, removed, value !== removed);
-      return value !== removed;
-    });
+    return container.filter(value => value !== removed);
   }
 }
 
-export class VariableValueMap {[uuid: string]: string}
-
 export class ConsultationService {
-  // conflictingSet: IRule[];
-  workingMemory: VariableValueMap;
-  resultSubscription: Subject<VariableValueMap>;
-
   requestedVariableSub: Subject<IVariable>;
   requestResultSub: Subject<string>;
 
-  constructor(private readonly store: Store) {
+  targets: {
+    var: IVariable,
+    val: string
+  }[];
 
+  constructor(private readonly store: Store) {
+    this.requestedVariableSub = new Subject<IVariable>();
+    this.requestResultSub = new Subject<string>();
+    this.targets = [];
   }
 
   async requestValue(requested: IVariable): Promise<string> {
@@ -50,60 +46,51 @@ export class ConsultationService {
   }
 
   async consult(target: IVariable) {
-    const existedValued = this.workingMemory[target.id];
+    const log = { var: target, val: null };
+    const existedValued = this.store.workingMemory[target.id];
     if (!!existedValued) {
+      log.val = existedValued;
+      this.targets.push(log);
       return existedValued;
     }
 
+    // TODO Think about consultation stopping
     if (target.isRequested) {
-      const request = await this.requestValue(target);
-      this.workingMemory[target.id] = request;
-      // TODO Check needing
-      return request;
+      const res = await this.requestValue(target);
+      log.val = res;
+      this.targets.push(log);
+      return res;
     }
 
-    // TODO Collaborate with workingMemory
-    // TODO Check it
     const conflictSet = this.store.rules.filter((value: IRule) =>
-      !value.conclusions.filter((conclusion: IStatement) =>
-        conclusion.variable === target
-    ));
+      value.conclusions.filter((conclusion: IStatement) => conclusion.variable === target).length !== 0
+    );
 
-    /*from(this.store.rules).pipe(
-      filter((value: IRule) => {
-        let result = false;
-        from(value.conclusions).pipe(
-          map((conclusion: IStatement) => conclusion.variable === target),
-          reduce((prev: boolean, curr: boolean) => prev || curr, false)
-        ).subscribe((next: boolean) => result = next);
-        return result;
-      })
-    );*/
-
-    if (!conflictSet) {
+    if (conflictSet.length === 0) {
       throw new Error(`Failed to compute value for ${target.name}`);
     }
 
-
-    // TODO Rewrite as RxJs factory
     conflictSet.forEach((rule: IRule) => {
       from(rule.premises).pipe(
-        tap((premise: IStatement) => conflictSet[premise.variable.id] = this.consult(premise.variable)),
+        tap(async (premise: IStatement) => {
+          const res = await this.consult(premise.variable);
+          this.store.workingMemory[premise.variable.id] = res;
+          conflictSet[premise.variable.id] = res;
+        }),
         map((premise: IStatement) => conflictSet[premise.variable.id] === premise.value),
         // TODO Check default value
         reduce((prev: boolean, curr: boolean) => prev && curr, true)
       ).subscribe((next: boolean) => {
         if (!!next) {
-          from(rule.conclusions).pipe(
-            tap((conclusion: IStatement) => conflictSet[conclusion.variable.id] = conclusion.value)
-          ).subscribe((conclusion: IStatement) => {
-            // TODO Log
-            console.log(conclusion);
-          });
+          from(rule.conclusions).forEach(
+            (conclusion: IStatement) => conflictSet[conclusion.variable.id] = conclusion.value
+          );
         }
       });
     });
 
+    log.val = conflictSet[target.id];
+    this.targets.push(log);
     return conflictSet[target.id];
   }
 }

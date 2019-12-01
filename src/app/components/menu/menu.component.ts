@@ -5,6 +5,7 @@ import { Store } from '../../core/store';
 import { DomainListDialogComponent } from '../modal/domain-list-dialog/domain-list-dialog.component';
 import { VariableListDialogComponent } from '../modal/variable-list-dialog/variable-list-dialog.component';
 import { SetTargetComponent } from '../modal/set-target/set-target.component';
+import { ConsultationComponent } from '../modal/consultation/consultation.component';
 
 @Component({
   selector: 'app-menu',
@@ -12,7 +13,6 @@ import { SetTargetComponent } from '../modal/set-target/set-target.component';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
   constructor(
     public readonly dialog: MatDialog,
     private store: Store
@@ -58,11 +58,22 @@ export class MenuComponent implements OnInit {
   }
 
   openConsultDialog() {
-
+    this.dialog.open(ConsultationComponent, {
+      width: '80%',
+      data: this.store.target
+    }).afterClosed().subscribe((result: IVariable) => {
+      if (!result) {
+        return;
+      }
+      alert(`${this.store.target.name} is ${result}`);
+    });
   }
 
   openExplanationDialog() {
-
+    this.dialog.open(ConsultationComponent, {
+      width: '80%',
+      data: this.store.target
+    }).afterClosed().subscribe(_ => {});
   }
 
   public ToJSON() {

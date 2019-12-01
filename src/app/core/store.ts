@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { v4 as uuid } from 'uuid';
-import { Domain, IDomain, IRule, IStatement, IVariable, Rule, Variable } from './models';
+import { Domain, IDomain, IRule, IStatement, IVariable, Rule, Variable, VariableValueMap } from './models';
 
 @Injectable()
 export class Store {
@@ -9,11 +9,14 @@ export class Store {
   variables: IVariable[];
   domains: IDomain[];
   target: IVariable;
+  workingMemory: VariableValueMap;
 
   constructor() {
     this.rules = [];
     this.variables = [];
     this.domains = [];
+    // TODO Pass targets to logs
+    this.workingMemory = {};
   }
 
   public static getUUID(): string {

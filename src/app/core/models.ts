@@ -111,3 +111,5 @@ export class Domain implements IDomain {
     this.values = this.values.filter((_, i) => i !== index);
   }
 }
+
+export class VariableValueMap {[uuid: string]: string}

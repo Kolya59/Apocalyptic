@@ -13,7 +13,7 @@ import { ExplanationComponent } from './components/modal/explanation/explanation
 import { ConsultationComponent } from './components/modal/consultation/consultation.component';
 import { VariableDialogComponent } from './components/modal/variable-dialog/variable-dialog.component';
 import { VariableListDialogComponent } from './components/modal/variable-list-dialog/variable-list-dialog.component';
-import { Service } from './core/service';
+import { ConsultationService, Service } from './core/service';
 import { Store } from './core/store';
 import { RuleListComponent } from './components/body/rule-list/rule-list.component';
 import { MaterialModule } from './module/material-module';
@@ -56,6 +56,11 @@ import { SetTargetComponent } from './components/modal/set-target/set-target.com
       deps: []
     },
     {
+      provide: ConsultationService,
+      useValue: new ConsultationService(new Store()),
+      deps: []
+    },
+    {
       provide: MatDialogRef,
       useValue: []
     },
@@ -70,6 +75,8 @@ import { SetTargetComponent } from './components/modal/set-target/set-target.com
 
   ],
   entryComponents: [
+    ConsultationComponent,
+    ExplanationComponent,
     DomainDialogComponent,
     DomainListDialogComponent,
     RuleDialogComponent,
