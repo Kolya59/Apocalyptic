@@ -14,7 +14,7 @@
   },
   "plugins": [
     "@typescript-eslint"
-  ]
+  ],
   "env": {
     "es6": true
   }
