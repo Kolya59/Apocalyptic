@@ -1,8 +1,8 @@
-import { IVariable } from '../../models/variable';
+import { Variable } from '../../models/variable';
 
 export interface IVariableState {
-  variables: IVariable[];
-  selectedVariable: IVariable;
+  variables: Variable[];
+  selectedVariable: Variable;
 }
 
 export const initialVariableState: IVariableState = {

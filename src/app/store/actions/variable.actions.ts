@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { IVariable } from '../../models/variable';
+import { Variable } from '../../models/variable';
 
 export enum EVariableActions {
   GetVariables = '[Variable] Get Variables',
@@ -27,14 +27,14 @@ export class GetVariables implements Action {
 export class GetVariablesSuccess implements Action {
   public readonly type = EVariableActions.GetVariablesSuccess;
 
-  constructor(public payload: IVariable[]) {
+  constructor(public payload: Variable[]) {
   }
 }
 
 export class GetVariablesError implements Action {
   public readonly type = EVariableActions.GetVariablesError;
 
-  constructor(public payload: IVariable[]) {
+  constructor(public payload: Variable[]) {
   }
 }
 
@@ -48,14 +48,14 @@ export class GetVariable implements Action {
 export class GetVariableSuccess implements Action {
   public readonly type = EVariableActions.GetVariableSuccess;
 
-  constructor(public payload: IVariable) {
+  constructor(public payload: Variable) {
   }
 }
 
 export class GetVariableError implements Action {
   public readonly type = EVariableActions.GetVariableError;
 
-  constructor(public payload: IVariable) {
+  constructor(public payload: Variable) {
   }
 }
 
@@ -69,14 +69,14 @@ export class AddVariable implements Action {
 export class AddVariableSuccess implements Action {
   public readonly type = EVariableActions.AddVariableSuccess;
 
-  constructor(public payload: IVariable) {
+  constructor(public payload: Variable) {
   }
 }
 
 export class AddVariableError implements Action {
   public readonly type = EVariableActions.AddVariableError;
 
-  constructor(public payload: IVariable) {
+  constructor(public payload: Variable) {
   }
 }
 
@@ -90,14 +90,14 @@ export class UpdateVariable implements Action {
 export class UpdateVariableSuccess implements Action {
   public readonly type = EVariableActions.UpdateVariableSuccess;
 
-  constructor(public payload: IVariable) {
+  constructor(public payload: Variable) {
   }
 }
 
 export class UpdateVariableError implements Action {
   public readonly type = EVariableActions.UpdateVariableError;
 
-  constructor(public payload: IVariable) {
+  constructor(public payload: Variable) {
   }
 }
 
@@ -111,14 +111,14 @@ export class RemoveVariable implements Action {
 export class RemoveVariableSuccess implements Action {
   public readonly type = EVariableActions.RemoveVariableSuccess;
 
-  constructor(public payload: IVariable) {
+  constructor(public payload: Variable) {
   }
 }
 
 export class RemoveVariableError implements Action {
   public readonly type = EVariableActions.RemoveVariableError;
 
-  constructor(public payload: IVariable) {
+  constructor(public payload: Variable) {
   }
 }
 

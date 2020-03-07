@@ -7,7 +7,7 @@ import { StatementService } from '../../services/statement.service';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { selectStatementList } from '../selectors/statement.selector';
-import { IStatement } from '../../models/statement';
+import { Statement } from '../../models/statement';
 
 @Injectable()
 export class StatementEffects {
@@ -26,7 +26,7 @@ export class StatementEffects {
   getStatements$ = this._actions$.pipe(
     ofType<GetStatement>(EStatementActions.GetStatements),
     switchMap(() => this._statementService.getStatements()),
-    switchMap((statements: IStatement[]) => of(new GetStatementsSuccess(statements)))
+    switchMap((statements: Statement[]) => of(new GetStatementsSuccess(statements)))
   );
 
   constructor(

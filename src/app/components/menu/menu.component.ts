@@ -1,88 +1,104 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { IVariable } from '../../models/variable';
-import { IDomain } from '../../models/domain';
-import { Store } from '../../core/store';
-import { DomainListDialogComponent } from '../modal/domain-list-dialog/domain-list-dialog.component';
-import { VariableListDialogComponent } from '../modal/variable-list-dialog/variable-list-dialog.component';
-import { SetTargetComponent } from '../modal/set-target/set-target.component';
-import { ConsultationComponent } from '../modal/consultation/consultation.component';
+import { Variable } from '../../models/variable';
+import { Domain } from '../../models/domain';
+import { DomainListDialogComponent } from '../domains/domain-list-dialog/domain-list-dialog.component';
+import { VariableListDialogComponent } from '../variables/variable-list-dialog/variable-list-dialog.component';
+import { TargetComponent } from '../target/target.component';
+import { ConsultationComponent } from '../consultation/consultation.component';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
-  constructor(
-    public readonly dialog: MatDialog,
-    private store: Store
-  ) { }
-
-  ngOnInit() {
+export class MenuComponent {
+  constructor(public readonly dialog: MatDialog) {
   }
 
   openDomainDialog() {
-    this.dialog.open(DomainListDialogComponent, {
-      width: '80%',
-      data: this.store.variables
-    }).afterClosed().subscribe((result: IDomain[] | null) => {
-      if (!result) {
-        return;
-      }
-      this.store.domains = result;
-    });
+    // TODO: Restore
+    /*this.dialog
+      .open(DomainListDialogComponent, {
+        width: '80%',
+        data: this.store.variables
+      })
+      .afterClosed()
+      .subscribe((result: Domain[] | null) => {
+        if (!result) {
+          return;
+        }
+        this.store.domains = result;
+      });*/
   }
 
   openVariableDialog() {
-    this.dialog.open(VariableListDialogComponent, {
-      width: '80%',
-      data: this.store.variables
-    }).afterClosed().subscribe((result: IVariable[] | null) => {
-      if (!result) {
-        return;
-      }
-      this.store.variables = result;
-    });
+    // TODO: Restore
+    /*this.dialog
+      .open(VariableListDialogComponent, {
+        width: '80%',
+        data: this.store.variables
+      })
+      .afterClosed()
+      .subscribe((result: Variable[] | null) => {
+        if (!result) {
+          return;
+        }
+        this.store.variables = result;
+      });*/
   }
 
   openSetTargetDialog() {
-    this.dialog.open(SetTargetComponent, {
-      width: '80%',
-      data: this.store.target
-    }).afterClosed().subscribe((result: IVariable) => {
-      if (!result) {
-        return;
-      }
-      this.store.target = result;
-    });
+    // TODO: Restore
+    /*this.dialog
+      .open(TargetComponent, {
+        width: '80%',
+        data: this.store.target
+      })
+      .afterClosed()
+      .subscribe((result: Variable) => {
+        if (!result) {
+          return;
+        }
+        this.store.target = result;
+      });*/
   }
 
   openConsultDialog() {
-    this.dialog.open(ConsultationComponent, {
-      width: '80%',
-      data: this.store.target
-    }).afterClosed().subscribe((result: IVariable) => {
-      if (!result) {
-        return;
-      }
-      alert(`${this.store.target.name} is ${result}`);
-    });
+    // TODO: Restore
+    /*this.dialog
+      .open(ConsultationComponent, {
+        width: '80%',
+        data: this.store.target
+      })
+      .afterClosed()
+      .subscribe((result: Variable) => {
+        if (!result) {
+          return;
+        }
+        alert(`${this.store.target.name} is ${result}`);
+      });*/
   }
 
   openExplanationDialog() {
-    this.dialog.open(ConsultationComponent, {
-      width: '80%',
-      data: this.store.target
-    }).afterClosed().subscribe(_ => {});
+    // TODO: Restore
+    /*this.dialog
+      .open(ConsultationComponent, {
+        width: '80%',
+        data: this.store.target
+      })
+      .afterClosed()
+      .subscribe(_ => {});*/
   }
 
-  public ToJSON() {
+  // TODO: Restore
+  /*public ToJSON() {
     // TODO Validate
     console.log('Store', this.store.toJSON());
   }
 
+  // TODO: Restore
   public FromJSON(input: string) {
     this.store.fromJSON(input);
-  }
+  }*/
 }

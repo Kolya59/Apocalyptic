@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { IStatement } from '../../models/statement';
+import { Statement } from '../../models/statement';
 
 export enum EStatementActions {
   GetStatements = '[Statement] Get Statements',
@@ -27,14 +27,14 @@ export class GetStatements implements Action {
 export class GetStatementsSuccess implements Action {
   public readonly type = EStatementActions.GetStatementsSuccess;
 
-  constructor(public payload: IStatement[]) {
+  constructor(public payload: Statement[]) {
   }
 }
 
 export class GetStatementsError implements Action {
   public readonly type = EStatementActions.GetStatementsError;
 
-  constructor(public payload: IStatement[]) {
+  constructor(public payload: Statement[]) {
   }
 }
 
@@ -48,14 +48,14 @@ export class GetStatement implements Action {
 export class GetStatementSuccess implements Action {
   public readonly type = EStatementActions.GetStatementSuccess;
 
-  constructor(public payload: IStatement) {
+  constructor(public payload: Statement) {
   }
 }
 
 export class GetStatementError implements Action {
   public readonly type = EStatementActions.GetStatementError;
 
-  constructor(public payload: IStatement) {
+  constructor(public payload: Statement) {
   }
 }
 
@@ -69,14 +69,14 @@ export class AddStatement implements Action {
 export class AddStatementSuccess implements Action {
   public readonly type = EStatementActions.AddStatementSuccess;
 
-  constructor(public payload: IStatement) {
+  constructor(public payload: Statement) {
   }
 }
 
 export class AddStatementError implements Action {
   public readonly type = EStatementActions.AddStatementError;
 
-  constructor(public payload: IStatement) {
+  constructor(public payload: Statement) {
   }
 }
 
@@ -90,14 +90,14 @@ export class UpdateStatement implements Action {
 export class UpdateStatementSuccess implements Action {
   public readonly type = EStatementActions.UpdateStatementSuccess;
 
-  constructor(public payload: IStatement) {
+  constructor(public payload: Statement) {
   }
 }
 
 export class UpdateStatementError implements Action {
   public readonly type = EStatementActions.UpdateStatementError;
 
-  constructor(public payload: IStatement) {
+  constructor(public payload: Statement) {
   }
 }
 
@@ -111,14 +111,14 @@ export class RemoveStatement implements Action {
 export class RemoveStatementSuccess implements Action {
   public readonly type = EStatementActions.RemoveStatementSuccess;
 
-  constructor(public payload: IStatement) {
+  constructor(public payload: Statement) {
   }
 }
 
 export class RemoveStatementError implements Action {
   public readonly type = EStatementActions.RemoveStatementError;
 
-  constructor(public payload: IStatement) {
+  constructor(public payload: Statement) {
   }
 }
 

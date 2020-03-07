@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IRule } from '../models/rule';
+import { Rule } from '../models/rule';
 
 @Injectable()
 export class RuleService {
   constructor() {}
 
-  getRules(): Observable<IRule[]> {
-    return
+  getRules(): Observable<Rule[]> {
+    return;
   }
 }

@@ -7,7 +7,7 @@ import { RuleService } from '../../services/rule.service';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { selectRuleList } from '../selectors/rule.selector';
-import { IRule } from '../../models/rule';
+import { Rule } from '../../models/rule';
 
 @Injectable()
 export class RuleEffects {
@@ -26,7 +26,7 @@ export class RuleEffects {
   getRules$ = this._actions$.pipe(
     ofType<GetRule>(ERuleActions.GetRules),
     switchMap(() => this._ruleService.getRules()),
-    switchMap((rules: IRule[]) => of(new GetRulesSuccess(rules)))
+    switchMap((rules: Rule[]) => of(new GetRulesSuccess(rules)))
   );
 
   constructor(

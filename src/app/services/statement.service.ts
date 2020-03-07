@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IStatement } from '../models/statement';
+import { Statement } from '../models/statement';
 
 @Injectable()
 export class StatementService {
   constructor() {}
 
-  getStatements(): Observable<IStatement[]> {
-    return
+  getStatements(): Observable<Statement[]> {
+    return;
   }
 }

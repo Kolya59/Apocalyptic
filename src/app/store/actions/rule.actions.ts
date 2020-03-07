@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { IRule } from '../../models/rule';
+import { Rule } from '../../models/rule';
 
 export enum ERuleActions {
   GetRules = '[Rule] Get Rules',
@@ -27,14 +27,14 @@ export class GetRules implements Action {
 export class GetRulesSuccess implements Action {
   public readonly type = ERuleActions.GetRulesSuccess;
 
-  constructor(public payload: IRule[]) {
+  constructor(public payload: Rule[]) {
   }
 }
 
 export class GetRulesError implements Action {
   public readonly type = ERuleActions.GetRulesError;
 
-  constructor(public payload: IRule[]) {
+  constructor(public payload: Rule[]) {
   }
 }
 
@@ -48,14 +48,14 @@ export class GetRule implements Action {
 export class GetRuleSuccess implements Action {
   public readonly type = ERuleActions.GetRuleSuccess;
 
-  constructor(public payload: IRule) {
+  constructor(public payload: Rule) {
   }
 }
 
 export class GetRuleError implements Action {
   public readonly type = ERuleActions.GetRuleError;
 
-  constructor(public payload: IRule) {
+  constructor(public payload: Rule) {
   }
 }
 
@@ -69,14 +69,14 @@ export class AddRule implements Action {
 export class AddRuleSuccess implements Action {
   public readonly type = ERuleActions.AddRuleSuccess;
 
-  constructor(public payload: IRule) {
+  constructor(public payload: Rule) {
   }
 }
 
 export class AddRuleError implements Action {
   public readonly type = ERuleActions.AddRuleError;
 
-  constructor(public payload: IRule) {
+  constructor(public payload: Rule) {
   }
 }
 
@@ -90,14 +90,14 @@ export class UpdateRule implements Action {
 export class UpdateRuleSuccess implements Action {
   public readonly type = ERuleActions.UpdateRuleSuccess;
 
-  constructor(public payload: IRule) {
+  constructor(public payload: Rule) {
   }
 }
 
 export class UpdateRuleError implements Action {
   public readonly type = ERuleActions.UpdateRuleError;
 
-  constructor(public payload: IRule) {
+  constructor(public payload: Rule) {
   }
 }
 
@@ -111,14 +111,14 @@ export class RemoveRule implements Action {
 export class RemoveRuleSuccess implements Action {
   public readonly type = ERuleActions.RemoveRuleSuccess;
 
-  constructor(public payload: IRule) {
+  constructor(public payload: Rule) {
   }
 }
 
 export class RemoveRuleError implements Action {
   public readonly type = ERuleActions.RemoveRuleError;
 
-  constructor(public payload: IRule) {
+  constructor(public payload: Rule) {
   }
 }
 

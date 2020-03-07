@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { IDomain } from '../../models/domain';
+import { Domain } from '../../models/domain';
 
 export enum EDomainActions {
   GetDomains = '[Domain] Get Domains',
@@ -27,14 +27,14 @@ export class GetDomains implements Action {
 export class GetDomainsSuccess implements Action {
   public readonly type = EDomainActions.GetDomainsSuccess;
 
-  constructor(public payload: IDomain[]) {
+  constructor(public payload: Domain[]) {
   }
 }
 
 export class GetDomainsError implements Action {
   public readonly type = EDomainActions.GetDomainsError;
 
-  constructor(public payload: IDomain[]) {
+  constructor(public payload: Domain[]) {
   }
 }
 
@@ -48,14 +48,14 @@ export class GetDomain implements Action {
 export class GetDomainSuccess implements Action {
   public readonly type = EDomainActions.GetDomainSuccess;
 
-  constructor(public payload: IDomain) {
+  constructor(public payload: Domain) {
   }
 }
 
 export class GetDomainError implements Action {
   public readonly type = EDomainActions.GetDomainError;
 
-  constructor(public payload: IDomain) {
+  constructor(public payload: Domain) {
   }
 }
 
@@ -69,14 +69,14 @@ export class AddDomain implements Action {
 export class AddDomainSuccess implements Action {
   public readonly type = EDomainActions.AddDomainSuccess;
 
-  constructor(public payload: IDomain) {
+  constructor(public payload: Domain) {
   }
 }
 
 export class AddDomainError implements Action {
   public readonly type = EDomainActions.AddDomainError;
 
-  constructor(public payload: IDomain) {
+  constructor(public payload: Domain) {
   }
 }
 
@@ -90,14 +90,14 @@ export class UpdateDomain implements Action {
 export class UpdateDomainSuccess implements Action {
   public readonly type = EDomainActions.UpdateDomainSuccess;
 
-  constructor(public payload: IDomain) {
+  constructor(public payload: Domain) {
   }
 }
 
 export class UpdateDomainError implements Action {
   public readonly type = EDomainActions.UpdateDomainError;
 
-  constructor(public payload: IDomain) {
+  constructor(public payload: Domain) {
   }
 }
 
@@ -111,14 +111,14 @@ export class RemoveDomain implements Action {
 export class RemoveDomainSuccess implements Action {
   public readonly type = EDomainActions.RemoveDomainSuccess;
 
-  constructor(public payload: IDomain) {
+  constructor(public payload: Domain) {
   }
 }
 
 export class RemoveDomainError implements Action {
   public readonly type = EDomainActions.RemoveDomainError;
 
-  constructor(public payload: IDomain) {
+  constructor(public payload: Domain) {
   }
 }
 

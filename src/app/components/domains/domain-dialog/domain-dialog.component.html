@@ -1,0 +1,28 @@
+<form class="form" [formGroup]="this.options" (ngSubmit)="submit()">
+  <div>Domain {{this.data.id}}</div>
+  <mat-form-field class="name">
+    <input formControlName="name" matInput placeholder="Name">
+  </mat-form-field>
+  <mat-list cdkDropList class="values" (cdkDropListDropped)="drop($event)" formArrayName="values">
+    <mat-list-item class="value" *ngFor="let value of this.options.get('values').value; let i = index" cdkDrag>
+      <mat-form-field class="value-data">
+        <input [formControlName]="i.toString()" matInput placeholder="Value">
+      </mat-form-field>
+      <button class="value-control" mat-icon-button (click)="removeValue(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+    <mat-list-item class="value-control">
+      <button mat-icon-button (click)="insertValue('')">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+  <mat-form-field class="description">
+    <textarea formControlName="description" matInput placeholder="Description"></textarea>
+  </mat-form-field>
+  <div class="controls">
+    <button mat-raised-button (click)="save()">Save</button>
+    <button mat-raised-button (click)="cancel()">Cancel</button>
+  </div>
+</form>

@@ -1,8 +1,8 @@
-import { IStatement } from '../../models/statement';
+import { Statement } from '../../models/statement';
 
 export interface IStatementState {
-  statements: IStatement[];
-  selectedStatement: IStatement;
+  statements: Statement[];
+  selectedStatement: Statement;
 }
 
 export const initialStatementState: IStatementState = {

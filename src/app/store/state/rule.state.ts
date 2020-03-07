@@ -1,8 +1,8 @@
-import { IRule } from '../../models/rule';
+import { Rule } from '../../models/rule';
 
 export interface IRuleState {
-  rules: IRule[];
-  selectedRule: IRule;
+  rules: Rule[];
+  selectedRule: Rule;
 }
 
 export const initialRuleState: IRuleState = {

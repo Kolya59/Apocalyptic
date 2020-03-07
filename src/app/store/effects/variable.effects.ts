@@ -7,7 +7,7 @@ import { VariableService } from '../../services/variable.service';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { selectVariableList } from '../selectors/variable.selector';
-import { IVariable } from '../../models/variable';
+import { Variable } from '../../models/variable';
 
 @Injectable()
 export class VariableEffects {
@@ -26,7 +26,7 @@ export class VariableEffects {
   getVariables$ = this._actions$.pipe(
     ofType<GetVariable>(EVariableActions.GetVariables),
     switchMap(() => this._variableService.getVariables()),
-    switchMap((variables: IVariable[]) => of(new GetVariablesSuccess(variables)))
+    switchMap((variables: Variable[]) => of(new GetVariablesSuccess(variables)))
   );
 
   constructor(

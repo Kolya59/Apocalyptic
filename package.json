@@ -23,6 +23,7 @@
     "@angular/router": "~8.1.2",
     "@ngrx/store": "^8.6.0",
     "@nrwl/angular": "^9.0.4",
+    "@nrwl/workspace": "^9.0.4",
     "@types/uuid": "^3.4.8",
     "component": "^1.1.0",
     "eslint-config-prettier": "^6.10.0",

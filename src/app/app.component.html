@@ -1,6 +1,16 @@
-<div class="header">
-  <app-menu class="menu"></app-menu>
-  <p class="target-block">{{getHeader()}}</p>
-</div>
-<mat-divider></mat-divider>
-<app-body></app-body>
+<mat-sidenav-container>
+  <mat-sidenav class="header">
+    <app-menu class="menu"></app-menu>
+    <div *ngIf="!!target$; then targetBlock; else emptyTargetBlock"></div>
+    <ng-template #targetBlock>
+      <p class="target-block">{{ (target$ | async)?.name }}</p>
+    </ng-template>
+    <ng-template #emptyTargetBlock>
+      <p class="target-block">Target is not selected</p>
+    </ng-template>
+  </mat-sidenav>
+  <mat-divider></mat-divider>
+  <mat-sidenav-content>
+    <app-load></app-load>
+  </mat-sidenav-content>
+</mat-sidenav-container>

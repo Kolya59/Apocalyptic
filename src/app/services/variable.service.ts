@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IVariable } from '../models/variable';
+import { Variable } from '../models/variable';
 
 @Injectable()
 export class VariableService {
   constructor() {}
 
-  getVariables(): Observable<IVariable[]> {
-    return
+  getVariables(): Observable<Variable[]> {
+    return;
   }
 }

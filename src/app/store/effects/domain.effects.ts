@@ -7,7 +7,7 @@ import { DomainService } from '../../services/domain.service';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { selectDomainList } from '../selectors/domain.selector';
-import { IDomain } from '../../models/domain';
+import { Domain } from '../../models/domain';
 
 @Injectable()
 export class DomainEffects {
@@ -26,7 +26,7 @@ export class DomainEffects {
   getDomains$ = this._actions$.pipe(
     ofType<GetDomain>(EDomainActions.GetDomains),
     switchMap(() => this._domainService.getDomains()),
-    switchMap((domains: IDomain[]) => of(new GetDomainsSuccess(domains)))
+    switchMap((domains: Domain[]) => of(new GetDomainsSuccess(domains)))
   );
 
   constructor(

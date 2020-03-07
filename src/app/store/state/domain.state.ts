@@ -1,8 +1,8 @@
-import { IDomain } from '../../models/domain';
+import { Domain } from '../../models/domain';
 
 export interface IDomainState {
-  domains: IDomain[];
-  selectedDomain: IDomain;
+  domains: Domain[];
+  selectedDomain: Domain;
 }
 
 export const initialDomainState: IDomainState = {
