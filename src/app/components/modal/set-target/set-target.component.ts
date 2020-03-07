@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {Store} from '../../../core/store';
 import {FormBuilder, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {IStatement, IVariable, Statement} from '../../../core/models';
+import {IStatement, IVariable, Statement} from '../../../models/models';
 
 @Component({
   selector: 'app-set-target',

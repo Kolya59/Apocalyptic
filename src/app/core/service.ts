@@ -1,5 +1,5 @@
 import { Store } from './store';
-import { IRule, IStatement, IVariable } from './models';
+import { IRule, IStatement, IVariable } from '../models/models';
 import { from, Subject } from 'rxjs';
 import { map, reduce, tap } from 'rxjs/operators';
 
@@ -37,7 +37,7 @@ export class ConsultationService {
   }
 
   async requestValue(requested: IVariable): Promise<string> {
-    return new Promise(((resolve, reject) => {
+    return new Promise(((resolve) => {
       this.requestedVariableSub.next(requested);
       this.requestResultSub.subscribe(
         (next: string) => resolve(next)

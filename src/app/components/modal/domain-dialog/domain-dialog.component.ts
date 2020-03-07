@@ -2,7 +2,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Domain, IDomain } from '../../../core/models';
+import { Domain, IDomain } from '../../../models/models';
 import { Service } from '../../../core/service';
 import { Store } from '../../../core/store';
 

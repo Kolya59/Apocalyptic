@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { IDomain, IVariable } from '../../core/models';
+import { IVariable } from '../../models/variable';
+import { IDomain } from '../../models/domain';
 import { Store } from '../../core/store';
 import { DomainListDialogComponent } from '../modal/domain-list-dialog/domain-list-dialog.component';
 import { VariableListDialogComponent } from '../modal/variable-list-dialog/variable-list-dialog.component';

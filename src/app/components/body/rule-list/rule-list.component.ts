@@ -1,7 +1,7 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { IRule } from '../../../core/models';
+import { IRule } from '../../../models/models';
 import { Service } from '../../../core/service';
 
 import { Store } from '../../../core/store';
@@ -45,9 +45,15 @@ export class RuleListComponent implements OnInit {
     });
   }
 
-  removeRule(rule: IRule) {
-    // TODO Confirm removing
-    this.store.removeRule(rule.id);
+  async removeRule(rule: IRule) {
+    if (confirm('Are you sure?')) {
+      try {
+        await this.store.removeRule(rule.id);
+      } catch (e) {
+        console.error('Failed to remove rule', e);
+        alert(`Failed to remove rule: ${e.message}`);
+      }
+    }
   }
 
   drop(e: CdkDragDrop<IRule>) {

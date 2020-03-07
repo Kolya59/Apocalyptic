@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
-import { Domain, IDomain, IVariable, Variable } from '../../../core/models';
+import { Domain, IDomain, IVariable, Variable } from '../../../models/models';
 import { Store } from '../../../core/store';
 import { DomainDialogComponent } from '../domain-dialog/domain-dialog.component';
 

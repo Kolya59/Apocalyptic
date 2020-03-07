@@ -3,7 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { IRule, IVariable } from '../../../core/models';
+import { IRule, IVariable } from '../../../models/models';
 import { Service } from '../../../core/service';
 import { Store } from '../../../core/store';
 import { VariableDialogComponent } from '../variable-dialog/variable-dialog.component';

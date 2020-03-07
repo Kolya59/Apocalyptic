@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { IVariable } from '../../../core/models';
+import { IVariable } from '../../../models/models';
 import { ConsultationService } from '../../../core/service';
 import { Store } from '../../../core/store';
 

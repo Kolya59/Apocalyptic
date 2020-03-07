@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { IStatement, Statement} from '../../../core/models';
+import { IStatement, Statement} from '../../../models/models';
 import { Store } from '../../../core/store';
 
 @Component({
