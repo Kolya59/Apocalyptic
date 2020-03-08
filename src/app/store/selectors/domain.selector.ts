@@ -5,12 +5,6 @@ import { DomainState } from '../state/domain.state';
 
 const selectDomains = (state: AppState) => state.domains;
 
-export const selectDomainList = createSelector(
-  selectDomains,
-  (state: DomainState) => state.domains
-);
+export const selectDomainList = createSelector(selectDomains, (state: DomainState) => state.domains);
 
-export const selectSelectedDomain = createSelector(
-  selectDomains,
-  (state: DomainState) => state.selectedDomain
-);
+export const selectSelectedDomain = createSelector(selectDomains, (state: DomainState) => state.selectedDomain);

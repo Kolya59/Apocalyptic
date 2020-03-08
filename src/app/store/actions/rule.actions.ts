@@ -62,7 +62,7 @@ export class GetRuleError implements Action {
 export class AddRule implements Action {
   public readonly type = ERuleActions.AddRule;
 
-  constructor(public payload: string) {
+  constructor(public payload: Rule) {
   }
 }
 

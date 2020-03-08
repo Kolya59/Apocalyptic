@@ -1,15 +1,15 @@
-table {
-  width: 100%;
+.container {
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.header {
+.sidenav {
+  width: 20%;
+}
+
+.sidenav-content {
   display: flex;
-}
-
-.menu {
-  width: 50%
-}
-
-.target-block {
-  width: 50%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 }

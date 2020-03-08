@@ -1,10 +1,7 @@
 import { EDomainActions, DomainActions } from '../actions/domain.actions';
-import { initialDomainState, DomainState } from '../state/domain.state';
+import { initialDomainsState, DomainState } from '../state/domain.state';
 
-export const domainReducers = (
-  state = initialDomainState,
-  action: DomainActions
-): DomainState => {
+export const domainReducers = (state = initialDomainsState, action: DomainActions): DomainState => {
   switch (action.type) {
     case EDomainActions.GetDomainsSuccess: {
       return {

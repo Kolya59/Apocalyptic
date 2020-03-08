@@ -1,10 +1,7 @@
 import { ERuleActions, RuleActions } from '../actions/rule.actions';
 import { initialRuleState, RuleState } from '../state/rule.state';
 
-export const ruleReducers = (
-  state = initialRuleState,
-  action: RuleActions
-): RuleState => {
+export const ruleReducers = (state = initialRuleState, action: RuleActions): RuleState => {
   switch (action.type) {
     case ERuleActions.GetRulesSuccess: {
       return {
@@ -17,6 +14,25 @@ export const ruleReducers = (
       return {
         ...state,
         selectedRule: action.payload
+      };
+    }
+
+    case ERuleActions.AddRule: {
+      return {
+        rules: [action.payload],
+        selectedRule: state.selectedRule
+      };
+    }
+
+    case ERuleActions.UpdateRuleSuccess: {
+      return {
+        ...state
+      };
+    }
+
+    case ERuleActions.RemoveRuleSuccess: {
+      return {
+        ...state
       };
     }
 

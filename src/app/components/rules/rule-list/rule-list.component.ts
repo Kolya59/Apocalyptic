@@ -1,12 +1,11 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { Rule } from '../../../models/rule';
 
-import { RuleComponent } from '../rule/rule.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/state/app.state';
 import { Router } from '@angular/router';
+import { selectRuleList } from '../../../store/selectors/rule.selector';
 
 @Component({
   selector: 'app-rule-list',
@@ -14,11 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./rule-list.component.css']
 })
 export class RuleListComponent {
-  @Input()
-  rules: Rule[];
-
-  @Output()
-  ruleSelected: EventEmitter<string> = new EventEmitter();
+  rules$ = this._store.select(selectRuleList);
 
   constructor(private _store: Store<AppState>, protected router: Router) {
   }

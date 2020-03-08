@@ -11,13 +11,14 @@ import { StatementComponent } from './components/statements/statement/statement.
 import { VariableListComponent } from './components/variables/variable-list/variable-list.component';
 import { VariableComponent } from './components/variables/variable/variable.component';
 import { ConsultationComponent } from './components/consultation/consultation.component';
-import { ExplanationComponent } from './components/explanation/explanation.component';
+// import { ExplanationComponent } from './components/explanation/explanation.component';
 import { TargetComponent } from './components/target/target.component';
+import { LoadComponent } from './components/load/load.component';
 
 const appRoutes: Routes = [
   {
     path: '',
-    component: AppComponent
+    component: LoadComponent
   },
   { path: 'domains', component: DomainListComponent, canActivate: [] },
   {
@@ -48,7 +49,7 @@ const appRoutes: Routes = [
     canDeactivate: []
   },
   { path: 'consultation', component: ConsultationComponent },
-  { path: 'explanation', component: ExplanationComponent },
+  // { path: 'explanation', component: ExplanationComponent },
   { path: 'target', component: TargetComponent, canActivate: [] }
 ];
 

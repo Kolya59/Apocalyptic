@@ -1,46 +1,46 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Domain } from '../../../models/domain';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Variable } from '../../../models/variable';
+import { select, Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { FormGroupState } from 'ngrx-forms';
+import { filter, map, take } from 'rxjs/operators';
+import { SetSubmittedVariableAction } from '../../../store/actions/variable.form.action';
+import { Domain } from '../../../models/domain';
+import { selectDomainList } from '../../../store/selectors/domain.selector';
+import { AppState } from '../../../store/state/app.state';
 
 @Component({
   selector: 'app-variable-dialog',
   templateUrl: './variable.component.html',
-  styleUrls: ['./variable.component.css']
+  styleUrls: ['./variable.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VariableComponent {
-  options: FormGroup;
+  formState$: Observable<FormGroupState<Variable>>;
+  submittedValue$: Observable<Variable | undefined>;
 
-  constructor(
-    private readonly fb: FormBuilder,
-    private dialogRef: MatDialogRef<VariableComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Variable
-  ) {
-    // TODO Restore
-    /*if (!this.data) {
-      this.data = new Variable(Store.getUUID(), 'New Variable', false, '', new Domain(Store.getUUID(), 'New Domain', '', []));
-    }*/
-    this.options = fb.group({
-      domain: this.fb.control(this.data.domain, Validators.required),
-      description: this.fb.control(this.data.description),
-      isRequested: this.fb.control(this.data.isRequested),
-      name: this.fb.control(this.data.name, Validators.required)
-    });
+  constructor(private _store: Store<AppState>, protected router: Router) {
+    this.formState$ = _store.pipe(select(s => s.variableForms.formState));
+    this.submittedValue$ = _store.pipe(select(s => s.variableForms.submittedValue));
+  }
+
+  getDomains(): Observable<Domain[]> {
+    return this._store.select(selectDomainList);
   }
 
   submit() {
-    this.data.domain = this.options.controls.domain.value;
-    this.data.name = this.options.controls.name.value;
-    this.data.isRequested = this.options.controls.isRequested.value;
-    this.data.description = this.options.controls.description.value;
-  }
-
-  save() {
-    this.dialogRef.close(this.data);
+    this.formState$
+      .pipe(
+        take(1),
+        filter(s => s.isValid),
+        map(fs => new SetSubmittedVariableAction(fs.value))
+      )
+      .subscribe(this._store);
+    this.router.navigate(['variables']);
   }
 
   cancel() {
-    this.dialogRef.close(null);
+    this.router.navigate(['variables']);
   }
 }

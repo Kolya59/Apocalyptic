@@ -1,51 +1,53 @@
-<form (ngSubmit)="submit()" [formGroup]="this.options" class="form">
-  <p>Rule {{this.data.id}}</p>
+<form (ngSubmit)="submit()" [ngrxFormState]="this.formState$ | async" class="form">
+  <p>Rule {{ (this.formState$ | async).controls.id.value }}</p>
   <mat-form-field>
-    <input formControlName="name" matInput placeholder="Name" required>
+    <label>
+      <input [ngrxFormControlState]="(this.formState$ | async).controls.name" matInput placeholder="Name"/>
+    </label>
   </mat-form-field>
   <div>
-    <mat-list class="premises" formArrayName="premises">
-      <mat-list-item
-        *ngFor="let premise of this.data.premises; let i = index"
-        class="statement-item"
-        formControlName="{{i}}">
-        <p class="statement-item-value">{{premise.name}}</p>
-        <button (click)="editStatement(premise)" class="statement-item-edit" mat-icon-button>
+    <mat-list class="premises">
+      <mat-list-item *ngFor="let premise of this.getPremises() | async; let i = index" class="statement-item">
+        <p class="statement-item-value">{{ premise.name }}</p>
+        <button class="statement-item-edit" mat-icon-button>
           <mat-icon>edit</mat-icon>
         </button>
-        <button (click)="removeStatement(premise, this.data.premises)" class="statement-item-remove" mat-icon-button>
+        <button class="statement-item-remove" mat-icon-button>
           <mat-icon>delete</mat-icon>
         </button>
       </mat-list-item>
-      <button (click)="addStatement(this.data.premises)" class="statement-add" mat-icon-button>
+      <button class="statement-add" mat-icon-button>
         <mat-icon>add</mat-icon>
       </button>
     </mat-list>
     <mat-icon class="follows">arrow_forward</mat-icon>
-    <mat-list class="conclusions" formArrayName="conclusions">
+    <mat-list class="conclusions">
       <mat-list-item
-        *ngFor="let conclusion of this.data.conclusions; let i = index"
+        *ngFor="let conclusion of this.getConclusions() | async; let i = index"
         class="statement-item"
-        formControlName="{{i}}}">
-        <p class="statement-item-value">{{conclusion.name}}</p>
-        <button (click)="editStatement(conclusion)" class="statement-item-edit" mat-icon-button>
+        formControlName="{{ i }}}"
+      >
+        <p class="statement-item-value">{{ conclusion.name }}</p>
+        <button class="statement-item-edit" mat-icon-button>
           <mat-icon>edit</mat-icon>
         </button>
-        <button (click)="removeStatement(conclusion, this.data.conclusions)" class="statement-item-remove"
-                mat-icon-button>
+        <button class="statement-item-remove" mat-icon-button>
           <mat-icon>delete</mat-icon>
         </button>
       </mat-list-item>
-      <button (click)="addStatement(this.data.conclusions)" class="statement-add" mat-icon-button>
+      <button class="statement-add" mat-icon-button>
         <mat-icon>add</mat-icon>
       </button>
     </mat-list>
   </div>
   <mat-form-field class="description">
-    <textarea formControlName="description" matInput placeholder="Description" required></textarea>
+    <label>
+      <input [ngrxFormControlState]="(this.formState$ | async).controls.description" matInput
+             placeholder="Description"/>
+    </label>
   </mat-form-field>
 </form>
 <div class="controls">
-  <button (click)="save()" mat-raised-button>Save</button>
+  <button (click)="submit()" mat-raised-button>Save</button>
   <button (click)="cancel()" mat-raised-button>Cancel</button>
 </div>

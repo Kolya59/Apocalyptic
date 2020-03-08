@@ -1,9 +1,9 @@
 <div cdkDropList class="rules" (cdkDropListDropped)="drop($event)">
-  <div *ngFor="let rule of rules" cdkDrag class="rule-box">
+  <div *ngFor="let rule of this.rules$ | async" cdkDrag class="rule-box">
     <div class="content">
-      <p class="uuid">{{rule.id}}</p>
-      <p class="name">{{rule.name}}</p>
-      <p class="description">{{rule.description}}</p>
+      <p class="uuid">{{ rule.id }}</p>
+      <p class="name">{{ rule.name }}</p>
+      <p class="description">{{ rule.description }}</p>
     </div>
     <div class="controls">
       <button mat-icon-button (click)="editRule(rule)">
@@ -18,4 +18,3 @@
     <mat-icon>add</mat-icon>
   </button>
 </div>
-

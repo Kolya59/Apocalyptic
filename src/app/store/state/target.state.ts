@@ -1,9 +1,9 @@
 import { Variable } from '../../models/variable';
 
 export interface TargetState {
-  selectedTarget: Variable;
+  selectedTarget: Variable | undefined;
 }
 
 export const initialTargetState: TargetState = {
-  selectedTarget: null
+  selectedTarget: undefined
 };

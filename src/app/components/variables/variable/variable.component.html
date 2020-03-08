@@ -1,21 +1,27 @@
-<form (ngSubmit)="submit()" [formGroup]="this.options">
-  <div>Variable {{this.data.id}}</div>
+<form (ngSubmit)="submit()" [ngrxFormState]="this.formState$ | async">
+  <div>Variable {{ (this.formState$ | async).controls.id.value }}</div>
   <mat-form-field>
-    <input formControlName="name" matInput placeholder="Name" required>
+    <label>
+      <input [ngrxFormControlState]="(this.formState$ | async).controls.name" matInput placeholder="Name"/>
+    </label>
   </mat-form-field>
-  <mat-checkbox formControlName="isRequested">Is requested?</mat-checkbox>
+  <mat-checkbox [ngrxFormControlState]="(this.formState$ | async).controls.isRequested">Is requested?</mat-checkbox>
   <mat-form-field>
-    <mat-select [value]="this.data.domain" formControlName="domain" placeholder="Domain" required>
-      <mat-option *ngFor="let domain of this.store.domains" [value]="domain">
-        {{domain.name}}
+    <mat-select [ngrxFormControlState]="(this.formState$ | async).controls.name"
+                [value]="(this.formState$ | async).controls.domain" placeholder="Domain">
+      <mat-option *ngFor="let domain of (this.getDomains() | async)" [value]="domain">
+        {{ domain.name }}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <textarea formControlName="description" matInput placeholder="Description"></textarea>
+    <label>
+      <input [ngrxFormControlState]="(this.formState$ | async).controls.description" matInput
+             placeholder="Description"/>
+    </label>
   </mat-form-field>
   <div>
-    <button (click)="save()" mat-raised-button>Save</button>
+    <button (click)="submit()" mat-raised-button>Save</button>
     <button (click)="cancel()" mat-raised-button>Cancel</button>
   </div>
 </form>

@@ -5,7 +5,4 @@ import { TargetState } from '../state/target.state';
 
 const selectTarget = (state: AppState) => state.target;
 
-export const selectSelectedTarget = createSelector(
-  selectTarget,
-  (state: TargetState) => state.selectedTarget
-);
+export const selectSelectedTarget = createSelector(selectTarget, (state: TargetState) => state.selectedTarget);

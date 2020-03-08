@@ -1,9 +1,15 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
-import { Rule } from '../../../models/rule';
+import { Component } from '@angular/core';
 import { Statement } from '../../../models/statement';
-import { StatementComponent } from '../../statements/statement/statement.component';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../store/state/app.state';
+import { Rule } from '../../../models/rule';
+import { filter, map, take, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { FormGroupState } from 'ngrx-forms';
+import { SetSubmittedRuleAction } from '../../../store/actions/rule.form.action';
+import { selectStatementList } from '../../../store/selectors/statement.selector';
+import { AddRule } from '../../../store/actions/rule.actions';
 
 @Component({
   selector: 'app-rule-dialog',
@@ -11,74 +17,35 @@ import { StatementComponent } from '../../statements/statement/statement.compone
   styleUrls: ['./rule.component.css']
 })
 export class RuleComponent {
-  options: FormGroup;
+  formState$: Observable<FormGroupState<Rule>>;
+  submittedValue$: Observable<Rule | undefined>;
 
-  constructor(
-    private readonly fb: FormBuilder,
-    private dialogRef: MatDialogRef<RuleComponent>,
-    private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) private readonly data: Rule
-  ) {
-    // TODO Restore
-    /*if (!this.data) {
-      this.data = new Rule(Store.getUUID(), 'New Rule', [], [], '');
-    }*/
-    this.options = fb.group({
-      name: this.fb.control(this.data.name, Validators.required),
-      premises: this.fb.array(this.data.premises.map(value => this.fb.control(value, Validators.required))),
-      conclusions: this.fb.array(
-        this.data.conclusions.map(value => this.fb.control(value)),
-        Validators.required
-      ),
-      description: this.fb.control(this.data.description)
-    });
+  constructor(private _store: Store<AppState>, protected router: Router) {
+    this.formState$ = _store.pipe(select(s => s.ruleForms.formState));
+    this.submittedValue$ = _store.pipe(select(s => s.ruleForms.submittedValue));
   }
 
-  addStatement(container: Statement[]) {
-    const dialog = this.dialog.open(StatementComponent, {
-      width: '80%',
-      data: null
-    });
-    dialog.afterClosed().subscribe((result: Statement | null) => {
-      if (!result) {
-        return;
-      }
-      container.push(result);
-    });
+  getPremises(): Observable<Statement[]> {
+    return this._store.select(selectStatementList);
   }
 
-  editStatement(statement: Statement) {
-    const dialog = this.dialog.open(StatementComponent, {
-      width: '80%',
-      data: statement
-    });
-    dialog.afterClosed().subscribe((result: Statement | null) => {
-      if (!result) {
-        return;
-      }
-      statement = result;
-    });
-  }
-
-  // TODO Refactor
-  removeStatement(statement: Statement, container: Statement[]) {
-    container = container.filter(item => {
-      return item === statement;
-    });
+  getConclusions(): Observable<Statement[]> {
+    return this._store.select(selectStatementList);
   }
 
   submit() {
-    this.data.name = this.options.controls.name.value;
-    this.data.premises = this.options.controls.premises.value;
-    this.data.conclusions = this.options.controls.conclusions.value;
-    this.data.description = this.options.controls.description.value;
-  }
-
-  save() {
-    this.dialogRef.close(this.data);
+    this.formState$
+      .pipe(
+        take(1),
+        filter(s => s.isValid),
+        tap(fs => this._store.dispatch(new AddRule(fs.value))),
+        map(fs => new SetSubmittedRuleAction(fs.value))
+      )
+      .subscribe(this._store);
+    this.router.navigate(['rules']);
   }
 
   cancel() {
-    this.dialogRef.close(null);
+    this.router.navigate(['rules']);
   }
 }

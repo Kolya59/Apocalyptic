@@ -1,10 +1,13 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, Input } from '@angular/core';
 
 import { Rule } from '../../../models/rule';
 import { Variable } from '../../../models/variable';
-import { VariableComponent } from '../variable/variable.component';
+import { AppState } from '../../../store/state/app.state';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { selectVariableList } from '../../../store/selectors/variable.selector';
+import { RemoveVariable } from '../../../store/actions/variable.actions';
 
 @Component({
   selector: 'app-variables',
@@ -12,11 +15,11 @@ import { VariableComponent } from '../variable/variable.component';
   styleUrls: ['./variable-list.component.css']
 })
 export class VariableListComponent {
-  constructor(
-    private dialogRef: MatDialogRef<VariableListComponent>,
-    private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: Variable[]
-  ) {
+  @Input()
+  variables: Variable[];
+
+  constructor(private _store: Store<AppState>, protected router: Router) {
+    this._store.select(selectVariableList).subscribe(next => (this.variables = next));
   }
 
   // TODO Refactor
@@ -25,47 +28,16 @@ export class VariableListComponent {
     // this.store.variables = Service.reorder(e.previousIndex, e.currentIndex, this.store.variables);
   }
 
-  save(): void {
-    this.dialogRef.close(this.data);
-  }
-
-  cancel(): void {
-    this.dialogRef.close(null);
-  }
-
   insertVariable(): void {
-    this.dialog
-      .open(VariableComponent, {
-        width: '80%',
-        data: null
-      })
-      .afterClosed()
-      .subscribe((result: Variable | null) => {
-        if (!result) {
-          return;
-        }
-        this.data.push(result);
-      });
+    this.router.navigate(['variables', 'new']);
   }
 
-  editVariable(variable: Variable): void {
-    this.dialog
-      .open(VariableComponent, {
-        width: '80%',
-        data: variable
-      })
-      .afterClosed()
-      .subscribe((result: Variable | null) => {
-        if (!result) {
-          return;
-        }
-        this.data[this.data.indexOf(variable)] = result;
-      });
+  editVariable(id: string): void {
+    this.router.navigate(['variables', id]);
   }
 
-  removeVariable(variable: Variable): void {
+  removeVariable(id: string): void {
     // TODO Confirm removing
-    // TODO Restore
-    // this.store.removeVariable(variable.id);
+    this._store.dispatch(new RemoveVariable(id));
   }
 }

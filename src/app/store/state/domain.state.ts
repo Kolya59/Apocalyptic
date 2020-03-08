@@ -5,7 +5,7 @@ export interface DomainState {
   selectedDomain: Domain;
 }
 
-export const initialDomainState: DomainState = {
+export const initialDomainsState: DomainState = {
   domains: null,
   selectedDomain: null
 };

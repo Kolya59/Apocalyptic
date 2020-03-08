@@ -13,8 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AppComponent implements OnInit {
   target$ = this._store.pipe(select(selectSelectedTarget));
 
-  constructor(private _store: Store<AppState>, protected router: Router, protected route: ActivatedRoute, protected location: Location) {
-    this.router.navigate(['rules', 'new']);
+  constructor(private _store: Store<AppState>, protected router: Router, protected route: ActivatedRoute) {
   }
 
   ngOnInit(): void {

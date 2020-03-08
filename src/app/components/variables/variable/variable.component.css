@@ -1,5 +1,6 @@
 form {
   display: inline-block;
+  border: 5px black;
 }
 
 form > * {

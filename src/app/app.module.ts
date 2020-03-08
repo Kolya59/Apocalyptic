@@ -6,15 +6,14 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
-import { MenuComponent } from './components/menu/menu.component';
 import { DomainListComponent } from './components/domains/domain-list/domain-list.component';
-import { ExplanationComponent } from './components/explanation/explanation.component';
+// import { ExplanationComponent } from './components/explanation/explanation.component';
 import { ConsultationComponent } from './components/consultation/consultation.component';
 import { VariableComponent } from './components/variables/variable/variable.component';
 import { VariableListComponent } from './components/variables/variable-list/variable-list.component';
 import { ConsultationService, Service } from './services/service';
 import { RuleListComponent } from './components/rules/rule-list/rule-list.component';
-import { MaterialModule } from './module/material-module';
+import { MaterialModule } from './module';
 import { RuleComponent } from './components/rules/rule/rule.component';
 import { TargetComponent } from './components/target/target.component';
 import { StoreModule } from '@ngrx/store';
@@ -22,7 +21,7 @@ import { NgrxFormsModule } from 'ngrx-forms';
 import { appReducers } from './store/reducers/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { RuleEffects } from './store/effects/rule.effects';
-import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
 import { RuleService } from './services/rule.service';
 import { DomainEffects } from './store/effects/domain.effects';
@@ -36,14 +35,14 @@ import { StatementComponent } from './components/statements/statement/statement.
 import { LoadComponent } from './components/load/load.component';
 import { DomainComponent } from './components/domains/domain/domain.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
     RuleListComponent,
     DomainListComponent,
-    ExplanationComponent,
+    // ExplanationComponent,
     ConsultationComponent,
     VariableListComponent,
     VariableComponent,
@@ -65,14 +64,12 @@ import { AppRoutingModule } from './app-routing.module';
     MaterialModule,
     ReactiveFormsModule,
     NgrxFormsModule,
-    AppRoutingModule,
-    StoreModule.forRoot({
-      router: routerReducer,
-      app: appReducers
-    }),
+    StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([DomainEffects, RuleEffects, StatementEffects, VariableEffects]),
-    StoreRouterConnectingModule,
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    AppRoutingModule,
+    DragDropModule
   ],
   providers: [
     DomainService,
@@ -104,7 +101,7 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   entryComponents: [
     ConsultationComponent,
-    ExplanationComponent,
+    // ExplanationComponent,
     DomainComponent,
     DomainListComponent,
     RuleComponent,

@@ -1,16 +1,17 @@
-<mat-sidenav-container>
-  <mat-sidenav class="header">
-    <app-menu class="menu"></app-menu>
-    <div *ngIf="!!target$; then targetBlock; else emptyTargetBlock"></div>
-    <ng-template #targetBlock>
-      <p class="target-block">{{ (target$ | async)?.name }}</p>
-    </ng-template>
-    <ng-template #emptyTargetBlock>
-      <p class="target-block">Target is not selected</p>
-    </ng-template>
-  </mat-sidenav>
-  <mat-divider></mat-divider>
-  <mat-sidenav-content>
-    <app-load></app-load>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<mat-toolbar class="example-toolbar" color="primary">
+  <h1>Knowledge Master 3000</h1>
+  <button mat-button routerLink="/" routerLinkActive="active-link">New</button>
+  <button mat-button routerLink="/domains" routerLinkActive="active-link">Domains</button>
+  <button mat-button routerLink="/rules" routerLinkActive="active-link">Rules</button>
+  <button mat-button routerLink="/variables" routerLinkActive="active-link">Variables</button>
+  <button mat-button routerLink="/target" routerLinkActive="active-link">Set target</button>
+  <button mat-button routerLink="/consultation" routerLinkActive="active-link">Consult</button>
+  <div *ngIf="!!(this.target$ | async); then targetBlock; else emptyTargetBlock"></div>
+  <ng-template #targetBlock>
+    <p class="target-block">{{ (this.target$ | async)?.name }}</p>
+  </ng-template>
+  <ng-template #emptyTargetBlock>
+    <p class="target-block">Target is not selected</p>
+  </ng-template>
+</mat-toolbar>
+<router-outlet></router-outlet>

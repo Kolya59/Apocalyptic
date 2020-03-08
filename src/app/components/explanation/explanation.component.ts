@@ -1,3 +1,4 @@
+/*
 import { Component, Inject } from '@angular/core';
 import { ConsultationService } from '../../services/service';
 import { Variable } from '../../models/variable';
@@ -25,6 +26,7 @@ class FlatNode {
   styleUrls: ['./explanation.component.css']
 })
 export class ExplanationComponent {
+  // TODO Restore
   treeControl = new FlatTreeControl<FlatNode>(
     node => node.level,
     node => node.expandable
@@ -70,3 +72,4 @@ export class ExplanationComponent {
     this.dialogRef.close();
   }
 }
+*/
