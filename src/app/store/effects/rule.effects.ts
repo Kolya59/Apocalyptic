@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../state/app.state';
+import { AppState } from '../state/app.state';
 import { ERuleActions, GetRule, GetRulesSuccess, GetRuleSuccess } from '../actions/rule.actions';
 import { RuleService } from '../../services/rule.service';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
@@ -32,6 +32,6 @@ export class RuleEffects {
   constructor(
     private _ruleService: RuleService,
     private _actions$: Actions,
-    private _store: Store<IAppState>
+    private _store: Store<AppState>
   ) {}
 }

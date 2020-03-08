@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../state/app.state';
+import { AppState } from '../state/app.state';
 import { EVariableActions, GetVariable, GetVariablesSuccess, GetVariableSuccess } from '../actions/variable.actions';
 import { VariableService } from '../../services/variable.service';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
@@ -32,6 +32,6 @@ export class VariableEffects {
   constructor(
     private _variableService: VariableService,
     private _actions$: Actions,
-    private _store: Store<IAppState>
+    private _store: Store<AppState>
   ) {}
 }

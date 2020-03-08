@@ -1,16 +1,16 @@
 import { createSelector } from '@ngrx/store';
 
-import { IAppState } from '../state/app.state';
-import { IStatementState } from '../state/statement.state';
+import { AppState } from '../state/app.state';
+import { StatementState } from '../state/statement.state';
 
-const selectStatements = (state: IAppState) => state.statements;
+const selectStatements = (state: AppState) => state.statements;
 
 export const selectStatementList = createSelector(
   selectStatements,
-  (state: IStatementState) => state.statements
+  (state: StatementState) => state.statements
 );
 
 export const selectSelectedStatement = createSelector(
   selectStatements,
-  (state: IStatementState) => state.selectedStatement
+  (state: StatementState) => state.selectedStatement
 );

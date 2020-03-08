@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Variable } from '../../models/variable';
 import { Domain } from '../../models/domain';
-import { DomainListDialogComponent } from '../domains/domain-list-dialog/domain-list-dialog.component';
-import { VariableListDialogComponent } from '../variables/variable-list-dialog/variable-list-dialog.component';
+import { DomainListComponent } from '../domains/domain-list/domain-list.component';
+import { VariableListComponent } from '../variables/variable-list/variable-list.component';
 import { TargetComponent } from '../target/target.component';
 import { ConsultationComponent } from '../consultation/consultation.component';
 
@@ -19,7 +19,7 @@ export class MenuComponent {
   openDomainDialog() {
     // TODO: Restore
     /*this.dialog
-      .open(DomainListDialogComponent, {
+      .open(DomainListComponent, {
         width: '80%',
         data: this.store.variables
       })
@@ -35,7 +35,7 @@ export class MenuComponent {
   openVariableDialog() {
     // TODO: Restore
     /*this.dialog
-      .open(VariableListDialogComponent, {
+      .open(VariableListComponent, {
         width: '80%',
         data: this.store.variables
       })

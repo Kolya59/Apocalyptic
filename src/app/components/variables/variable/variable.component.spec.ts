@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VariableComponent } from './variable.component';
 
-describe('VariableComponent', () => {
+describe('VariableDialogComponent', () => {
   let component: VariableComponent;
   let fixture: ComponentFixture<VariableComponent>;
 

@@ -1,9 +1,9 @@
 import { Variable } from '../../models/variable';
 
-export interface ITargetState {
+export interface TargetState {
   selectedTarget: Variable;
 }
 
-export const initialTargetState: ITargetState = {
+export const initialTargetState: TargetState = {
   selectedTarget: null
 };

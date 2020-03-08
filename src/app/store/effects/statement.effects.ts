@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../state/app.state';
+import { AppState } from '../state/app.state';
 import { EStatementActions, GetStatement, GetStatementsSuccess, GetStatementSuccess } from '../actions/statement.actions';
 import { StatementService } from '../../services/statement.service';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
@@ -32,6 +32,6 @@ export class StatementEffects {
   constructor(
     private _statementService: StatementService,
     private _actions$: Actions,
-    private _store: Store<IAppState>
+    private _store: Store<AppState>
   ) {}
 }

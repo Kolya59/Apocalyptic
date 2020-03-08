@@ -1,1 +1,24 @@
-<p>variable-list works!</p>
+<div (cdkDropListDropped)="drop($event)" cdkDropList class="variables">
+  <div *ngFor="let variable of store.variables" cdkDrag class="variable-box">
+    <div class="variable-uuid">{{variable.id}}</div>
+    <div class="variable-name">{{variable.name}}</div>
+    <div class="variable-domain">{{variable.domain.name}}</div>
+    <div class="variable-controls">
+      <button (click)="editVariable(variable)" mat-icon-button>
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button (click)="removeVariable(variable)" mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div>
+    <button (click)="insertVariable()" class="variable-add" mat-icon-button>
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="controls">
+  <button (click)="save()" mat-raised-button>Save</button>
+  <button (click)="cancel()" mat-raised-button>Cancel</button>
+</div>

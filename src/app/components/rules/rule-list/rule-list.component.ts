@@ -2,11 +2,11 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Rule } from '../../../models/rule';
-import { Service } from '../../../services/service';
 
-import { RuleDialogComponent } from '../rule-dialog/rule-dialog.component';
+import { RuleComponent } from '../rule/rule.component';
 import { Store } from '@ngrx/store';
-import { IAppState } from '../../../store/state/app.state';
+import { AppState } from '../../../store/state/app.state';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rule-list',
@@ -20,39 +20,15 @@ export class RuleListComponent {
   @Output()
   ruleSelected: EventEmitter<string> = new EventEmitter();
 
-  constructor(private _store: Store<IAppState>, public readonly dialog: MatDialog) {
+  constructor(private _store: Store<AppState>, protected router: Router) {
   }
 
   insertRule() {
-    this.dialog
-      .open(RuleDialogComponent, {
-        width: '80%',
-        data: null
-      })
-      .afterClosed()
-      .subscribe((result: Rule | null) => {
-        if (!result) {
-          return;
-        }
-        // TODO Restore
-        // this.store.rules.push(result);
-      });
+    this.router.navigate(['rules', 'new']);
   }
 
   editRule(rule: Rule) {
-    this.dialog
-      .open(RuleDialogComponent, {
-        width: '80%',
-        data: rule
-      })
-      .afterClosed()
-      .subscribe((result: Rule | null) => {
-        if (!result) {
-          return;
-        }
-        // TODO Restore
-        // this.store.rules[this.store.rules.indexOf(rule)] = result;
-      });
+    this.router.navigate(['rules', `${rule.id}`]);
   }
 
   async removeRule(rule: Rule) {

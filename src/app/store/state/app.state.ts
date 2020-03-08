@@ -1,21 +1,21 @@
 import { RouterReducerState } from '@ngrx/router-store';
 
-import { IDomainState, initialDomainState } from './domain.state';
-import { initialRuleState, IRuleState } from './rule.state';
-import { initialStatementState, IStatementState } from './statement.state';
-import { initialVariableState, IVariableState } from './variable.state';
-import { initialTargetState, ITargetState } from './target.state';
+import { DomainState, initialDomainState } from './domain.state';
+import { initialRuleState, RuleState } from './rule.state';
+import { initialStatementState, StatementState } from './statement.state';
+import { initialVariableState, VariableState } from './variable.state';
+import { initialTargetState, TargetState } from './target.state';
 
-export interface IAppState {
+export interface AppState {
   router?: RouterReducerState;
-  domains: IDomainState;
-  rules: IRuleState;
-  statements: IStatementState;
-  variables: IVariableState;
-  target?: ITargetState;
+  domains: DomainState;
+  rules: RuleState;
+  statements: StatementState;
+  variables: VariableState;
+  target?: TargetState;
 }
 
-export const initialAppState: IAppState = {
+export const initialAppState: AppState = {
   domains: initialDomainState,
   rules: initialRuleState,
   statements: initialStatementState,
@@ -23,6 +23,6 @@ export const initialAppState: IAppState = {
   target: initialTargetState
 };
 
-export function getInitialState(): IAppState {
+export function getInitialState(): AppState {
   return initialAppState;
 }

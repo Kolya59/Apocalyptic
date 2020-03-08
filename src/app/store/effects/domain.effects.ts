@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../state/app.state';
+import { AppState } from '../state/app.state';
 import { EDomainActions, GetDomain, GetDomainsSuccess, GetDomainSuccess } from '../actions/domain.actions';
 import { DomainService } from '../../services/domain.service';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
@@ -32,6 +32,6 @@ export class DomainEffects {
   constructor(
     private _domainService: DomainService,
     private _actions$: Actions,
-    private _store: Store<IAppState>
+    private _store: Store<AppState>
   ) {}
 }

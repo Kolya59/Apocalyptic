@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DomainComponent } from './domain.component';
 
-describe('DomainsComponent', () => {
+describe('DomainDialogComponent', () => {
   let component: DomainComponent;
   let fixture: ComponentFixture<DomainComponent>;
 

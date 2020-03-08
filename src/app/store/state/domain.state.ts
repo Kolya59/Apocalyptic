@@ -1,11 +1,11 @@
 import { Domain } from '../../models/domain';
 
-export interface IDomainState {
+export interface DomainState {
   domains: Domain[];
   selectedDomain: Domain;
 }
 
-export const initialDomainState: IDomainState = {
+export const initialDomainState: DomainState = {
   domains: null,
   selectedDomain: null
 };

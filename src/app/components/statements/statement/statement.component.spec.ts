@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StatementComponent } from './statement.component';
 
-describe('StatementComponent', () => {
+describe('StatementDialogComponent', () => {
   let component: StatementComponent;
   let fixture: ComponentFixture<StatementComponent>;
 

@@ -1,10 +1,10 @@
 import { EVariableActions, VariableActions } from '../actions/variable.actions';
-import { initialVariableState, IVariableState } from '../state/variable.state';
+import { initialVariableState, VariableState } from '../state/variable.state';
 
 export const variableReducers = (
   state = initialVariableState,
   action: VariableActions
-): IVariableState => {
+): VariableState => {
   switch (action.type) {
     case EVariableActions.GetVariablesSuccess: {
       return {

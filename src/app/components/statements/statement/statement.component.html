@@ -1,1 +1,26 @@
-<p>statement works!</p>
+<form (ngSubmit)="submit()" [formGroup]="options">
+  <div>Statement {{this.data.id}}</div>
+  <mat-form-field class="name">
+    <input formControlName="name" matInput placeholder="Name" required>
+  </mat-form-field>
+  <mat-select [value]="this.data.variable" class="variable-select" formControlName="variable" required>
+    <mat-option *ngFor="let variable of this.store.variables"
+                [value]="this.data.variable">
+      <p>{{variable.name}}</p>
+    </mat-option>
+  </mat-select>
+  <mat-icon class="follows">arrow_forward</mat-icon>
+  <mat-select [value]="this.data.value" class="value-select" formControlName="value" required>
+    <mat-option *ngFor="let value of this.data.variable.domain.values"
+                [value]="value">
+      <p>{{value}}</p>
+    </mat-option>
+  </mat-select>
+  <mat-form-field class="description">
+    <input formControlName="description" matInput placeholder="Description">
+  </mat-form-field>
+  <div class="controls">
+    <button (click)="save()" mat-raised-button>Save</button>
+    <button (click)="cancel()" mat-raised-button>Cancel</button>
+  </div>
+</form>

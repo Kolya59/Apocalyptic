@@ -1,9 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ConsultationService } from '../../services/service';
 import { Variable } from '../../models/variable';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/state/app.state';
 
 class Node {
   target: Variable;
@@ -30,6 +32,7 @@ export class ExplanationComponent {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(
+    private readonly _store: Store<AppState>,
     private readonly consultant: ConsultationService,
     private readonly dialogRef: MatDialogRef<ExplanationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Variable
@@ -46,21 +49,20 @@ export class ExplanationComponent {
     }
   }
 
-  private transformer = (node: Node, level: number) => {
+  treeFlattener = new MatTreeFlattener(
+    this.transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children
+  );
+
+  transformer = (node: Node, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
       name: node.target.name,
       level
     };
   };
-
-  treeFlattener = new MatTreeFlattener(
-    // @ts-ignore
-    this.transformer,
-    node => node.level,
-    node => node.expandable,
-    node => node.children
-  );
 
   hasChild = (_: number, node: FlatNode) => node.expandable;
 

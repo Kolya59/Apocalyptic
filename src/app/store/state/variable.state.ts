@@ -1,11 +1,11 @@
 import { Variable } from '../../models/variable';
 
-export interface IVariableState {
+export interface VariableState {
   variables: Variable[];
   selectedVariable: Variable;
 }
 
-export const initialVariableState: IVariableState = {
+export const initialVariableState: VariableState = {
   variables: null,
   selectedVariable: null
 };

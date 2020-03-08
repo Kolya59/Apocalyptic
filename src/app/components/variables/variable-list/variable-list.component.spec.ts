@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VariableListComponent } from './variable-list.component';
 
-describe('VariableListComponent', () => {
+describe('VariablesComponent', () => {
   let component: VariableListComponent;
   let fixture: ComponentFixture<VariableListComponent>;
 

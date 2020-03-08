@@ -1,0 +1,7 @@
+form {
+  display: inline-block;
+}
+
+form > * {
+  width: 100%;
+}

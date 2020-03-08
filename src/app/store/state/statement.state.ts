@@ -1,11 +1,11 @@
 import { Statement } from '../../models/statement';
 
-export interface IStatementState {
+export interface StatementState {
   statements: Statement[];
   selectedStatement: Statement;
 }
 
-export const initialStatementState: IStatementState = {
+export const initialStatementState: StatementState = {
   statements: null,
   selectedStatement: null
 };

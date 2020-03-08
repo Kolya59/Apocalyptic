@@ -1,11 +1,11 @@
 import { Rule } from '../../models/rule';
 
-export interface IRuleState {
+export interface RuleState {
   rules: Rule[];
   selectedRule: Rule;
 }
 
-export const initialRuleState: IRuleState = {
+export const initialRuleState: RuleState = {
   rules: null,
   selectedRule: null
 };

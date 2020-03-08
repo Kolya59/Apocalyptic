@@ -1,10 +1,10 @@
 import { EStatementActions, StatementActions } from '../actions/statement.actions';
-import { initialStatementState, IStatementState } from '../state/statement.state';
+import { initialStatementState, StatementState } from '../state/statement.state';
 
 export const statementReducers = (
   state = initialStatementState,
   action: StatementActions
-): IStatementState => {
+): StatementState => {
   switch (action.type) {
     case EStatementActions.GetStatementsSuccess: {
       return {

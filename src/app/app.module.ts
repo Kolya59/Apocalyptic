@@ -6,19 +6,16 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
-import { BodyComponent } from './components/body/body.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { DomainDialogComponent } from './components/domains/domain-dialog/domain-dialog.component';
-import { DomainListDialogComponent } from './components/domains/domain-list-dialog/domain-list-dialog.component';
+import { DomainListComponent } from './components/domains/domain-list/domain-list.component';
 import { ExplanationComponent } from './components/explanation/explanation.component';
 import { ConsultationComponent } from './components/consultation/consultation.component';
-import { VariableDialogComponent } from './components/variables/variable-dialog/variable-dialog.component';
-import { VariableListDialogComponent } from './components/variables/variable-list-dialog/variable-list-dialog.component';
+import { VariableComponent } from './components/variables/variable/variable.component';
+import { VariableListComponent } from './components/variables/variable-list/variable-list.component';
 import { ConsultationService, Service } from './services/service';
 import { RuleListComponent } from './components/rules/rule-list/rule-list.component';
 import { MaterialModule } from './module/material-module';
-import { RuleDialogComponent } from './components/rules/rule-dialog/rule-dialog.component';
-import { StatementDialogComponent } from './components/statements/statement-dialog/statement-dialog.component';
+import { RuleComponent } from './components/rules/rule/rule.component';
 import { TargetComponent } from './components/target/target.component';
 import { StoreModule } from '@ngrx/store';
 import { NgrxFormsModule } from 'ngrx-forms';
@@ -34,36 +31,29 @@ import { VariableEffects } from './store/effects/variable.effects';
 import { StatementService } from './services/statement.service';
 import { VariableService } from './services/variable.service';
 import { DomainService } from './services/domain.service';
-import { RouterModule } from '@angular/router';
-import { DomainsComponent } from './components/domains/domains/domains.component';
-import { DomainListComponent } from './components/domains/domain-list/domain-list.component';
-import { RuleComponent } from './components/rules/rule/rule.component';
 import { StatementListComponent } from './components/statements/statement-list/statement-list.component';
 import { StatementComponent } from './components/statements/statement/statement.component';
-import { VariableComponent } from './components/variables/variable/variable.component';
-import { VariableListComponent } from './components/variables/variable-list/variable-list.component';
 import { LoadComponent } from './components/load/load.component';
+import { DomainComponent } from './components/domains/domain/domain.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BodyComponent,
     MenuComponent,
     RuleListComponent,
-    DomainListDialogComponent,
-    DomainDialogComponent,
+    DomainListComponent,
     ExplanationComponent,
     ConsultationComponent,
-    VariableListDialogComponent,
-    VariableDialogComponent,
-    RuleDialogComponent,
-    StatementDialogComponent,
+    VariableListComponent,
+    VariableComponent,
+    RuleComponent,
+    StatementComponent,
     TargetComponent,
-    DomainsComponent,
+    DomainComponent,
     DomainListComponent,
     RuleComponent,
     StatementListComponent,
-    StatementComponent,
     VariableComponent,
     VariableListComponent,
     LoadComponent
@@ -75,13 +65,13 @@ import { LoadComponent } from './components/load/load.component';
     MaterialModule,
     ReactiveFormsModule,
     NgrxFormsModule,
+    AppRoutingModule,
     StoreModule.forRoot({
       router: routerReducer,
       app: appReducers
     }),
     EffectsModule.forRoot([DomainEffects, RuleEffects, StatementEffects, VariableEffects]),
-    RouterModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
+    StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
@@ -115,13 +105,13 @@ import { LoadComponent } from './components/load/load.component';
   entryComponents: [
     ConsultationComponent,
     ExplanationComponent,
-    DomainDialogComponent,
-    DomainListDialogComponent,
-    RuleDialogComponent,
+    DomainComponent,
+    DomainListComponent,
+    RuleComponent,
     TargetComponent,
-    StatementDialogComponent,
-    VariableDialogComponent,
-    VariableListDialogComponent
+    StatementComponent,
+    VariableComponent,
+    VariableListComponent
   ],
   bootstrap: [AppComponent]
 })

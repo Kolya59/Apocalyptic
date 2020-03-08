@@ -1,16 +1,16 @@
 import { createSelector } from '@ngrx/store';
 
-import { IAppState } from '../state/app.state';
-import { IRuleState } from '../state/rule.state';
+import { AppState } from '../state/app.state';
+import { RuleState } from '../state/rule.state';
 
-const selectRules = (state: IAppState) => state.rules;
+const selectRules = (state: AppState) => state.rules;
 
 export const selectRuleList = createSelector(
   selectRules,
-  (state: IRuleState) => state.rules
+  (state: RuleState) => state.rules
 );
 
 export const selectSelectedRule = createSelector(
   selectRules,
-  (state: IRuleState) => state.selectedRule
+  (state: RuleState) => state.selectedRule
 );

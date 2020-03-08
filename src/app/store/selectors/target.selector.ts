@@ -1,11 +1,11 @@
 import { createSelector } from '@ngrx/store';
 
-import { IAppState } from '../state/app.state';
-import { ITargetState } from '../state/target.state';
+import { AppState } from '../state/app.state';
+import { TargetState } from '../state/target.state';
 
-const selectTarget = (state: IAppState) => state.target;
+const selectTarget = (state: AppState) => state.target;
 
 export const selectSelectedTarget = createSelector(
   selectTarget,
-  (state: ITargetState) => state.selectedTarget
+  (state: TargetState) => state.selectedTarget
 );
