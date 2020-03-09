@@ -1,54 +1,41 @@
 import { RouterReducerState } from '@ngrx/router-store';
 
-import { DomainState, initialDomainsState } from './domain.state';
-import { initialRuleState, RuleState } from './rule.state';
-import { initialStatementState, StatementState } from './statement.state';
-import { initialVariableState, VariableState } from './variable.state';
+import { initialRuleFormState, initialRuleListState, RuleListState } from './rule.state';
+import { initialStatementFormState, initialStatementState, StatementState } from './statement.state';
+import { initialVariableFormState, initialVariableListState, VariableListState } from './variable.state';
 import { initialTargetState, TargetState } from './target.state';
 import { FormGroupState } from 'ngrx-forms';
-import { Domain } from '../../models/domain';
-import { initialRuleFormState } from './rule.form.state';
 import { Rule } from '../../models/rule';
 import { Statement } from '../../models/statement';
 import { Variable } from '../../models/variable';
-import { initialDomainFormState } from './domain.form.state';
-import { initialVariableFormState } from './variable.form.state';
-import { initialStatementFormState } from './statement.form.state';
 
 export interface AppState {
   router?: RouterReducerState;
-  domains: DomainState;
-  rules: RuleState;
+  rules: RuleListState;
   statements: StatementState;
-  variables: VariableState;
+  variables: VariableListState;
   target?: TargetState;
-  domainForms: {
-    formState: FormGroupState<Domain>;
-    submittedValue: Domain | undefined;
-  };
-  ruleForms: {
+  ruleForm: {
     formState: FormGroupState<Rule>;
     submittedValue: Rule | undefined;
   };
-  statementForms: {
+  statementForm: {
     formState: FormGroupState<Statement>;
     submittedValue: Statement | undefined;
   };
-  variableForms: {
+  variableForm: {
     formState: FormGroupState<Variable>;
     submittedValue: Variable | undefined;
   };
 }
 
 export const initialAppState: AppState = {
-  domainForms: { formState: initialDomainFormState, submittedValue: undefined },
-  ruleForms: { formState: initialRuleFormState, submittedValue: undefined },
-  statementForms: { formState: initialStatementFormState, submittedValue: undefined },
-  variableForms: { formState: initialVariableFormState, submittedValue: undefined },
-  domains: initialDomainsState,
-  rules: initialRuleState,
+  ruleForm: { formState: initialRuleFormState, submittedValue: undefined },
+  statementForm: { formState: initialStatementFormState, submittedValue: undefined },
+  variableForm: { formState: initialVariableFormState, submittedValue: undefined },
+  rules: initialRuleListState,
   statements: initialStatementState,
-  variables: initialVariableState,
+  variables: initialVariableListState,
   target: initialTargetState
 };
 

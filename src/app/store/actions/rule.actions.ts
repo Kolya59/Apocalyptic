@@ -17,45 +17,20 @@ export enum ERuleActions {
   UpdateRuleError = '[Rule] Update Rule Error',
   RemoveRule = '[Rule] Remove',
   RemoveRuleSuccess = '[Rule] Remove Rule Success',
-  RemoveRuleError = '[Rule] Remove RuleErrors'
+  RemoveRuleError = '[Rule] Remove Rule Error',
+  ReorderRule = '[Rule] Reorder',
+  ReorderRuleSuccess = '[Rule] Reorder Rule Success',
+  ReorderRuleError = '[Rule] Reorder Rule Error'
 }
 
 export class GetRules implements Action {
   public readonly type = ERuleActions.GetRules;
 }
 
-export class GetRulesSuccess implements Action {
-  public readonly type = ERuleActions.GetRulesSuccess;
-
-  constructor(public payload: Rule[]) {
-  }
-}
-
-export class GetRulesError implements Action {
-  public readonly type = ERuleActions.GetRulesError;
-
-  constructor(public payload: Rule[]) {
-  }
-}
-
 export class GetRule implements Action {
   public readonly type = ERuleActions.GetRule;
 
   constructor(public payload: string) {
-  }
-}
-
-export class GetRuleSuccess implements Action {
-  public readonly type = ERuleActions.GetRuleSuccess;
-
-  constructor(public payload: Rule) {
-  }
-}
-
-export class GetRuleError implements Action {
-  public readonly type = ERuleActions.GetRuleError;
-
-  constructor(public payload: Rule) {
   }
 }
 
@@ -66,36 +41,8 @@ export class AddRule implements Action {
   }
 }
 
-export class AddRuleSuccess implements Action {
-  public readonly type = ERuleActions.AddRuleSuccess;
-
-  constructor(public payload: Rule) {
-  }
-}
-
-export class AddRuleError implements Action {
-  public readonly type = ERuleActions.AddRuleError;
-
-  constructor(public payload: Rule) {
-  }
-}
-
 export class UpdateRule implements Action {
   public readonly type = ERuleActions.UpdateRule;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class UpdateRuleSuccess implements Action {
-  public readonly type = ERuleActions.UpdateRuleSuccess;
-
-  constructor(public payload: Rule) {
-  }
-}
-
-export class UpdateRuleError implements Action {
-  public readonly type = ERuleActions.UpdateRuleError;
 
   constructor(public payload: Rule) {
   }
@@ -108,33 +55,19 @@ export class RemoveRule implements Action {
   }
 }
 
-export class RemoveRuleSuccess implements Action {
-  public readonly type = ERuleActions.RemoveRuleSuccess;
+export class ReorderRules implements Action {
+  public readonly type = ERuleActions.ReorderRule;
 
-  constructor(public payload: Rule) {
+  constructor(public payload: { sourceID: number; targetID: number }) {
   }
 }
 
-export class RemoveRuleError implements Action {
-  public readonly type = ERuleActions.RemoveRuleError;
+export type RuleActions = GetRules | GetRule | AddRule | UpdateRule | RemoveRule | ReorderRules;
 
-  constructor(public payload: Rule) {
+export class SetSubmittedRuleAction implements Action {
+  static readonly TYPE = '[Rule Form] Set Rule';
+  readonly type = SetSubmittedRuleAction.TYPE;
+
+  constructor(public submittedValue: Rule) {
   }
 }
-
-export type RuleActions =
-  | GetRules
-  | GetRulesSuccess
-  | GetRulesError
-  | GetRule
-  | GetRuleSuccess
-  | GetRuleError
-  | AddRule
-  | AddRuleSuccess
-  | AddRuleError
-  | UpdateRule
-  | UpdateRuleSuccess
-  | UpdateRuleError
-  | RemoveRule
-  | RemoveRuleSuccess
-  | RemoveRuleError;

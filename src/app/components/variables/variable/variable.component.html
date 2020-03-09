@@ -7,21 +7,37 @@
   </mat-form-field>
   <mat-checkbox [ngrxFormControlState]="(this.formState$ | async).controls.isRequested">Is requested?</mat-checkbox>
   <mat-form-field>
-    <mat-select [ngrxFormControlState]="(this.formState$ | async).controls.name"
-                [value]="(this.formState$ | async).controls.domain" placeholder="Domain">
-      <mat-option *ngFor="let domain of (this.getDomains() | async)" [value]="domain">
-        {{ domain.name }}
+    <mat-select
+      [ngrxFormControlState]="(this.formState$ | async).controls.name"
+      [value]="(this.formState$ | async).controls.domain"
+      placeholder="Domain"
+    >
+      <mat-option *ngFor="let domain of (this.formState$ | async).controls.domain.value" [value]="domain">
+        {{ domain }}
+        <div>
+          <button mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-option>
+      <mat-option>
+        <button mat-icon-button>
+          <mat-icon>add</mat-icon>
+        </button>
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
+  <!--<mat-form-field>
     <label>
       <input [ngrxFormControlState]="(this.formState$ | async).controls.description" matInput
-             placeholder="Description"/>
+             placeholder="Description" />
     </label>
-  </mat-form-field>
+  </mat-form-field>-->
   <div>
-    <button (click)="submit()" mat-raised-button>Save</button>
+    <button (click)="save()" mat-raised-button>Save</button>
     <button (click)="cancel()" mat-raised-button>Cancel</button>
   </div>
 </form>

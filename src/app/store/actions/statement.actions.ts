@@ -138,3 +138,11 @@ export type StatementActions =
   | RemoveStatement
   | RemoveStatementSuccess
   | RemoveStatementError;
+
+export class SetSubmittedStatementAction implements Action {
+  static readonly TYPE = '[Statement Form] Set Statement';
+  readonly type = SetSubmittedStatementAction.TYPE;
+
+  constructor(public submittedValue: Statement) {
+  }
+}

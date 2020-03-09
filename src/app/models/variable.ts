@@ -4,7 +4,7 @@ export interface Variable {
   isRequested: boolean;
   requestMsg?: string;
   description?: string;
-  domain: string;
+  domain: string[];
 }
 
 export class VariableValueMap {[uuid: string]: string}

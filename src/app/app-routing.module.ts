@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { DomainListComponent } from './components/domains/domain-list/domain-list.component';
-import { DomainComponent } from './components/domains/domain/domain.component';
 import { RuleListComponent } from './components/rules/rule-list/rule-list.component';
 import { RuleComponent } from './components/rules/rule/rule.component';
 import { StatementListComponent } from './components/statements/statement-list/statement-list.component';
@@ -19,13 +16,6 @@ const appRoutes: Routes = [
   {
     path: '',
     component: LoadComponent
-  },
-  { path: 'domains', component: DomainListComponent, canActivate: [] },
-  {
-    path: 'domains/:id',
-    component: DomainComponent,
-    canActivate: [],
-    canDeactivate: []
   },
   { path: 'rules', component: RuleListComponent, canActivate: [] },
   {

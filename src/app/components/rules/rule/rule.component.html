@@ -1,3 +1,4 @@
+<script src="../../../store/reducers/rule.reducers.ts"></script>
 <form (ngSubmit)="submit()" [ngrxFormState]="this.formState$ | async" class="form">
   <p>Rule {{ (this.formState$ | async).controls.id.value }}</p>
   <mat-form-field>
@@ -40,7 +41,7 @@
       </button>
     </mat-list>
   </div>
-  <mat-form-field class="description">
+  <mat-form-field>
     <label>
       <input [ngrxFormControlState]="(this.formState$ | async).controls.description" matInput
              placeholder="Description"/>
@@ -48,6 +49,6 @@
   </mat-form-field>
 </form>
 <div class="controls">
-  <button (click)="submit()" mat-raised-button>Save</button>
+  <button (click)="save()" mat-raised-button>Save</button>
   <button (click)="cancel()" mat-raised-button>Cancel</button>
 </div>

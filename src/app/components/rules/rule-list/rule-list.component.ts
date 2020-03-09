@@ -1,11 +1,12 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { Rule } from '../../../models/rule';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/state/app.state';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { selectRuleList } from '../../../store/selectors/rule.selector';
+import { RemoveRule, ReorderRules } from '../../../store/actions/rule.actions';
 
 @Component({
   selector: 'app-rule-list',
@@ -15,7 +16,7 @@ import { selectRuleList } from '../../../store/selectors/rule.selector';
 export class RuleListComponent {
   rules$ = this._store.select(selectRuleList);
 
-  constructor(private _store: Store<AppState>, protected router: Router) {
+  constructor(private _store: Store<AppState>, protected router: Router, private route: ActivatedRoute) {
   }
 
   insertRule() {
@@ -26,11 +27,10 @@ export class RuleListComponent {
     this.router.navigate(['rules', `${rule.id}`]);
   }
 
-  async removeRule(rule: Rule) {
+  removeRule(rule: Rule) {
     if (confirm('Are you sure?')) {
       try {
-        // TODO Restore
-        // await this.store.removeRule(rule.id);
+        this._store.dispatch(new RemoveRule(rule.id));
       } catch (e) {
         console.error('Failed to remove rule', e);
         alert(`Failed to remove rule: ${e.message}`);
@@ -39,7 +39,6 @@ export class RuleListComponent {
   }
 
   drop(e: CdkDragDrop<Rule>) {
-    // TODO Restore
-    // this.store.rules = Service.reorder(e.previousIndex, e.currentIndex, this.store.rules);
+    this._store.dispatch(new ReorderRules({ sourceID: e.previousIndex, targetID: e.currentIndex }));
   }
 }

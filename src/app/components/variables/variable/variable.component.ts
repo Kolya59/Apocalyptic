@@ -1,32 +1,31 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Variable } from '../../../models/variable';
 import { select, Store } from '@ngrx/store';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { FormGroupState } from 'ngrx-forms';
-import { filter, map, take } from 'rxjs/operators';
-import { SetSubmittedVariableAction } from '../../../store/actions/variable.form.action';
-import { Domain } from '../../../models/domain';
-import { selectDomainList } from '../../../store/selectors/domain.selector';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { FormGroupState, ResetAction, SetValueAction } from 'ngrx-forms';
+import { filter, map, switchMap, take, takeLast } from 'rxjs/operators';
 import { AppState } from '../../../store/state/app.state';
+import { AddVariable, SetSubmittedVariableAction, UpdateVariable } from '../../../store/actions/variable.actions';
+import { Location } from '@angular/common';
+import { initialVariableFormState, initialVariableState } from '../../../store/state/variable.state';
+import { selectVariable } from '../../../store/selectors/variable.selector';
 
 @Component({
   selector: 'app-variable-dialog',
   templateUrl: './variable.component.html',
-  styleUrls: ['./variable.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./variable.component.css']
 })
 export class VariableComponent {
+  isNew: boolean;
   formState$: Observable<FormGroupState<Variable>>;
   submittedValue$: Observable<Variable | undefined>;
 
-  constructor(private _store: Store<AppState>, protected router: Router) {
-    this.formState$ = _store.pipe(select(s => s.variableForms.formState));
-    this.submittedValue$ = _store.pipe(select(s => s.variableForms.submittedValue));
-  }
-
-  getDomains(): Observable<Domain[]> {
-    return this._store.select(selectDomainList);
+  constructor(private _store: Store<AppState>, protected router: Router, private route: ActivatedRoute, private location: Location) {
+    const id = this.route.snapshot.params['id'];
+    this.isNew = id === 'new';
+    this.formState$ = this._store.pipe(select(s => s.variableForm.formState));
+    this.submittedValue$ = this._store.pipe(select(s => s.variableForm.submittedValue));
   }
 
   submit() {
@@ -37,10 +36,19 @@ export class VariableComponent {
         map(fs => new SetSubmittedVariableAction(fs.value))
       )
       .subscribe(this._store);
+  }
+
+  save() {
+    this.submit();
+    this.submittedValue$
+      .pipe(take(1))
+      .subscribe(next => this._store.dispatch(this.isNew ? new AddVariable(next) : new UpdateVariable(next)));
     this.router.navigate(['variables']);
   }
 
   cancel() {
+    this._store.dispatch(new SetValueAction(initialVariableState.id, initialVariableState));
+    this._store.dispatch(new ResetAction(initialVariableState.id));
     this.router.navigate(['variables']);
   }
 }

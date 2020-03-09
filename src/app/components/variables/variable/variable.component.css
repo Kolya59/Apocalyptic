@@ -1,6 +1,6 @@
 form {
-  display: inline-block;
-  border: 5px black;
+  width: 95%;
+  padding: 0.5rem;
 }
 
 form > * {

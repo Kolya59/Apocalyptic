@@ -6,7 +6,6 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
-import { DomainListComponent } from './components/domains/domain-list/domain-list.component';
 // import { ExplanationComponent } from './components/explanation/explanation.component';
 import { ConsultationComponent } from './components/consultation/consultation.component';
 import { VariableComponent } from './components/variables/variable/variable.component';
@@ -19,21 +18,14 @@ import { TargetComponent } from './components/target/target.component';
 import { StoreModule } from '@ngrx/store';
 import { NgrxFormsModule } from 'ngrx-forms';
 import { appReducers } from './store/reducers/app.reducers';
-import { EffectsModule } from '@ngrx/effects';
-import { RuleEffects } from './store/effects/rule.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
 import { RuleService } from './services/rule.service';
-import { DomainEffects } from './store/effects/domain.effects';
-import { StatementEffects } from './store/effects/statement.effects';
-import { VariableEffects } from './store/effects/variable.effects';
 import { StatementService } from './services/statement.service';
 import { VariableService } from './services/variable.service';
-import { DomainService } from './services/domain.service';
 import { StatementListComponent } from './components/statements/statement-list/statement-list.component';
 import { StatementComponent } from './components/statements/statement/statement.component';
 import { LoadComponent } from './components/load/load.component';
-import { DomainComponent } from './components/domains/domain/domain.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -41,7 +33,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   declarations: [
     AppComponent,
     RuleListComponent,
-    DomainListComponent,
     // ExplanationComponent,
     ConsultationComponent,
     VariableListComponent,
@@ -49,8 +40,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     RuleComponent,
     StatementComponent,
     TargetComponent,
-    DomainComponent,
-    DomainListComponent,
     RuleComponent,
     StatementListComponent,
     VariableComponent,
@@ -65,14 +54,12 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ReactiveFormsModule,
     NgrxFormsModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([DomainEffects, RuleEffects, StatementEffects, VariableEffects]),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     AppRoutingModule,
     DragDropModule
   ],
   providers: [
-    DomainService,
     RuleService,
     StatementService,
     VariableService,
@@ -102,8 +89,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   entryComponents: [
     ConsultationComponent,
     // ExplanationComponent,
-    DomainComponent,
-    DomainListComponent,
     RuleComponent,
     TargetComponent,
     StatementComponent,

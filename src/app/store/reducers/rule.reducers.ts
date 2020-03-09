@@ -1,38 +1,51 @@
-import { ERuleActions, RuleActions } from '../actions/rule.actions';
-import { initialRuleState, RuleState } from '../state/rule.state';
+import { ERuleActions, RuleActions, SetSubmittedRuleAction } from '../actions/rule.actions';
+import { initialRuleFormState, initialRuleListState, RuleFormState, RuleListState } from '../state/rule.state';
+import { Service } from '../../services/core.service';
+import { createFormStateReducerWithUpdate, updateGroup, validate } from 'ngrx-forms';
+import { Rule } from '../../models/rule';
+import { required } from 'ngrx-forms/validation';
+import { Action, combineReducers } from '@ngrx/store';
+import { v4 } from 'uuid';
 
-export const ruleReducers = (state = initialRuleState, action: RuleActions): RuleState => {
+export const ruleReducers = (state = initialRuleListState, action: RuleActions): RuleListState => {
   switch (action.type) {
-    case ERuleActions.GetRulesSuccess: {
+    case ERuleActions.GetRules: {
       return {
-        ...state,
-        rules: action.payload
+        ...state
       };
     }
 
-    case ERuleActions.GetRuleSuccess: {
+    case ERuleActions.GetRule: {
       return {
-        ...state,
-        selectedRule: action.payload
+        ...state
       };
     }
 
     case ERuleActions.AddRule: {
       return {
-        rules: [action.payload],
+        rules: [...state.rules, { ...action.payload, id: v4() }],
         selectedRule: state.selectedRule
       };
     }
 
-    case ERuleActions.UpdateRuleSuccess: {
+    case ERuleActions.UpdateRule: {
       return {
-        ...state
+        rules: state.rules.map(next => (next.id === action.payload.id ? action.payload : next)),
+        selectedRule: state.selectedRule
       };
     }
 
-    case ERuleActions.RemoveRuleSuccess: {
+    case ERuleActions.RemoveRule: {
       return {
-        ...state
+        rules: state.rules.filter(next => next.id !== action.payload),
+        selectedRule: state.selectedRule
+      };
+    }
+
+    case ERuleActions.ReorderRule: {
+      return {
+        rules: Service.reorder(action.payload.sourceID, action.payload.targetID, state.rules),
+        selectedRule: state.selectedRule
       };
     }
 
@@ -40,3 +53,26 @@ export const ruleReducers = (state = initialRuleState, action: RuleActions): Rul
       return state;
   }
 };
+
+const validationFormGroupReducer = createFormStateReducerWithUpdate<Rule>(
+  updateGroup<Rule>({
+    name: validate(required)
+  })
+);
+
+const reducers = combineReducers<RuleFormState['ruleForm'], any>({
+  formState(s = initialRuleFormState, a: Action) {
+    return validationFormGroupReducer(s, a);
+  },
+  submittedValue(s: Rule | undefined, a: SetSubmittedRuleAction) {
+    if (a.type === SetSubmittedRuleAction.TYPE) {
+      return a.submittedValue;
+    } else {
+      return s;
+    }
+  }
+});
+
+export function rulesFormReducer(s: RuleFormState['ruleForm'], a: Action) {
+  return reducers(s, a);
+}

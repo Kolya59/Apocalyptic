@@ -1,8 +1,8 @@
 <div (cdkDropListDropped)="drop($event)" cdkDropList class="variables">
-  <div *ngFor="let variable of variables" cdkDrag class="variable-box">
+  <div *ngFor="let variable of variables$ | async" cdkDrag class="variable-box">
     <div class="variable-uuid">{{variable.id}}</div>
     <div class="variable-name">{{variable.name}}</div>
-    <div class="variable-domain">{{variable.domain.name}}</div>
+    <div class="variable-domain">{{variable.domain}}</div>
     <div class="variable-controls">
       <button (click)="editVariable(variable.id)" mat-icon-button>
         <mat-icon>edit</mat-icon>

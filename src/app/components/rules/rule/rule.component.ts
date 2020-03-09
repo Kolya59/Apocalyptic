@@ -3,13 +3,13 @@ import { Statement } from '../../../models/statement';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../../store/state/app.state';
 import { Rule } from '../../../models/rule';
-import { filter, map, take, tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { filter, map, take } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FormGroupState } from 'ngrx-forms';
-import { SetSubmittedRuleAction } from '../../../store/actions/rule.form.action';
 import { selectStatementList } from '../../../store/selectors/statement.selector';
-import { AddRule } from '../../../store/actions/rule.actions';
+import { AddRule, SetSubmittedRuleAction, UpdateRule } from '../../../store/actions/rule.actions';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-rule-dialog',
@@ -17,12 +17,15 @@ import { AddRule } from '../../../store/actions/rule.actions';
   styleUrls: ['./rule.component.css']
 })
 export class RuleComponent {
+  isNew: boolean;
   formState$: Observable<FormGroupState<Rule>>;
   submittedValue$: Observable<Rule | undefined>;
 
-  constructor(private _store: Store<AppState>, protected router: Router) {
-    this.formState$ = _store.pipe(select(s => s.ruleForms.formState));
-    this.submittedValue$ = _store.pipe(select(s => s.ruleForms.submittedValue));
+  constructor(private _store: Store<AppState>, protected router: Router, private route: ActivatedRoute, private location: Location) {
+    const id = this.route.snapshot.params['id'];
+    this.isNew = id === 'new';
+    this.formState$ = _store.pipe(select(s => s.ruleForm.formState));
+    this.submittedValue$ = _store.pipe(select(s => s.ruleForm.submittedValue));
   }
 
   getPremises(): Observable<Statement[]> {
@@ -38,14 +41,18 @@ export class RuleComponent {
       .pipe(
         take(1),
         filter(s => s.isValid),
-        tap(fs => this._store.dispatch(new AddRule(fs.value))),
         map(fs => new SetSubmittedRuleAction(fs.value))
       )
       .subscribe(this._store);
+  }
+
+  save() {
+    this.submit();
+    this.submittedValue$.pipe(take(1)).subscribe(next => this._store.dispatch(this.isNew ? new AddRule(next) : new UpdateRule(next)));
     this.router.navigate(['rules']);
   }
 
   cancel() {
-    this.router.navigate(['rules']);
+    this.location.back();
   }
 }
