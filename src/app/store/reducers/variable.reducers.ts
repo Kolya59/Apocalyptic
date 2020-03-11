@@ -1,14 +1,12 @@
 import { EVariableActions, SetSubmittedVariableAction, VariableActions } from '../actions/variable.actions';
-import { initialVariableFormState, initialVariableListState, VariableFormState, VariableListState } from '../state/variable.state';
-import { createFormStateReducerWithUpdate, updateGroup, validate } from 'ngrx-forms';
+import { initialVariableState, VariableFormState, VariablesState } from '../state/variable.state';
+import { createFormGroupState, createFormStateReducerWithUpdate, updateGroup, validate } from 'ngrx-forms';
 import { Variable } from '../../models/variable';
 import { required } from 'ngrx-forms/validation';
 import { Action, combineReducers } from '@ngrx/store';
-import { AppState } from '../state/app.state';
 import { Service } from '../../services/core.service';
-import { v4 } from 'uuid';
 
-export const variableReducers = (state = initialVariableListState, action: VariableActions): VariableListState => {
+export const variableReducers = (state: VariablesState['variables'], action: VariableActions): VariablesState['variables'] => {
   switch (action.type) {
     case EVariableActions.GetVariables: {
       return {
@@ -22,39 +20,32 @@ export const variableReducers = (state = initialVariableListState, action: Varia
       };
     }
 
-    case EVariableActions.SetSelectedVariable: {
-      return {
-        ...state,
-        selectedVariable: state.variables.find(next => next.id === action.payload)
-      };
-    }
-
     case EVariableActions.AddVariable: {
-      return {
-        variables: [...state.variables, { ...action.payload, id: v4() }],
-        selectedVariable: state.selectedVariable
-      };
+      return [
+        ...state,
+        {
+          formState: createFormGroupState<Variable>(action.payload, initialVariableState),
+          submittedValue: undefined
+        }
+      ];
     }
 
     case EVariableActions.UpdateVariable: {
-      return {
-        variables: state.variables.map(next => (next.id === action.payload.id ? action.payload : next)),
-        selectedVariable: state.selectedVariable
-      };
+      // TODO Fix it
+      return state.map(next =>
+        next.formState.controls.id.value === action.payload.id
+          ? { ...next, formState: { ...next.formState, controls: { ...next.formState.controls } } }
+          : next
+      );
     }
 
     case EVariableActions.RemoveVariable: {
-      return {
-        variables: state.variables.filter(next => next.id !== action.payload),
-        selectedVariable: state.selectedVariable
-      };
+      delete state[action.payload];
+      return state;
     }
 
     case EVariableActions.ReorderVariables: {
-      return {
-        variables: Service.reorder(action.payload.sourceID, action.payload.targetID, state.variables),
-        selectedVariable: state.selectedVariable
-      };
+      return Service.reorder(action.payload.sourceID, action.payload.targetID, state);
     }
 
     default:
@@ -69,12 +60,12 @@ const validationFormGroupReducer = createFormStateReducerWithUpdate<Variable>(
   })
 );
 
-const reducers = combineReducers<VariableFormState['variableForm'], any>({
-  formState(s = initialVariableFormState, a: Action) {
+const reducers = combineReducers<VariableFormState, any>({
+  formState(s, a: Action) {
     return validationFormGroupReducer(s, a);
   },
   submittedValue(s: Variable | undefined, a: SetSubmittedVariableAction) {
-    if (a.type === SetSubmittedVariableAction.TYPE) {
+    if (a.type === EVariableActions.SetSubmittedVariableAction) {
       return a.submittedValue;
     } else {
       return s;
@@ -82,6 +73,6 @@ const reducers = combineReducers<VariableFormState['variableForm'], any>({
   }
 });
 
-export function variablesFormReducer(s: AppState['variableForm'], a: Action) {
+export function variablesFormReducer(s: VariableFormState, a: Action) {
   return reducers(s, a);
 }

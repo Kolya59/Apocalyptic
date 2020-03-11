@@ -4,21 +4,13 @@ import { createFormGroupState, FormGroupState } from 'ngrx-forms';
 
 export const initialRuleState: Rule = { conclusions: [], description: '', id: '', name: 'New Rule', premises: [] };
 
-export interface RuleListState {
-  rules: Rule[];
-  selectedRule: Rule;
+export interface RuleFormState {
+  formState: FormGroupState<Rule>;
+  submittedValue: Rule | undefined;
 }
 
-export const initialRuleListState: RuleListState = {
-  rules: [],
-  selectedRule: null
-};
-
-export interface RuleFormState extends AppState {
-  ruleForm: {
-    formState: FormGroupState<Rule>;
-    submittedValue: Rule | undefined;
-  };
+export interface RulesState extends AppState {
+  rules: RuleFormState[];
 }
 
-export const initialRuleFormState = createFormGroupState<Rule>('ruleForm', initialRuleState);
+export const initialRulesState = [];

@@ -4,23 +4,11 @@ import { Rule } from '../../models/rule';
 
 export enum ERuleActions {
   GetRules = '[Rule] Get Rules',
-  GetRulesSuccess = '[Rule] Get Rules Success',
-  GetRulesError = '[Rule] Get Rules Error',
   GetRule = '[Rule] Get Rule',
-  GetRuleSuccess = '[Rule] Get Rule Success',
-  GetRuleError = '[Rule] Get Rule Error',
   AddRule = '[Rule] Add Rule',
-  AddRuleSuccess = '[Rule] Add Rule Success',
-  AddRuleError = '[Rule] Add Rule Error',
   UpdateRule = '[Rule] Update Rule',
-  UpdateRuleSuccess = '[Rule] Update Rule Success',
-  UpdateRuleError = '[Rule] Update Rule Error',
   RemoveRule = '[Rule] Remove',
-  RemoveRuleSuccess = '[Rule] Remove Rule Success',
-  RemoveRuleError = '[Rule] Remove Rule Error',
-  ReorderRule = '[Rule] Reorder',
-  ReorderRuleSuccess = '[Rule] Reorder Rule Success',
-  ReorderRuleError = '[Rule] Reorder Rule Error'
+  ReorderRule = '[Rule] Reorder'
 }
 
 export class GetRules implements Action {
@@ -37,7 +25,7 @@ export class GetRule implements Action {
 export class AddRule implements Action {
   public readonly type = ERuleActions.AddRule;
 
-  constructor(public payload: Rule) {
+  constructor(public payload: string) {
   }
 }
 

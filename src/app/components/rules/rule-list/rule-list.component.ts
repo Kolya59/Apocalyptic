@@ -6,7 +6,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/state/app.state';
 import { ActivatedRoute, Router } from '@angular/router';
 import { selectRuleList } from '../../../store/selectors/rule.selector';
-import { RemoveRule, ReorderRules } from '../../../store/actions/rule.actions';
+import { AddRule, RemoveRule, ReorderRules } from '../../../store/actions/rule.actions';
+import { AddVariable } from '../../../store/actions/variable.actions';
 
 @Component({
   selector: 'app-rule-list',
@@ -21,6 +22,7 @@ export class RuleListComponent {
 
   insertRule() {
     this.router.navigate(['rules', 'new']);
+    this._store.dispatch(new AddRule('new'));
   }
 
   editRule(rule: Rule) {

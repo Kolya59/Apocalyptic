@@ -1,10 +1,19 @@
 import { createSelector } from '@ngrx/store';
 
 import { AppState } from '../state/app.state';
-import { RuleListState } from '../state/rule.state';
 
 const selectRules = (state: AppState) => state.rules;
 
-export const selectRuleList = createSelector(selectRules, (state: RuleListState) => state.rules);
-
-export const selectSelectedRule = createSelector(selectRules, (state: RuleListState) => state.selectedRule);
+export const selectRuleList = createSelector(selectRules, state =>
+  state
+    ? state
+      .map(next => next.formState.controls)
+      .map(next => ({
+        id: next.id.value,
+        name: next.name.value,
+        description: next.description.value,
+        conclusions: next.conclusions.value,
+        premises: next.premises.value
+      }))
+    : []
+);

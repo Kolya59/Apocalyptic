@@ -1,14 +1,20 @@
 import { createSelector } from '@ngrx/store';
 
 import { AppState } from '../state/app.state';
-import { VariableListState } from '../state/variable.state';
 
 const selectVariables = (state: AppState) => state.variables;
 
-export const selectVariableList = createSelector(selectVariables, (state: VariableListState) => state.variables);
-
-export const selectSelectedVariable = createSelector(selectVariables, (state: VariableListState) => state.selectedVariable);
-
-export function selectVariable(id: string) {
-  return createSelector(selectVariables, (state: VariableListState) => state.variables.find(next => next.id === id));
-}
+export const selectVariableList = createSelector(selectVariables, state =>
+  state
+    ? state
+      .map(next => next.formState.controls)
+      .map(next => ({
+        id: next.id.value,
+        name: next.name.value,
+        domain: next.domain.value,
+        description: next.description.value,
+        isRequested: next.isRequested.value,
+        requestedMsg: next.requestMsg.value
+      }))
+    : []
+);

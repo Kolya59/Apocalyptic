@@ -24,8 +24,8 @@ export class VariableComponent {
   constructor(private _store: Store<AppState>, protected router: Router, private route: ActivatedRoute, private location: Location) {
     const id = this.route.snapshot.params['id'];
     this.isNew = id === 'new';
-    this.formState$ = this._store.pipe(select(s => s.variableForm.formState));
-    this.submittedValue$ = this._store.pipe(select(s => s.variableForm.submittedValue));
+    this.formState$ = this._store.pipe(select(s => s.variablesWithForms[id].formState));
+    this.submittedValue$ = this._store.pipe(select(s => s.variablesWithForms[id].submittedValue));
   }
 
   submit() {

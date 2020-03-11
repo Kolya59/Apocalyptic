@@ -4,22 +4,12 @@ import { Variable } from '../../models/variable';
 
 export enum EVariableActions {
   GetVariables = '[Variable] Get Variables',
-  GetVariablesSuccess = '[Variable] Get Variables Success',
-  GetVariablesError = '[Variable] Get Variables Error',
   GetVariable = '[Variable] Get Variable',
-  SetSelectedVariable = '[Variable] Set Selected Variable',
-  GetVariableSuccess = '[Variable] Get Variable Success',
-  GetVariableError = '[Variable] Get Variable Error',
   AddVariable = '[Variable] Add Variable',
-  AddVariableSuccess = '[Variable] Add Variable Success',
-  AddVariableError = '[Variable] Add Variable Error',
   UpdateVariable = '[Variable] Update Variable',
-  UpdateVariableSuccess = '[Variable] Update Variable Success',
-  UpdateVariableError = '[Variable] Update Variable Error',
   RemoveVariable = '[Variable] Remove',
-  RemoveVariableSuccess = '[Variable] Remove Variable Success',
-  RemoveVariableError = '[Variable] Remove VariableErrors',
-  ReorderVariables = '[Variable] Reorder Variables'
+  ReorderVariables = '[Variable] Reorder Variables',
+  SetSubmittedVariableAction = '[Variable Form] Set Variable'
 }
 
 export class GetVariables implements Action {
@@ -36,17 +26,10 @@ export class GetVariable implements Action {
   }
 }
 
-export class SetSelectedVariable implements Action {
-  public readonly type = EVariableActions.SetSelectedVariable;
-
-  constructor(public payload: string) {
-  }
-}
-
 export class AddVariable implements Action {
   public readonly type = EVariableActions.AddVariable;
 
-  constructor(public payload: Variable) {
+  constructor(public payload: string) {
   }
 }
 
@@ -71,19 +54,18 @@ export class ReorderVariables implements Action {
   }
 }
 
-export type VariableActions =
-  | GetVariables
-  | GetVariable
-  | SetSelectedVariable
-  | AddVariable
-  | UpdateVariable
-  | RemoveVariable
-  | ReorderVariables;
-
 export class SetSubmittedVariableAction implements Action {
-  static readonly TYPE = '[Variable Form] Set Variable';
-  readonly type = SetSubmittedVariableAction.TYPE;
+  readonly type = EVariableActions.SetSubmittedVariableAction;
 
   constructor(public submittedValue: Variable) {
   }
 }
+
+export type VariableActions =
+  | GetVariables
+  | GetVariable
+  | AddVariable
+  | UpdateVariable
+  | RemoveVariable
+  | ReorderVariables
+  | SetSubmittedVariableAction;
