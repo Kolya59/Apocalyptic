@@ -2,7 +2,7 @@
   <div class="variable-box" *ngFor="let variable of store.variables" cdkDrag>
       <div class="variable-uuid">{{variable.id}}</div>
       <div class="variable-name">{{variable.name}}</div>
-      <div class="variable-domain">{{variable.domain.name}}</div>
+      <div class="variable-domain">{{variable.values}}</div>
       <div class="variable-controls">
         <button mat-icon-button (click)="editVariable(variable)">
           <mat-icon>edit</mat-icon>

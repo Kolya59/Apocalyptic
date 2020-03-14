@@ -7,8 +7,6 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BodyComponent } from './components/body/body.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { DomainDialogComponent } from './components/modal/domain-dialog/domain-dialog.component';
-import { DomainListDialogComponent } from './components/modal/domain-list-dialog/domain-list-dialog.component';
 import { ExplanationComponent } from './components/modal/explanation/explanation.component';
 import { ConsultationComponent } from './components/modal/consultation/consultation.component';
 import { VariableDialogComponent } from './components/modal/variable-dialog/variable-dialog.component';
@@ -27,8 +25,6 @@ import { SetTargetComponent } from './components/modal/set-target/set-target.com
     BodyComponent,
     MenuComponent,
     RuleListComponent,
-    DomainListDialogComponent,
-    DomainDialogComponent,
     ExplanationComponent,
     ConsultationComponent,
     VariableListDialogComponent,
@@ -77,8 +73,6 @@ import { SetTargetComponent } from './components/modal/set-target/set-target.com
   entryComponents: [
     ConsultationComponent,
     ExplanationComponent,
-    DomainDialogComponent,
-    DomainListDialogComponent,
     RuleDialogComponent,
     SetTargetComponent,
     StatementDialogComponent,

@@ -32,27 +32,17 @@ export class AppComponent {
       [],
       'Description 4'
     );
-    store.insertDomain(
-      'Domain 1',
-      'First/Second',
-      ['First', 'Second']
-    );
-    store.insertDomain(
-      'Domain 2',
-      'Good/Bad',
-      ['Good', 'Bad']
-    );
     store.insertVariable(
       'Variable 1',
       true,
       '',
-      store.domains[0]
+      ['First', 'Second'] as unknown as [string]
     );
     store.insertVariable(
       'Variable 2',
       true,
       '',
-      store.domains[1]
+      ['Good', 'Bad'] as unknown as [string]
     );
   }
 

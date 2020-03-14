@@ -11,9 +11,9 @@
   </mat-select>
   <mat-icon class="follows">arrow_forward</mat-icon>
   <mat-select class="value-select" formControlName="value" [value]="this.data.value" required>
-    <mat-option *ngFor="let value of this.data.variable.domain.values"
+    <mat-option *ngFor="let value of this.data.variable.values"
                 [value]="value">
-     <p>{{value}}</p>
+      <p>{{value}}</p>
     </mat-option>
   </mat-select>
   <mat-form-field class="description">

@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 
 import { v4 as uuid } from 'uuid';
-import { Domain, IDomain, IRule, IStatement, IVariable, Rule, Variable, VariableValueMap } from './models';
+import { IRule, IStatement, IVariable, Rule, Variable, VariableValueMap } from './models';
 
 @Injectable()
 export class Store {
   rules: IRule[];
   variables: IVariable[];
-  domains: IDomain[];
   target: IVariable;
   workingMemory: VariableValueMap;
 
   constructor() {
     this.rules = [];
     this.variables = [];
-    this.domains = [];
     // TODO Pass targets to logs
     this.workingMemory = {};
   }
@@ -79,25 +77,25 @@ export class Store {
     }));
   }
 
-  public insertVariable(name: string, isRequested: boolean, description: string, domain: IDomain): Promise<IVariable> {
+  public insertVariable(name: string, isRequested: boolean, description: string, values: [string]): Promise<IVariable> {
     return new Promise<IVariable>((resolve, reject) => {
       // TODO Get id
       const id = Store.getUUID();
-      const rule = new Variable(id, name, isRequested, description,  domain);
+      const rule = new Variable(id, name, isRequested, description, values);
       // TODO Validate variable
       this.variables.push(rule);
       resolve(rule);
     });
   }
 
-  public updateVariable(id: string, name: string, description: string, domain: IDomain): Promise<void> {
+  public updateVariable(id: string, name: string, description: string, values: [string]): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       this.getVariable(id)
         .then((oldVariable: Variable) => {
           // TODO Check: is it changing collection?
           oldVariable.name = name;
           oldVariable.description = description;
-          oldVariable.domain = domain;
+          oldVariable.values = values;
           // TODO Validate new value
           resolve();
         })
@@ -107,64 +105,15 @@ export class Store {
     });
   }
 
-  public removeVariable(id: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      // TODO Refactor the bydlocode
-      this.variables = this.variables.filter((variable) => variable.id !== id);
-      resolve();
-    });
+  public removeVariable(id: string) {
+    // TODO Refactor the bydlocode
+    this.variables = this.variables.filter((variable) => variable.id !== id);
   }
 
-  public getDomain(id: string): Promise<IDomain> {
-    return new Promise(((resolve, reject) => {
-      const domain = this.domains.find((element) => element.id === id);
-      if (domain === undefined) {
-        reject('Failed to find the domain');
-      }
-      resolve(domain);
-    }));
-  }
-
-  public insertDomain(name: string, description: string, values: string[]): Promise<IDomain> {
-    return new Promise<IDomain>((resolve, reject) => {
-      // TODO Get id
-      const id = Store.getUUID();
-      const domain = new Domain(id, name, description, values);
-      // TODO Validate variable
-      this.domains.push(domain);
-      resolve(domain);
-    });
-  }
-
-  public updateDomain(id: string, name: string, description: string, values: string[]): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      this.getDomain(id)
-        .then((oldDomain: Domain) => {
-          // TODO Check: is it changing collection?
-          oldDomain.name = name;
-          oldDomain.description = description;
-          oldDomain.values = values;
-          // TODO Validate new domain
-          resolve();
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
-
-  public removeDomain(id: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      // TODO Refactor the bydlocode
-      this.domains = this.domains.filter((domain) => domain.id !== id);
-      resolve();
-    });
-  }
 
   public toJSON() {
     return JSON.stringify({
       rules: this.rules,
-      domains: this.domains,
       variables: this.variables
     });
   }
@@ -172,7 +121,6 @@ export class Store {
   public fromJSON(input: string): void {
     const newStore = JSON.parse(input);
     this.rules = newStore.rules;
-    this.domains = newStore.domains;
     this.variables = newStore.variables;
   }
 }

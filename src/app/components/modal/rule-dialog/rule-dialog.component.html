@@ -26,12 +26,13 @@
       <mat-list-item
         class="statement-item"
         *ngFor="let conclusion of this.data.conclusions; let i = index"
-        formControlName="{{i}}}">
+        formControlName="{{i}}">
         <p class="statement-item-value">{{conclusion.name}}</p>
         <button mat-icon-button class="statement-item-edit" (click)="editStatement(conclusion)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button class="statement-item-remove" (click)="removeStatement(conclusion, this.data.conclusions)">
+        <button mat-icon-button class="statement-item-remove"
+                (click)="removeStatement(conclusion, this.data.conclusions)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-list-item>

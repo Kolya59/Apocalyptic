@@ -9,7 +9,7 @@ import { Store } from '../../../core/store';
   templateUrl: './statement-dialog.component.html',
   styleUrls: ['./statement-dialog.component.css']
 })
-export class StatementDialogComponent implements OnInit {
+export class StatementDialogComponent {
   options: FormGroup;
 
   constructor(
@@ -24,7 +24,7 @@ export class StatementDialogComponent implements OnInit {
         '',
         'New Statement',
         store.variables[0],
-        store.variables[0].domain.values[0]
+        store.variables[0].values[0]
       );
     }
     this.options = fb.group({
@@ -35,9 +35,6 @@ export class StatementDialogComponent implements OnInit {
     }, {
       validators: []
     });
-  }
-
-  ngOnInit() {
   }
 
   submit() {

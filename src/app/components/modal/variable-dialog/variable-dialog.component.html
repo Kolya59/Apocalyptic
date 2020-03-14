@@ -5,9 +5,9 @@
   </mat-form-field>
   <mat-checkbox formControlName="isRequested">Is requested?</mat-checkbox>
   <mat-form-field>
-    <mat-select formControlName="domain" placeholder="Domain" [value]="this.data.domain" required>
-      <mat-option *ngFor="let domain of this.store.domains" [value]="domain">
-        {{domain.name}}
+    <mat-select [value]="this.data.values" formControlName="variables" placeholder="Domain" required>
+      <mat-option *ngFor="let domain of this.data.values">
+        {{domain}}
       </mat-option>
     </mat-select>
   </mat-form-field>

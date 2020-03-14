@@ -20,18 +20,7 @@ export interface IVariable {
   isRequested: boolean;
   requestMsg?: string;
   description: string;
-  domain: IDomain;
-}
-
-export interface IDomain {
-  id: string;
-  name: string;
-  description: string;
-  values: string[];
-
-  insertValue(value: string): void;
-  editValue(index: number, value: string): void;
-  removeValue(index: number): void;
+  values: [string];
 }
 
 export class Rule implements IRule {
@@ -67,48 +56,19 @@ export class Statement implements IStatement {
 }
 
 export class Variable implements IVariable {
-  domain: IDomain;
+  values: [string];
   description: string;
   id: string;
   isRequested: boolean;
   requestMsg?: string;
   name: string;
 
-  constructor(id: string, name: string, isRequested: boolean, description: string, domain: IDomain) {
+  constructor(id: string, name: string, isRequested: boolean, description: string, values: [string]) {
     this.id = id;
     this.name = name;
     this.isRequested = isRequested;
     this.description = description;
-    this.domain = domain;
-  }
-}
-
-export class Domain implements IDomain {
-  id: string;
-  description: string;
-  name: string;
-  values: string[];
-
-  constructor(id: string, name: string, description: string, values: string[]) {
-    this.id = id;
-    this.description = description;
-    this.name = name;
     this.values = values;
-  }
-
-  insertValue(value: string) {
-    // TODO Validate
-    this.values.push(value);
-  }
-
-  editValue(index: number, value: string) {
-    // TODO Validate
-    this.values[index] = value;
-  }
-
-  removeValue(index: number) {
-    // TODO Check existing
-    this.values = this.values.filter((_, i) => i !== index);
   }
 }
 

@@ -13,7 +13,7 @@ import { VariableDialogComponent } from '../variable-dialog/variable-dialog.comp
   templateUrl: './variable-list-dialog.component.html',
   styleUrls: ['./variable-list-dialog.component.css']
 })
-export class VariableListDialogComponent implements OnInit {
+export class VariableListDialogComponent {
 
   constructor(
     private readonly store: Store,
@@ -21,9 +21,6 @@ export class VariableListDialogComponent implements OnInit {
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: IVariable[]
   ) {
-  }
-
-  ngOnInit() {
   }
 
   // TODO Refactor

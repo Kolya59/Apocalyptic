@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { IRule, IStatement, Rule } from '../../../core/models';
 import { Store } from '../../../core/store';
@@ -10,14 +10,15 @@ import { StatementDialogComponent } from '../statement-dialog/statement-dialog.c
   templateUrl: './rule-dialog.component.html',
   styleUrls: ['./rule-dialog.component.css']
 })
-export class RuleDialogComponent implements OnInit {
+export class RuleDialogComponent {
   options: FormGroup;
 
-  constructor(private readonly store: Store,
-              private readonly fb: FormBuilder,
-              private dialogRef: MatDialogRef<RuleDialogComponent>,
-              private dialog: MatDialog,
-              @Inject(MAT_DIALOG_DATA) private readonly data: IRule
+  constructor(
+    private readonly store: Store,
+    private readonly fb: FormBuilder,
+    private dialogRef: MatDialogRef<RuleDialogComponent>,
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) private readonly data: IRule
   ) {
     if (!this.data) {
       this.data = new Rule(Store.getUUID(), 'New Rule', [], [], '');
@@ -25,24 +26,24 @@ export class RuleDialogComponent implements OnInit {
     this.options = fb.group({
       name: this.fb.control(this.data.name, Validators.required),
       premises: this.fb.array(this.data.premises.map(value => this.fb.control(value, Validators.required))),
-      conclusions: this.fb.array(this.data.conclusions.map(value => this.fb.control(value)), Validators.required),
+      conclusions: this.fb.array(
+        this.data.conclusions.map(value => this.fb.control(value)),
+        Validators.required
+      ),
       description: this.fb.control(this.data.description)
     });
   }
 
-  ngOnInit() {}
-
-  addStatement(container: IStatement[]) {
+  async addStatement(container: IStatement[]) {
     const dialog = this.dialog.open(StatementDialogComponent, {
       width: '80%',
       data: null
     });
-    dialog.afterClosed().subscribe((result: IStatement | null) => {
-      if (!result) {
-        return;
-      }
-      container.push(result);
-    });
+    const result = await dialog.afterClosed().toPromise();
+    if (!result) {
+      return;
+    }
+    (this.options.controls['conclusions'] as FormArray).push(this.fb.control(result));
   }
 
   editStatement(statement: IStatement) {
@@ -60,7 +61,7 @@ export class RuleDialogComponent implements OnInit {
 
   // TODO Refactor
   removeStatement(statement: IStatement, container: IStatement[]) {
-    container = container.filter((item) => {
+    container = container.filter(item => {
       return item === statement;
     });
   }
