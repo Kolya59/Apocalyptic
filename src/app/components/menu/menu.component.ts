@@ -11,56 +11,64 @@ import { ConsultationComponent } from '../modal/consultation/consultation.compon
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
-  constructor(
-    public readonly dialog: MatDialog,
-    private store: Store
-  ) { }
-
-  ngOnInit() {
+export class MenuComponent {
+  constructor(public readonly dialog: MatDialog, private store: Store) {
   }
 
   openVariableDialog() {
-    this.dialog.open(VariableListDialogComponent, {
-      width: '80%',
-      data: this.store.variables
-    }).afterClosed().subscribe((result: IVariable[] | null) => {
-      if (!result) {
-        return;
-      }
-      this.store.variables = result;
-    });
+    this.dialog
+      .open(VariableListDialogComponent, {
+        width: '80%',
+        data: this.store.variables
+      })
+      .afterClosed()
+      .subscribe((result: IVariable[] | null) => {
+        if (!result) {
+          return;
+        }
+        this.store.variables = result;
+      });
   }
 
   openSetTargetDialog() {
-    this.dialog.open(SetTargetComponent, {
-      width: '80%',
-      data: this.store.target
-    }).afterClosed().subscribe((result: IVariable) => {
-      if (!result) {
-        return;
-      }
-      this.store.target = result;
-    });
+    this.dialog
+      .open(SetTargetComponent, {
+        width: '80%',
+        data: this.store.target
+      })
+      .afterClosed()
+      .subscribe((result: IVariable) => {
+        if (!result) {
+          return;
+        }
+        this.store.target = result;
+      });
   }
 
   openConsultDialog() {
-    this.dialog.open(ConsultationComponent, {
-      width: '80%',
-      data: this.store.target
-    }).afterClosed().subscribe((result: IVariable) => {
-      if (!result) {
-        return;
-      }
-      alert(`${this.store.target.name} is ${result}`);
-    });
+    this.dialog
+      .open(ConsultationComponent, {
+        width: '80%',
+        data: this.store.target
+      })
+      .afterClosed()
+      .subscribe((result: IVariable) => {
+        if (!result) {
+          return;
+        }
+        alert(`${this.store.target.name} is ${result}`);
+      });
   }
 
   openExplanationDialog() {
-    this.dialog.open(ConsultationComponent, {
-      width: '80%',
-      data: this.store.target
-    }).afterClosed().subscribe(_ => {});
+    this.dialog
+      .open(ConsultationComponent, {
+        width: '80%',
+        data: this.store.target
+      })
+      .afterClosed()
+      .subscribe(_ => {
+      });
   }
 
   public ToJSON() {

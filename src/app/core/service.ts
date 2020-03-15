@@ -26,8 +26,8 @@ export class ConsultationService {
   requestResultSub: Subject<string>;
 
   targets: {
-    var: IVariable,
-    val: string
+    var: IVariable;
+    val: string;
   }[];
 
   constructor(private readonly store: Store) {
@@ -48,7 +48,7 @@ export class ConsultationService {
   async consult(target: IVariable) {
     const log = { var: target, val: null };
     const existedValued = this.store.workingMemory[target.id];
-    if (!!existedValued) {
+    if (existedValued) {
       log.val = existedValued;
       this.targets.push(log);
       return existedValued;
@@ -81,7 +81,7 @@ export class ConsultationService {
         // TODO Check default value
         reduce((prev: boolean, curr: boolean) => prev && curr, true)
       ).subscribe((next: boolean) => {
-        if (!!next) {
+        if (next) {
           from(rule.conclusions).forEach(
             (conclusion: IStatement) => conflictSet[conclusion.variable.id] = conclusion.value
           );

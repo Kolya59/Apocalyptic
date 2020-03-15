@@ -7,9 +7,6 @@ export interface IRule {
 }
 
 export interface IStatement {
-  id: string;
-  name: string;
-  description: string;
   variable: IVariable;
   value: string;
 }
@@ -20,7 +17,7 @@ export interface IVariable {
   isRequested: boolean;
   requestMsg?: string;
   description: string;
-  values: [string];
+  values: string[];
 }
 
 export class Rule implements IRule {
@@ -39,24 +36,8 @@ export class Rule implements IRule {
   }
 }
 
-export class Statement implements IStatement {
-  id: string;
-  description: string;
-  name: string;
-  variable: IVariable;
-  value: string;
-
-  constructor(id: string, description: string, name: string, variable: IVariable, value: string) {
-    this.id = id;
-    this.description = description;
-    this.name = name;
-    this.variable = variable;
-    this.value = value;
-  }
-}
-
 export class Variable implements IVariable {
-  values: [string];
+  values: string[];
   description: string;
   id: string;
   isRequested: boolean;

@@ -43,7 +43,8 @@
 }
 
 .statement-item {
-  display: flex;
+  display: inline-block;
+  width: 90%;
 }
 
 .statement-item-value {

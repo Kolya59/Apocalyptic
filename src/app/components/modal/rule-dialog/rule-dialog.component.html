@@ -1,23 +1,30 @@
 <form class="form" [formGroup]="this.options" (ngSubmit)="submit()">
-  <p>Rule {{this.data.id}}</p>
+  <p>Rule {{ this.data.id }}</p>
   <mat-form-field>
-    <input formControlName="name" matInput placeholder="Name" required>
+    <label>
+      <input formControlName="name" matInput placeholder="Name" required/>
+    </label>
   </mat-form-field>
   <div>
     <mat-list class="premises" formArrayName="premises">
       <mat-list-item
         class="statement-item"
-        *ngFor="let premise of this.data.premises; let i = index"
-        formControlName="{{i}}">
-        <p class="statement-item-value">{{premise.name}}</p>
-        <button mat-icon-button class="statement-item-edit" (click)="editStatement(premise)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button class="statement-item-remove" (click)="removeStatement(premise, this.data.premises)">
+        *ngFor="let premise of this.options.controls['premises'].value; let i = index"
+        formGroupName="{{ i }}"
+      >
+        <mat-select formControlName="variable">
+          <mat-option *ngFor="let variable of this.store.variables"
+                      value="{{ premise.variable }}">{{ variable.name }}</mat-option>
+        </mat-select>
+        =
+        <mat-select formControlName="value">
+          <mat-option *ngFor="let value of this.getDomain(i, 'premises')">{{ value }}</mat-option>
+        </mat-select>
+        <button (click)="removeStatement(i, 'premises')" class="statement-item-remove" mat-icon-button>
           <mat-icon>delete</mat-icon>
         </button>
       </mat-list-item>
-      <button mat-icon-button class="statement-add" (click)="addStatement(this.data.premises)">
+      <button (click)="addStatement('premises')" class="statement-add" mat-icon-button>
         <mat-icon>add</mat-icon>
       </button>
     </mat-list>
@@ -25,24 +32,30 @@
     <mat-list class="conclusions" formArrayName="conclusions">
       <mat-list-item
         class="statement-item"
-        *ngFor="let conclusion of this.data.conclusions; let i = index"
-        formControlName="{{i}}">
-        <p class="statement-item-value">{{conclusion.name}}</p>
-        <button mat-icon-button class="statement-item-edit" (click)="editStatement(conclusion)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button class="statement-item-remove"
-                (click)="removeStatement(conclusion, this.data.conclusions)">
+        *ngFor="let conclusion of this.options.controls['conclusions'].value; let i = index"
+        formGroupName="{{ i }}"
+      >
+        <mat-select formControlName="variable">
+          <mat-option *ngFor="let variable of this.store.variables"
+                      value="{{ conclusion.variable }}">{{ variable.name }}</mat-option>
+        </mat-select>
+        =
+        <mat-select formControlName="value">
+          <mat-option *ngFor="let value of this.getDomain(i, 'conclusions')">{{ value }}</mat-option>
+        </mat-select>
+        <button (click)="removeStatement(i, 'conclusions')" class="statement-item-remove" mat-icon-button>
           <mat-icon>delete</mat-icon>
         </button>
       </mat-list-item>
-      <button mat-icon-button class="statement-add" (click)="addStatement(this.data.conclusions)">
+      <button (click)="addStatement('conclusions')" class="statement-add" mat-icon-button>
         <mat-icon>add</mat-icon>
       </button>
     </mat-list>
   </div>
   <mat-form-field class="description">
-    <textarea formControlName="description" matInput placeholder="Description" required></textarea>
+    <label>
+      <textarea formControlName="description" matInput placeholder="Description" required></textarea>
+    </label>
   </mat-form-field>
 </form>
 <div class="controls">

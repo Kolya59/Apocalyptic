@@ -9,7 +9,7 @@ import { Store } from '../../../core/store';
   templateUrl: './variable-dialog.component.html',
   styleUrls: ['./variable-dialog.component.css']
 })
-export class VariableDialogComponent implements OnInit {
+export class VariableDialogComponent {
   options: FormGroup;
 
   constructor(
@@ -19,7 +19,7 @@ export class VariableDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: IVariable
   ) {
     if (!this.data) {
-      this.data = new Variable(Store.getUUID(), 'New Variable', false, '', [] as unknown as [string]);
+      this.data = new Variable(Store.getUUID(), 'New Variable', false, '', ([] as unknown) as [string]);
     }
     this.options = fb.group({
       description: this.fb.control(this.data.description),
@@ -27,9 +27,6 @@ export class VariableDialogComponent implements OnInit {
       name: this.fb.control(this.data.name, Validators.required),
       values: this.fb.control(this.data.values)
     });
-  }
-
-  ngOnInit() {
   }
 
   submit() {

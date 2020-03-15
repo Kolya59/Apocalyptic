@@ -3,7 +3,6 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { IRule, IStatement, Rule } from '../../../core/models';
 import { Store } from '../../../core/store';
-import { StatementDialogComponent } from '../statement-dialog/statement-dialog.component';
 
 @Component({
   selector: 'app-rule-dialog',
@@ -27,43 +26,28 @@ export class RuleDialogComponent {
       name: this.fb.control(this.data.name, Validators.required),
       premises: this.fb.array(this.data.premises.map(value => this.fb.control(value, Validators.required))),
       conclusions: this.fb.array(
-        this.data.conclusions.map(value => this.fb.control(value)),
+        this.data.conclusions.map(statement => this.fb.group(fb.control(statement.variable), fb.control(statement.value))),
         Validators.required
       ),
       description: this.fb.control(this.data.description)
     });
   }
 
-  async addStatement(container: IStatement[]) {
-    const dialog = this.dialog.open(StatementDialogComponent, {
-      width: '80%',
-      data: null
-    });
-    const result = await dialog.afterClosed().toPromise();
-    if (!result) {
-      return;
-    }
-    (this.options.controls['conclusions'] as FormArray).push(this.fb.control(result));
+  getDomain(index: number, groupName: string): string[] {
+    return ((this.options.controls[groupName] as FormArray).at(index).value as IStatement).variable.values;
   }
 
-  editStatement(statement: IStatement) {
-    const dialog = this.dialog.open(StatementDialogComponent, {
-      width: '80%',
-      data: statement
-    });
-    dialog.afterClosed().subscribe((result: IStatement | null) => {
-      if (!result) {
-        return;
-      }
-      statement = result;
-    });
+  addStatement(groupName: string) {
+    (this.options.controls[groupName] as FormArray).push(
+      this.fb.group({
+        variable: this.store.variables[0],
+        value: this.store.variables[0].values[0]
+      })
+    );
   }
 
-  // TODO Refactor
-  removeStatement(statement: IStatement, container: IStatement[]) {
-    container = container.filter(item => {
-      return item === statement;
-    });
+  removeStatement(index: number, groupName: string) {
+    (this.options.controls[groupName] as FormArray).removeAt(index);
   }
 
   submit() {

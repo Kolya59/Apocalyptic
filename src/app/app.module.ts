@@ -16,7 +16,6 @@ import { Store } from './core/store';
 import { RuleListComponent } from './components/body/rule-list/rule-list.component';
 import { MaterialModule } from './module/material-module';
 import { RuleDialogComponent } from './components/modal/rule-dialog/rule-dialog.component';
-import { StatementDialogComponent } from './components/modal/statement-dialog/statement-dialog.component';
 import { SetTargetComponent } from './components/modal/set-target/set-target.component';
 
 @NgModule({
@@ -30,7 +29,6 @@ import { SetTargetComponent } from './components/modal/set-target/set-target.com
     VariableListDialogComponent,
     VariableDialogComponent,
     RuleDialogComponent,
-    StatementDialogComponent,
     SetTargetComponent,
   ],
   imports: [
@@ -75,7 +73,6 @@ import { SetTargetComponent } from './components/modal/set-target/set-target.com
     ExplanationComponent,
     RuleDialogComponent,
     SetTargetComponent,
-    StatementDialogComponent,
     VariableDialogComponent,
     VariableListDialogComponent
   ],

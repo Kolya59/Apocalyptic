@@ -10,7 +10,7 @@ import { Store } from '../../../core/store';
   templateUrl: './consultation.component.html',
   styleUrls: ['./consultation.component.css']
 })
-export class ConsultationComponent implements OnInit {
+export class ConsultationComponent {
   userDialogStore: string[];
   currentQuestedVariable: IVariable;
   options: FormGroup;
@@ -28,9 +28,6 @@ export class ConsultationComponent implements OnInit {
       chosenValue: fb.control(this.data)
     });
     this.userDialogStore.push(this.currentQuestedVariable.requestMsg);
-  }
-
-  ngOnInit() {
   }
 
   setAnswer() {

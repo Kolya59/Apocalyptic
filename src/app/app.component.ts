@@ -47,6 +47,6 @@ export class AppComponent {
   }
 
   getHeader() {
-    return !!this.store.target ? `Current target is ${this.store.target.name}` : `Target is not chosen`;
+    return this.store.target ? `Current target is ${this.store.target.name}` : `Target is not chosen`;
   }
 }
