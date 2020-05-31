@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { IStatement, Statement} from '../../../core/models';
+import { Statement, Statement} from '../../../core/models';
 import { Store } from '../../../core/store';
 
 @Component({
@@ -16,7 +16,7 @@ export class StatementDialogComponent implements OnInit {
     private readonly store: Store,
     private readonly fb: FormBuilder,
     private dialogRef: MatDialogRef<StatementDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IStatement
+    @Inject(MAT_DIALOG_DATA) public data: Statement
   ) {
     if (!this.data) {
       this.data = new Statement(

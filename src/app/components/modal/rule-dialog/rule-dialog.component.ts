@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
-import { IRule, IStatement, Rule } from '../../../core/models';
+import { Rule, Statement, Rule } from '../../../core/models';
 import { Store } from '../../../core/store';
 import { StatementDialogComponent } from '../statement-dialog/statement-dialog.component';
 
@@ -17,7 +17,7 @@ export class RuleDialogComponent implements OnInit {
               private readonly fb: FormBuilder,
               private dialogRef: MatDialogRef<RuleDialogComponent>,
               private dialog: MatDialog,
-              @Inject(MAT_DIALOG_DATA) private readonly data: IRule
+              @Inject(MAT_DIALOG_DATA) private readonly data: Rule
   ) {
     if (!this.data) {
       this.data = new Rule(Store.getUUID(), 'New Rule', [], [], '');
@@ -32,12 +32,12 @@ export class RuleDialogComponent implements OnInit {
 
   ngOnInit() {}
 
-  addStatement(container: IStatement[]) {
+  addStatement(container: Statement[]) {
     const dialog = this.dialog.open(StatementDialogComponent, {
       width: '80%',
       data: null
     });
-    dialog.afterClosed().subscribe((result: IStatement | null) => {
+    dialog.afterClosed().subscribe((result: Statement | null) => {
       if (!result) {
         return;
       }
@@ -45,12 +45,12 @@ export class RuleDialogComponent implements OnInit {
     });
   }
 
-  editStatement(statement: IStatement) {
+  editStatement(statement: Statement) {
     const dialog = this.dialog.open(StatementDialogComponent, {
       width: '80%',
       data: statement
     });
-    dialog.afterClosed().subscribe((result: IStatement | null) => {
+    dialog.afterClosed().subscribe((result: Statement | null) => {
       if (!result) {
         return;
       }
@@ -59,7 +59,7 @@ export class RuleDialogComponent implements OnInit {
   }
 
   // TODO Refactor
-  removeStatement(statement: IStatement, container: IStatement[]) {
+  removeStatement(statement: Statement, container: Statement[]) {
     container = container.filter((item) => {
       return item === statement;
     });

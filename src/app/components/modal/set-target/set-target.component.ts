@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {Store} from '../../../core/store';
 import {FormBuilder, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {IStatement, IVariable, Statement} from '../../../core/models';
+import {Statement, Variable, Statement} from '../../../core/models';
 
 @Component({
   selector: 'app-set-target',
@@ -15,7 +15,7 @@ export class SetTargetComponent implements OnInit {
     private readonly store: Store,
     private readonly fb: FormBuilder,
     private dialogRef: MatDialogRef<SetTargetComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IVariable
+    @Inject(MAT_DIALOG_DATA) public data: Variable
   ) {
     if (!this.data) {
       this.data = this.store.variables[0];
@@ -25,7 +25,7 @@ export class SetTargetComponent implements OnInit {
   ngOnInit() {
   }
 
-  setTarget(variable: IVariable) {
+  setTarget(variable: Variable) {
     this.data = variable;
   }
 

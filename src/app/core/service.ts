@@ -1,5 +1,5 @@
 import { Store } from './store';
-import { IRule, IStatement, IVariable } from './models';
+import { Rule, Statement, Variable } from './models';
 import { from, Subject } from 'rxjs';
 import { map, reduce, tap } from 'rxjs/operators';
 
@@ -22,21 +22,21 @@ export class Service {
 }
 
 export class ConsultationService {
-  requestedVariableSub: Subject<IVariable>;
+  requestedVariableSub: Subject<Variable>;
   requestResultSub: Subject<string>;
 
   targets: {
-    var: IVariable,
+    var: Variable,
     val: string
   }[];
 
   constructor(private readonly store: Store) {
-    this.requestedVariableSub = new Subject<IVariable>();
+    this.requestedVariableSub = new Subject<Variable>();
     this.requestResultSub = new Subject<string>();
     this.targets = [];
   }
 
-  async requestValue(requested: IVariable): Promise<string> {
+  async requestValue(requested: Variable): Promise<string> {
     return new Promise(((resolve, reject) => {
       this.requestedVariableSub.next(requested);
       this.requestResultSub.subscribe(
@@ -45,7 +45,7 @@ export class ConsultationService {
     }));
   }
 
-  async consult(target: IVariable) {
+  async consult(target: Variable) {
     const log = { var: target, val: null };
     const existedValued = this.store.workingMemory[target.id];
     if (!!existedValued) {
@@ -62,28 +62,28 @@ export class ConsultationService {
       return res;
     }
 
-    const conflictSet = this.store.rules.filter((value: IRule) =>
-      value.conclusions.filter((conclusion: IStatement) => conclusion.variable === target).length !== 0
+    const conflictSet = this.store.rules.filter((value: Rule) =>
+      value.conclusions.filter((conclusion: Statement) => conclusion.variable === target).length !== 0
     );
 
     if (conflictSet.length === 0) {
       throw new Error(`Failed to compute value for ${target.name}`);
     }
 
-    conflictSet.forEach((rule: IRule) => {
+    conflictSet.forEach((rule: Rule) => {
       from(rule.premises).pipe(
-        tap(async (premise: IStatement) => {
+        tap(async (premise: Statement) => {
           const res = await this.consult(premise.variable);
           this.store.workingMemory[premise.variable.id] = res;
           conflictSet[premise.variable.id] = res;
         }),
-        map((premise: IStatement) => conflictSet[premise.variable.id] === premise.value),
+        map((premise: Statement) => conflictSet[premise.variable.id] === premise.value),
         // TODO Check default value
         reduce((prev: boolean, curr: boolean) => prev && curr, true)
       ).subscribe((next: boolean) => {
         if (!!next) {
           from(rule.conclusions).forEach(
-            (conclusion: IStatement) => conflictSet[conclusion.variable.id] = conclusion.value
+            (conclusion: Statement) => conflictSet[conclusion.variable.id] = conclusion.value
           );
         }
       });

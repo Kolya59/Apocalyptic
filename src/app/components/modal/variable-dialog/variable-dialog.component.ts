@@ -1,14 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
-import { Domain, IDomain, IVariable, Variable } from '../../../core/models';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Variable } from '../../../core/models';
 import { Store } from '../../../core/store';
-import { DomainDialogComponent } from '../domain-dialog/domain-dialog.component';
 
 @Component({
   selector: 'app-variable-dialog',
   templateUrl: './variable-dialog.component.html',
-  styleUrls: ['./variable-dialog.component.css']
+  styleUrls: ['./variable-dialog.component.css'],
 })
 export class VariableDialogComponent implements OnInit {
   options: FormGroup;
@@ -17,32 +16,20 @@ export class VariableDialogComponent implements OnInit {
     private readonly store: Store,
     private readonly fb: FormBuilder,
     private dialogRef: MatDialogRef<VariableDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IVariable
+    @Inject(MAT_DIALOG_DATA) public data: Variable
   ) {
     if (!this.data) {
-      this.data = new Variable(
-        Store.getUUID(),
-        'New Variable',
-        false,
-        '',
-        new Domain(
-          Store.getUUID(),
-          'New Domain',
-          '',
-          []
-        )
-      );
+      this.data = new Variable(Store.getUUID(), 'New Variable', false, '', []);
     }
     this.options = fb.group({
       domain: this.fb.control(this.data.domain, Validators.required),
       description: this.fb.control(this.data.description),
       isRequested: this.fb.control(this.data.isRequested),
-      name: this.fb.control(this.data.name, Validators.required)
+      name: this.fb.control(this.data.name, Validators.required),
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   submit() {
     this.data.domain = this.options.controls.domain.value;
@@ -58,5 +45,4 @@ export class VariableDialogComponent implements OnInit {
   cancel() {
     this.dialogRef.close(null);
   }
-
 }

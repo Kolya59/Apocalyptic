@@ -3,7 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { IRule, IVariable } from '../../../core/models';
+import { Rule, Variable } from '../../../core/models';
 import { Service } from '../../../core/service';
 import { Store } from '../../../core/store';
 import { VariableDialogComponent } from '../variable-dialog/variable-dialog.component';
@@ -19,7 +19,7 @@ export class VariableListDialogComponent implements OnInit {
     private readonly store: Store,
     private dialogRef: MatDialogRef<VariableListDialogComponent>,
     private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: IVariable[]
+    @Inject(MAT_DIALOG_DATA) public data: Variable[]
   ) {
   }
 
@@ -27,7 +27,7 @@ export class VariableListDialogComponent implements OnInit {
   }
 
   // TODO Refactor
-  drop(e: CdkDragDrop<IRule>) {
+  drop(e: CdkDragDrop<Rule>) {
     this.store.variables = Service.reorder(e.previousIndex, e.currentIndex, this.store.variables);
   }
 
@@ -43,7 +43,7 @@ export class VariableListDialogComponent implements OnInit {
     this.dialog.open(VariableDialogComponent, {
       width: '80%',
       data: null
-    }).afterClosed().subscribe((result: IVariable | null) => {
+    }).afterClosed().subscribe((result: Variable | null) => {
       if (!result) {
         return;
       }
@@ -51,11 +51,11 @@ export class VariableListDialogComponent implements OnInit {
     });
   }
 
-  editVariable(variable: IVariable) {
+  editVariable(variable: Variable) {
     this.dialog.open(VariableDialogComponent, {
       width: '80%',
       data: variable
-    }).afterClosed().subscribe((result: IVariable | null) => {
+    }).afterClosed().subscribe((result: Variable | null) => {
       if (!result) {
         return;
       }
@@ -63,7 +63,7 @@ export class VariableListDialogComponent implements OnInit {
     });
   }
 
-  removeVariable(variable: IVariable) {
+  removeVariable(variable: Variable) {
     // TODO Confirm removing
     // TODO Refactor
     this.store.removeVariable(variable.id);

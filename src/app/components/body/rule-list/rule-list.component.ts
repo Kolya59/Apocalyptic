@@ -1,7 +1,7 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { IRule } from '../../../core/models';
+import { Rule } from '../../../core/models';
 import { Service } from '../../../core/service';
 
 import { Store } from '../../../core/store';
@@ -25,7 +25,7 @@ export class RuleListComponent implements OnInit {
     this.dialog.open(RuleDialogComponent, {
       width: '80%',
       data: null
-    }).afterClosed().subscribe((result: IRule | null) => {
+    }).afterClosed().subscribe((result: Rule | null) => {
       if (!result) {
         return;
       }
@@ -33,11 +33,11 @@ export class RuleListComponent implements OnInit {
     });
   }
 
-  editRule(rule: IRule) {
+  editRule(rule: Rule) {
     this.dialog.open(RuleDialogComponent, {
       width: '80%',
       data: rule
-    }).afterClosed().subscribe((result: IRule | null) => {
+    }).afterClosed().subscribe((result: Rule | null) => {
       if (!result) {
         return;
       }
@@ -45,12 +45,12 @@ export class RuleListComponent implements OnInit {
     });
   }
 
-  removeRule(rule: IRule) {
+  removeRule(rule: Rule) {
     // TODO Confirm removing
     this.store.removeRule(rule.id);
   }
 
-  drop(e: CdkDragDrop<IRule>) {
+  drop(e: CdkDragDrop<Rule>) {
     this.store.rules = Service.reorder(e.previousIndex, e.currentIndex, this.store.rules);
   }
 

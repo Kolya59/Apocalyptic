@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { IDomain, IVariable } from '../../core/models';
+import { IDomain, Variable } from '../../core/models';
 import { Store } from '../../core/store';
 import { DomainListDialogComponent } from '../modal/domain-list-dialog/domain-list-dialog.component';
 import { VariableListDialogComponent } from '../modal/variable-list-dialog/variable-list-dialog.component';
@@ -37,7 +37,7 @@ export class MenuComponent implements OnInit {
     this.dialog.open(VariableListDialogComponent, {
       width: '80%',
       data: this.store.variables
-    }).afterClosed().subscribe((result: IVariable[] | null) => {
+    }).afterClosed().subscribe((result: Variable[] | null) => {
       if (!result) {
         return;
       }
@@ -49,7 +49,7 @@ export class MenuComponent implements OnInit {
     this.dialog.open(SetTargetComponent, {
       width: '80%',
       data: this.store.target
-    }).afterClosed().subscribe((result: IVariable) => {
+    }).afterClosed().subscribe((result: Variable) => {
       if (!result) {
         return;
       }
@@ -61,7 +61,7 @@ export class MenuComponent implements OnInit {
     this.dialog.open(ConsultationComponent, {
       width: '80%',
       data: this.store.target
-    }).afterClosed().subscribe((result: IVariable) => {
+    }).afterClosed().subscribe((result: Variable) => {
       if (!result) {
         return;
       }

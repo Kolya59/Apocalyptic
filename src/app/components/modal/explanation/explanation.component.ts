@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Store } from '../../../core/store';
 import { ConsultationService } from '../../../core/service';
-import { IVariable } from '../../../core/models';
+import { Variable } from '../../../core/models';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 class Node {
-  target: IVariable;
+  target: Variable;
   value: string | null;
   children?: Node[];
 }
@@ -45,7 +45,7 @@ export class ExplanationComponent implements OnInit {
     private readonly store: Store,
     private readonly consultant: ConsultationService,
     private readonly dialogRef: MatDialogRef<ExplanationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IVariable
+    @Inject(MAT_DIALOG_DATA) public data: Variable
 ) {
     this.dataSource.data = [];
     for (let result of consultant.targets) {

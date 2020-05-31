@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { IVariable } from '../../../core/models';
+import { Variable } from '../../../core/models';
 import { ConsultationService } from '../../../core/service';
 import { Store } from '../../../core/store';
 
@@ -12,7 +12,7 @@ import { Store } from '../../../core/store';
 })
 export class ConsultationComponent implements OnInit {
   userDialogStore: string[];
-  currentQuestedVariable: IVariable;
+  currentQuestedVariable: Variable;
   options: FormGroup;
 
   constructor(
@@ -20,7 +20,7 @@ export class ConsultationComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly consultant: ConsultationService,
     private dialogRef: MatDialogRef<ConsultationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IVariable
+    @Inject(MAT_DIALOG_DATA) public data: Variable
   ) {
     // TODO Take out
     this.currentQuestedVariable = this.data;
